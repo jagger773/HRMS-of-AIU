@@ -1,0 +1,9 @@
+.container
+  panel(title='Пользовательские поля')
+    button.btn.btn-primary.btn-sm(ng-click='udf.newUDF()') Добавить
+    button.btn.btn-default.btn-sm(ng-disabled='!udf.selected_udf' ng-click='udf.editUDF()')
+      span.glyphicon.glyphicon-pencil.margin-right-8
+      span Изменит
+    button.btn.btn-default.btn-sm(ng-click='udf.getUDFs()')
+      span.glyphicon.glyphicon-refresh
+    paged-table(options='udf.udfsGridOptions', disable-search='true')

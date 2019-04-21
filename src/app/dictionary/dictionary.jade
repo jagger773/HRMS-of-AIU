@@ -1,0 +1,27 @@
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold {{'DICTIONARY_PANEL_LABEL'| translate}}
+    .panel-body
+      .col.col-xs-12.col-md-3
+        .list-group
+          a.list-group-item(ng-class='{active:dictionary.active_table.display_name==table.display_name}' ng-click='dictionary.active_table=table' ng-repeat='table in dictionary.tables track by table.display_name') {{table.display_name| translate}}
+      .col.col-xs-12.col-md-9
+        .wrapper
+        button.btn.btn-primary.btn-sm(ng-click='dictionary.newDictionary()') {{'ADD_BUTTON_LABEL'|translate}}
+        button.btn.btn-default.btn-sm(ng-disabled='!dictionary.selected_dictionary' ng-click='dictionary.editDictionary()')
+          span.glyphicon.glyphicon-pencil.margin-right-8
+          span {{'EDIT_BUTTON_LABEL'|translate}}
+        button.btn.btn-danger.btn-sm(ng-disabled='!dictionary.selected_dictionary' ng-click='dictionary.removeDictionary()')
+          span {{'DELETE_BUTTON_LABEL'|translate}}
+        button.btn.btn-danger.btn-sm(ng-click='dictionary.addDictionary()')
+          span добавить справочник
+        .wrapper
+        form.row(ng-submit='dictionary.getDictionaries()')
+          .col.col-xs-12.col-sm-6(ng-show='app.ua.role>=10')
+            .form-group
+              textarea.form-control(ng-model='dictionary.search' placeholder="{{'SEARCHFILTER_BUTTON_LABEL'|translate}}")
+            .from-group
+              button.btn.btn-default {{'SEARCH_BUTTON_LABEL'|translate}}
+                span.fa.fa-search.margin-left-8
+        div(dynamic='dictionary.grid' height='500px')

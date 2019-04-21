@@ -1,0 +1,10 @@
+.modal-header(ng-if='confirm.title')
+  h4 {{confirm.title}}
+.modal-body
+  div(ng-show='confirm.description' ng-class='confirm.options.classes.description') {{confirm.description}}
+  .form-group(ng-if='confirm.options.comment')
+    label Комментарий
+    textarea.form-control(rows='10' ng-model='confirm.comment')
+.modal-footer
+  button.btn.btn-sm.btn-default(type='button' ng-click='confirm.cancel()') Отмена
+  button.btn.btn-sm.btn-primary(type='button' ng-class='confirm.options.classes.ok_btn' ng-click='confirm.ok()') Принять

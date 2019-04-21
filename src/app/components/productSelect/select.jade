@@ -1,0 +1,27 @@
+
+.modal-header
+  h3 Реестр тем
+.modal-body
+  .row
+    .col.col-xs-12.col-sm-12.col-md-4
+      form.form-horizontal(ng-submit='product.searchProducts()')
+        .form-group
+          label Наименование
+          input.form-control(type='search' ng-model='product.search_name')
+        .from-group(stock-dict='edit.product_types' dict-table='Enums' dict-filter='{name:"product_type"}' ng-hide='product.modalOptions.filter.product_type')
+          label Ученая степень
+          ui-select(ng-model='product.product_type')
+            ui-select-match(allow-clear='true') {{$select.selected.data.name}}
+            ui-select-choices(repeat='type.data.key as type in edit.product_types | filter:$select.search track by type.data.key') {{type.data.name}}
+        .from-group(stock-dict='edit.categories' dict-table='Categories' dict-options='{onlyChildren:true}')
+          label Специальность
+          vak-spec(modeldisplay='product.spec.name_ru', modelret='product.spec._id')
+        .from-group(stock-dict='product.units' dict-table='Units')
+          label Отрасль науки
+          vak-bran(modeldisplay='product.bran.name_ru', modelret='product.bran._id')
+        button.btn.btn-success(type='submit') Показать
+    .col.col-xs-12.col-sm-12.col-md-8
+      paged-table(options='product.gridOptions' disable-search='true' height='500')
+.modal-footer
+  button.btn.btn-default(type='button' ng-click='product.cancel()') Отмена
+  button.btn.btn-primary(ng-disabled='!product.selected_product' ng-click='product.selectProduct()') Принять

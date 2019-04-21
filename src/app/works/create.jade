@@ -1,0 +1,56 @@
+//
+   Created by ilias on 19.05.2018.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Форма создания работы
+    .panel-body
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          .x_content
+            form.form-horizontal.form-label-left(id="news-form")
+              .form-group
+                label.control-label.col-md-2.col-sm-2.col-xs-12 Тема диссертации
+                .col-md-8.col-sm-8.col-xs-12
+                  theme-select(theme-id='create.document.theme_id')
+              .form-group
+                label.control-label.col-md-2.col-sm-2.col-xs-12 Ключевые слова
+                .col-md-8.col-sm-8.col-xs-12
+                  textarea.form-control(rows='5', ng-model='create.document.keys_word')
+              .form-group
+                label.control-label.col-md-2.col-sm-2.col-xs-12 Объект исследования
+                .col-md-8.col-sm-8.col-xs-12
+                  textarea.form-control(rows='5', ng-model='create.document.object')
+              .form-group
+                label.control-label.col-md-2.col-sm-2.col-xs-12 Предметом  исследования
+                .col-md-8.col-sm-8.col-xs-12
+                  textarea.form-control(rows='5', ng-model='create.document.subject')
+              .form-group
+                label.control-label.col-md-2.col-sm-2.col-xs-12 Целью  исследования
+                .col-md-8.col-sm-8.col-xs-12
+                  textarea.form-control(rows='5', ng-model='create.document.goal')
+              .form-group
+                label.control-label.col-md-2.col-sm-2.col-xs-12 Методы исследования
+                .col-md-8.col-sm-8.col-xs-12
+                  textarea.form-control(rows='5', ng-model='create.document.methods')
+              .form-group
+                label.control-label.col-md-2.col-sm-2.col-xs-12 Полученые результаты
+                .col-md-8.col-sm-8.col-xs-12
+                  textarea.form-control(rows='5', ng-model='create.document.results')
+              .form-group
+                label.control-label.col-md-2.col-sm-2.col-xs-12 Степень использования
+                .col-md-8.col-sm-8.col-xs-12
+                  textarea.form-control(rows='5', ng-model='create.document.degreeofuse')
+              .form-group
+                label.control-label.col-md-2.col-sm-2.col-xs-12 Область применения
+                .col-md-8.col-sm-8.col-xs-12
+                  textarea.form-control(rows='5', ng-model='create.document.applicationarea')
+              .form-group
+                label.control-label.col-md-2.col-sm-2.col-xs-12 Полный файл диссертации
+                .col-md-8.col-sm-8.col-xs-12
+                  div
+                    file-load(file-src='create.document.files', type='dic_work', allow="pdf,word,zip")
+              .form-group
+                .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+                  button.btn.btn-default(type="button", ng-click="create.goBack()") {{ 'CANCEL_BUTTON_LABEL' | translate}}
+                  button.btn.btn-primary(type="button", ng-click="create.saveDocument()") {{ 'SAVE_BUTTON_LABEL' | translate}}

@@ -1,0 +1,23 @@
+vak-header
+.container#body
+  .row
+    .col-md-12
+      .panel
+        .panel-heading
+          .panel-title {{'QUESTIONS_AND_ANSWERS_LABEL' | translate}}
+            .pull-right
+              a(ui-sref='form')
+                span {{'ASK_QUESTION_LABEL' | translate}}
+        .panel-body.border-wrapper
+          .question(ng-repeat="question in questions.questions.list")
+            h3 {{question.name}}
+            p {{'QUESTION_LABEL' | translate}}: {{question.question}}
+              em.pull-right {{question.created_from | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}
+            .answer
+              em {{'ANSWER_LABEL' | translate}}: {{question.answer || []}}
+            hr
+
+vak-footer
+
+
+

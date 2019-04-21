@@ -1,0 +1,16 @@
+pillow
+pyotp
+redis
+Flask
+Flask-Session
+Flask-SqlAlchemy
+Flask-Uploads==0.2.1
+SqlAlchemy==1.0.11
+wtforms
+Flask-WTF
+Flask-CORS
+requests
+python-dateutil
+psycopg2==2.6.1
+werkzeug
+

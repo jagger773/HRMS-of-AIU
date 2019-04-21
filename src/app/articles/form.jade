@@ -1,0 +1,133 @@
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Добавление новой статьи
+    .panel-body
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          .x_panel
+            .x_content
+              form.form-horizontal.form-label-left(id="news-form")
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Журнал
+                    span.required  *
+                  .col-md-4.col-sm-6.col-xs-12
+                    ui-select(ng-model="form.article.journal_id")
+                      ui-select-match {{$select.selected.name_ru}}
+                      ui-select-choices(repeat="journal._id as journal in form.journals | filter:$select.search") {{journal.name_ru}}
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 УДК
+                    span.required  *
+                  .col-md-2.col-sm-6.col-xs-12
+                    input.form-control.col-md-7.col-xs-12(type="text", id="udk", name="udk", required="required", ng-model="form.article.udk")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Тематика
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    ui-select(ng-model="form.article.topics", multiple, close-on-select="false")
+                      ui-select-match {{$item.name_ru}}
+                      ui-select-choices(repeat="topic._id as topic in form.topics | filter:$select.search") {{topic.name_ru}}
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Авторы
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    ui-select(ng-model="form.article.authors", multiple, close-on-select="false")
+                      ui-select-match {{$item.fullname}}
+                      ui-select-choices(repeat="author.id as author in form.authors | filter:$select.search") {{author.fullname}}
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Название RU
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    input.form-control.col-md-7.col-xs-12(type="text", id="name_ru", name="name_ru", required="required", ng-model="form.article.name_ru")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Название KG
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    input.form-control.col-md-7.col-xs-12(type="text", id="name_kg", name="name_kg", required="required", ng-model="form.article.name_kg")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Аннотация RU
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    textarea.form-control.col-md-7.col-xs-12(id="annotation_ru", name="annotation_ru", cols="10", rows="3", required="required", ng-model="form.article.annotation_ru")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Аннотация KG
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    textarea.form-control.col-md-7.col-xs-12(id="annotation_kg", name="annotation_kg", cols="10", rows="3", required="required", ng-model="form.article.annotation_kg")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Ключевые слова RU
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="keywords_ru", name="keywords_ru", required="required", ng-model="form.article.keywords_ru")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Ключевые слова KG
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="keywords_kg", name="keywords_kg", required="required", ng-model="form.article.keywords_kg")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Язык
+                    span.required  *
+                  .col-md-2.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="language", name="language", required="required", ng-model="form.article.language")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Год
+                    span.required  *
+                  .col-md-2.col-sm-4.col-xs-4
+                    input.form-control.col-md-6.col-xs-12(type="number", id="year", name="year", required="required", ng-model="form.article.year")
+
+                  label.control-label.col-md-1.col-sm-3.col-xs-12 Том
+                    span.required  *
+                  .col-md-1.col-sm-6.col-xs-4
+                    input.form-control.col-md-6.col-xs-12(type="number", id="volume", name="volume", required="required", ng-model="form.article.volume")
+
+                  label.control-label.col-md-1.col-sm-3.col-xs-12 Номер
+                    span.required  *
+                  .col-md-1.col-sm-6.col-xs-4
+                    input.form-control.col-md-6.col-xs-12(type="number", id="number", name="number", required="required", ng-model="form.article.number")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Страница (начало)
+                    span.required  *
+                  .col-md-2.col-sm-6.col-xs-4
+                    input.form-control.col-md-6.col-xs-12(type="number", id="page_start", name="page_start", required="required", ng-model="form.article.page_start")
+
+                  label.control-label.col-md-2.col-sm-3.col-xs-12 Страница (конец)
+                    span.required  *
+                  .col-md-2.col-sm-6.col-xs-4
+                    input.form-control.col-md-6.col-xs-12(type="number", id="page_end", name="page_end", required="required", ng-model="form.article.page_end")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Рецензия
+                  .col-md-3.col-sm-6.col-xs-4
+                    input.form-control.col-md-6.col-xs-12(type="text", id="review", name="review", ng-model="form.article.review")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 doi
+                  .col-md-6.col-sm-6.col-xs-4
+                    input.form-control.col-md-6.col-xs-12(type="text", id="doi", name="doi", ng-model="form.article.doi")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Примечание
+                  .col-md-6.col-sm-6.col-xs-4
+                    input.form-control.col-md-6.col-xs-12(type="text", id="note", name="note", ng-model="form.article.note")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Полнотекстовая версия
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    file-load(file-src='form.article.file', type='pdf', allow="pdf", required="required")
+
+                .form-group
+                  .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+                    button.btn.btn-default(type="button", ng-click="form.goBack()") Отмена
+                    button.btn.btn-primary(type="button", ng-click="form.saveArticle()", ng-disabled='form.isSaving') Сохранить

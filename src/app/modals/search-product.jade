@@ -1,0 +1,9 @@
+.modal-header
+  h3 Поиск
+.modal-body
+  input.form-control(ng-keyup="pressed($event)" ng-model="query" ng-model-options="{debounce:200}" placeholder="Поиск" autofocus)
+  paged-table#search(options="gridOptions" disable-search="true")
+  .clearfix
+.modal-footer
+  button.btn.btn-primary(ng-click="cancel()") Отмена
+  button.btn.btn-success(ng-click="ok()") OK

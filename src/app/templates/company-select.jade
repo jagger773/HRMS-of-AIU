@@ -1,0 +1,44 @@
+
+.modal-header
+  h3 Выбрать компанию
+.modal-body
+  form.form-horizontal(ng-submit='company.searchCompanies()')
+    .form-group
+      .input-group
+        input.form-control(type='search' ng-model='company.search_name' placeholder='Найти по e-mail или наименовании')
+        .input-group-btn
+          button.btn.btn-success(type='submit')
+            span.glyphicon.glyphicon-search
+  label(ng-show='company.totalItems > 0') {{company.limit}} из {{company.totalItems}}
+  .loading-spinner.fadeIn.fadeOut.animated(ng-show='company.loading')
+    #circularG
+      #circularG_1.circularG
+      #circularG_2.circularG
+      #circularG_3.circularG
+      #circularG_4.circularG
+      #circularG_5.circularG
+      #circularG_6.circularG
+      #circularG_7.circularG
+    #circularG_8.circularG
+  .list-group
+    a.list-group-item(ng-click='company.selected_company = company_item' ng-repeat='company_item in company.companies track by company_item._id' ng-class='{active: company.selected_company == company_item}')
+      .media
+        .media-left
+          .media-object
+            img.company-image-sm(ng-src='{{app.api}}{{company_item.data.image}}')
+        .media-body
+          h4.media-heading {{company_item.name}}
+          span {{company_item.email}}
+  nav(aria-label='Страничная навигация' ng-show='company.pages.length > 0')
+    ul.pagination.pagination-sm
+      li
+        a(ng-click='company.previousPage()' aria-label='Назад')
+          span(aria-hidden='true') «
+      li(ng-repeat='page in company.pages' ng-class='{active: page==company.page}')
+        a(ng-click='company.toPage(page)') {{page}}
+      li
+        a(ng-click='company.nextPage()' aria-label='Далее')
+          span(aria-hidden='true') »
+.modal-footer
+  button.btn.btn-default(type='button' ng-click='company.cancel()') Отмена
+  button.btn.btn-primary(ng-disabled='!company.selected_company' ng-click='company.selectCompany()') Принять

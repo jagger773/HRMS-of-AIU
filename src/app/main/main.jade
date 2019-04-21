@@ -1,0 +1,71 @@
+
+.body
+  // header
+  header#header.app-header.navbar(role='menu')
+    // navbar header
+    .navbar-header
+      button.pull-right.visible-xs.dk(ui-toggle='show', target='.navbar-collapse')
+        i.glyphicon.glyphicon-align-justify
+    .collapse.pos-rlt.navbar-collapse.box-shadow.bg-white-only
+      .navbar-header
+        a.navbar-brand.text-lt(ui-sref='app.dashboard')
+          img(src='assets/images/logo.png', alt='.')
+          span.hidden-folded.m-l-xs ВАК КР
+      ul.nav.navbar-nav
+        li
+          a(ui-sref='app.profile.view') Мой кабинет
+        li
+          a(ui-sref='app.works.list') Моя дисс. работа
+        li
+          a(ui-sref='app.application.list') Моя заявка
+        li.dropdown(ng-repeat='menu in app.navigation | orderBy : "data.position"')
+          a.dropdown-toggle(data-toggle="dropdown")
+            i.fa.fa-fw.fa-plus.visible-xs-inline-block
+            span {{menu.name}}
+            span.caret
+          ul.dropdown-menu(role='menu', id='menu{{$index+1}}')
+            li(ng-repeat='child in menu.children | orderBy : "data.position"')
+              a(ui-sref='{{child.data.route}}') {{child.name}}
+        li.dropdown(ui-sref-active="active" ng-repeat='menu in app.admin_menu | orderBy : "data.position"')
+          a.dropdown-toggle(data-toggle="dropdown")
+            i.fa.fa-fw.fa-plus.visible-xs-inline-block
+            span {{menu.name}}
+            span.caret
+          ul.dropdown-menu(role='menu')
+            li(ng-repeat='child in menu.children | orderBy : "data.position"')
+              a(ui-sref='{{child.data.route}}') {{child.name}}
+      // nabar right
+      ul.nav.navbar-nav.navbar-right
+        li.dropdown
+          a.dropdown-toggle(data-toggle="dropdown")
+            | {{ 'CHANGE_LANGUAGE_TITLE' | translate }}
+          .dropdown-menu.w-xl.animated.fadeInUp
+            .panel.bg-white
+              .panel-heading.b-light.bg-light {{ 'CHANGE_LANGUAGE_TITLE' | translate }}
+              .list-group
+                a.media.list-group-item(ng-click="app.changeLanguage('ru')")
+                  span.media-body.block.m-b-none {{ 'RU_LANGUAGE_LABEL' | translate }}
+                a.media.list-group-item(ng-click="app.changeLanguage('kg')")
+                  span.media-body.block.m-b-none {{ 'KG_LANGUAGE_LABEL' | translate }}
+        li
+          a.user-profile.dropdown-toggle(data-toggle="dropdown",aria-expanded="false" ui-sref='app.profile.view')
+            | {{app.ua.username}}
+        li
+          a(ng-click='app.logOut()') <i class="fa fa-sign-out pull-right"></i> {{ 'EXIT_BUTTON_LABEL' | translate }}
+
+  // content
+  #content.app-content(role='main')
+    .app-content-body
+      ui-view
+  // footer
+  footer#footer.app-footer(role='footer')
+    .wrapper.b-t.bg-light
+      span.pull-right
+        | 1.3.6
+        a.m-l-sm.text-muted(href='', ui-scroll='app')
+          i.fa.fa-long-arrow-up
+      |      © 2018 Copyright.
+  // / footer
+
+
+

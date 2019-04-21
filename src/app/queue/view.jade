@@ -1,0 +1,198 @@
+.wrapper.lter
+.row
+  .col-md-12
+    .row
+      .col-sm-4.col-md-4.col-lg-4
+        .panel.b-a
+          .bg-info.dk.no-border.wrapper-lg
+          .text-center.m-b.clearfix
+            .thumb-lg.avatar.m-t-n-xxl
+              img.b.b-3x.b-white(ng-src="{{app.api}}{{view.document.user.data.image}}")
+              .h4.font-thin.m-t-sm {{view.document.user.last_name}} {{view.document.user.first_name}}
+          .padder-v.b-t.b-light.bg-light.lter.row.text-center.no-gutter
+            .col-xs-4
+              div Степень
+              .inline.m-t-sm
+                  div.padder-v
+                    span.step {{view.document.theme[0].academicdegree.name_ru}}
+            .col-xs-4
+              div Специальность
+              .inline.m-t-sm
+                  div.padder-v
+                    span.step {{view.document.theme[0].specialty.code}} {{view.document.theme[0].specialty.name_ru}}
+            .col-xs-4
+              div Отрасль
+              .inline.m-t-sm
+                  div.padder-v
+                    span.step {{view.document.theme[0].branchesofscience.code}} {{view.document.theme[0].branchesofscience.name_ru}}
+          .hbox.text-center.b-t.b-light
+            a.col.padder-v.text-muted.b-r.b-light(href='')
+              .h4 Диссертационная работа:
+            a.col.padder-v.text-muted(ng-href="{{app.api}}{{view.document.document.files}}" target="_blank")
+              span {{view.document.theme[0].name}}
+          .hbox.text-center.b-t.b-light
+            .form-horizontal.form-label-left(id="news-form")
+              .form-group.b-t.padder-v
+                label.control-label.col-md-4.col-sm-4.col-xs-12 Ключевые слова
+                .col-md-8.col-sm-8.col-xs-12
+                  span {{view.document.document.keys_word}}
+              .form-group.b-t.padder-v
+                label.control-label.col-md-4.col-sm-4.col-xs-12 Объект исследования
+                .col-md-8.col-sm-8.col-xs-12
+                  span {{view.document.document.object}}
+              .form-group.b-t.padder-v
+                label.control-label.col-md-4.col-sm-4.col-xs-12 Предметом  исследования
+                .col-md-8.col-sm-8.col-xs-12
+                  span {{view.document.document.subject}}
+              .form-group.b-t.padder-v
+                label.control-label.col-md-4.col-sm-4.col-xs-12 Целью  исследования
+                .col-md-8.col-sm-8.col-xs-12
+                  span {{view.document.document.goal}}
+              .form-group.b-t.padder-v
+                label.control-label.col-md-4.col-sm-4.col-xs-12 Методы исследования
+                .col-md-8.col-sm-8.col-xs-12
+                  span {{view.document.document.methods}}
+              .form-group.b-t.padder-v
+                label.control-label.col-md-4.col-sm-4.col-xs-12 Полученые результаты
+                .col-md-8.col-sm-8.col-xs-12
+                  span {{view.document.document.results}}
+              .form-group.b-t.padder-v
+                label.control-label.col-md-4.col-sm-4.col-xs-12 Степень использования
+                .col-md-8.col-sm-8.col-xs-12
+                  span {{view.document.document.degreeofuse}}
+              .form-group.b-t.padder-v
+                label.control-label.col-md-4.col-sm-4.col-xs-12 Область применения
+                .col-md-8.col-sm-8.col-xs-12
+                  span {{view.document.document.applicationarea}}
+      .col-sm-8.col-md-8.col-lg-8
+        .panel.no-border
+          .panel-heading.bg-primary.lt
+            .m-sm
+              span.pull-right
+                i.fa.fa-caret-up.text-warning.text-lg
+              span.h4.text-white Протокол
+            .text-center.m-t-md
+              span
+              .sparkline.inline.m-t.m-b-n-sm
+          .hbox.bg-primary.bg
+            .col.wrapper.text-center
+              .h4 Регистрация
+              .wrapper
+                .form-horizontal.form-label-left
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12 Дата поступления
+                    .col-md-8.col-sm-8.col-xs-12
+                      span {{view.document.date_app | amDateFormat: 'DD/MM/YYYY'}}
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12 Дата регистрации
+                    .col-md-8.col-sm-8.col-xs-12
+                      span {{view.document.date_reg | amDateFormat: 'DD/MM/YYYY'}}
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12  комментарии
+                    .col-md-8.col-sm-8.col-xs-12
+                      span {{view.document.data.reg.comment}}
+          .hbox.bg-primary.bg
+            .col.wrapper.text-center
+              .h4 Предвар. рассм. дис-ции, дата назнач. экспер. комиссии ДС.
+              .wrapper
+                .form-horizontal.form-label-left(ng-repeat='prev in view.document.preview')
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12 Дата
+                    .col-md-8.col-sm-8.col-xs-12
+                      span {{prev.date | amDateFormat: 'DD/MM/YYYY'}}
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12  Протокол
+                    .col-md-8.col-sm-8.col-xs-12
+                      span
+                        a.col.padder-v.text-muted(ng-href="{{app.api}}{{prev.doc}}" target="_blank")
+                          span скачать
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12  комментарии
+                    .col-md-8.col-sm-8.col-xs-12
+                      span {{prev.comment}}
+          .hbox.bg-primary.bg
+            .col.wrapper.text-center
+              .h4 Состав экспер. комиссии ДС
+              .wrapper
+                .form-horizontal.form-label-left
+                table.table
+                  tr(style='font-weight: bold')
+                    td ФИО
+                    td год рождение
+                    td Роль
+                    td Степень
+                    td Звание
+                    td
+                  tr(ng-repeat='comp in view.document.excomposition')
+                    td
+                      | {{comp.user.first_name}} {{comp.user.last_name}}
+                    td
+                      | {{comp.user.birthday | amDateFormat:"DD.MM.YYYY"}}
+                    td
+                      | {{ comp.role }}
+                    td
+                      | {{ comp.abstract.specialty.code }} {{ comp.abstract.specialty.name_ru }}
+                    td
+                      | {{ comp.work.specialty.code }} {{ comp.work.specialty.name_ru }}
+          .hbox.bg-primary.bg
+            .col.wrapper.text-center
+              .h4 Заключение экспертной комиссии
+              .wrapper
+                .form-horizontal.form-label-left(ng-repeat='comopinion in view.document.comopinion')
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12 Дата
+                    .col-md-8.col-sm-8.col-xs-12
+                      span {{comopinion.date | amDateFormat: 'DD/MM/YYYY'}}
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12  Протокол
+                    .col-md-8.col-sm-8.col-xs-12
+                      span
+                        a.col.padder-v.text-muted(ng-href="{{app.api}}{{comopinion.doc}}" target="_blank")
+                          span скачать
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12  комментарии
+                    .col-md-8.col-sm-8.col-xs-12
+                      span {{comopinion.comment}}
+          .hbox.bg-primary.bg
+            .col.wrapper.text-center
+              .h4 Предвар. защита диссертации (результаты защиты)
+              .wrapper
+                .form-horizontal.form-label-left(ng-repeat='prejudice in view.document.prejudice')
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12 Дата
+                    .col-md-8.col-sm-8.col-xs-12
+                      span {{prejudice.date | amDateFormat: 'DD/MM/YYYY'}}
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12  Протокол
+                    .col-md-8.col-sm-8.col-xs-12
+                      span
+                        a.col.padder-v.text-muted(ng-href="{{app.api}}{{prejudice.doc}}" target="_blank")
+                          span скачать
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12  комментарии
+                    .col-md-8.col-sm-8.col-xs-12
+                      div {{prejudice.comment}}
+          .hbox.bg-primary.bg
+            .col.wrapper.text-center
+              .h4 Официальные оппоненты
+              .wrapper
+                .form-horizontal.form-label-left
+
+                  table.table.table-user-information
+                    tr(style='font-weight: bold')
+                      td(style='width:15%') ФИО
+                      td(style='width:20%') Степень
+                      td(style='width:20%') Звание
+                      td(style='width:25%')
+                    tr(ng-repeat='comp in view.document.oppenets')
+                      td
+                        | {{comp.user.name}}
+                      td
+                        | {{ comp.academicdegree }} {{ comp.branchesofscience }} {{ comp.specialty }}
+                      td
+                        | {{ comp.academicrank }}
+
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12 Ведущая организация
+                    .col-md-8.col-sm-8.col-xs-12
+                      span {{view.document.organization.name_ru}}

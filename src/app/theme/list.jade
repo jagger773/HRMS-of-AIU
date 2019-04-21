@@ -1,0 +1,48 @@
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Пользователи
+    .panel-body
+      form(ng-submit='list.getThemes()')
+        .row
+          col-responsive
+            .form-group
+              label Имя соискателя:
+              input.form-control(type='text' ng-model="list.filter.name" placeholder=' Введите имя')
+          col-responsive
+            .form-group
+              label Фамилия соискателя:
+              input.form-control(type='text' ng-model="list.filter.surname" placeholder='Введите фамилию')
+          col-responsive
+            .form-group(stock-dict='list.Organizations' dict-table='Organizations')
+              label Организация:
+              vak-org(modeldisplay='list.organization.name_ru', modelret='list.filter.organization_id')
+          col-responsive
+            .form-group(stock-dict='list.Specialty' dict-table='Specialty')
+              label Специальность:
+              vak-spec(modeldisplay='list.specialty.name_ru', modelret='list.filter.specialty_id')
+          col-responsive
+            .form-group(stock-dict='list.Branchesofsciences' dict-table='Branchesofscience')
+              label Отрасль науки:
+              vak-bran(modeldisplay='list.branch.name_ru', modelret='list.filter.branchesofscience_id')
+          col-responsive
+            .form-group(stock-dict='list.Academicdegrees' dict-table='Academicdegree')
+              label Ученая степень:
+              ui-select.form-control(ng-model='list.filter.academicdegree_id' ng-required='true')
+                ui-select-match(allow-clear='true') {{$select.selected.data.surname}} {{$select.selected.name_ru}}
+                ui-select-choices(repeat='degree._id as degree in list.Academicdegrees | filter: $select.search') {{degree.name_ru}}
+        .btn-group-sm
+          button.btn.btn-success(type='submit')
+            span.glyphicon.glyphicon-search.margin-right-8
+            span Найти
+          button.btn.btn-default(type='button'  ng-click='list.filter={}') Сбросить фильтры
+          .clearfix
+      .wrapper
+      button.btn.btn-primary.btn-sm(ng-click="list.newTheme()") Добавить
+      //button.btn.btn-default.btn-sm(ng-click="list.showTheme()" ng-disabled="list.selected_theme == null")
+      //  span Просмотр
+      button.btn.btn-default.btn-sm(ng-click="list.editTheme()" ng-disabled="list.selected_theme == null")
+        span.glyphicon.glyphicon-pencil.margin-right-8
+        span Изменить
+      button.btn.btn-default.btn-sm(ng-click='list.getThemes()')
+        span.glyphicon.glyphicon-refresh
+      paged-table(options='list.themesGridOptions', disable-search='true')

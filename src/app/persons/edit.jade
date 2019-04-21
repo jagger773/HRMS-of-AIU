@@ -1,0 +1,58 @@
+//
+   Created by ilias on 23.05.2018.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold {{'PROFILE_PANEL_LABEL'|translate}}
+    .panel-body
+      uib-tabset.tab-container
+        uib-tab(heading='Ученое звание')
+          .ln_solid
+            .wrapper(ng-show="edit.rank==null")
+              table.table.table-user-information
+                tr(style='font-weight: bold')
+                  td(style='width:15%') Звание
+                  td(style='width:20%') Специальность
+                  td(style='width:20%') Дата присуждения
+                  td(style='width:25%')
+                tr(ng-repeat='rank in edit.ranks')
+                  td
+                    | {{ rank.scientistrank.name_ru }}
+                  td
+                    | {{ rank.specialtyrank.name_ru }}
+                  td
+                    | {{ rank.organization.name_ru }}
+                  td
+                    | {{ rank.date | amDateFormat:"MMM YYYY" }}
+                  td(style='white-space: nowrap')
+                    .buttons
+                      button.btn.btn-primary(tooltip='Изменить', ng-click='edit.editRank(rank)')
+                        i.glyphicon.glyphicon-pencil
+                      button.btn.btn-danger(tooltip='Удалить', ng-click='edit.confirmActionRank(rank)')
+                        i.glyphicon.glyphicon-minus
+              button.btn.btn-default(ng-click='edit.editRank({})') Добавить
+            .wrapper
+              .row(ng-show="edit.rank != null")
+
+                .col.col-xs-12.col-lg-3
+                  h4 Информация об ученом звании
+                  p Эта информация доступна в вашем профиле.
+                .col.col-xs-12.col-lg-9
+                  .form-group(stock-dict='edit.Scientistrank' dict-table='Scientistrank')
+                    label Звание
+                    select.form-control(ng-model='edit.rank.scientistrank_id', ng-options='item._id as item.name_ru for item in edit.Scientistrank | filter:{name_ru:search}')
+                  .form-group
+                    label Специальность
+                    vak-specrank(modeldisplay, modelret='edit.rank.specialtyrank_id')
+                  .form-group
+                    label Дата присуждения
+                    .input-group.no-margin
+                      input.form-control(type="text"  uib-datepicker-popup  ng-click="edit.search.popup_to_date.opened=true" ng-model="edit.rank.date" is-open="edit.search.popup_to_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                      span.input-group-btn
+                        button.btn.btn-default(type="button" ng-click="edit.search.popup_to_date.opened=true")
+                          i.glyphicon.glyphicon-calendar
+                  br
+                  button.btn.btn-primary.m-b-lg(ng-click='edit.putDataRank()')
+                    | Сохранить
+                  button.btn.btn-default.m-b-lg(ng-click='edit.cancelRank()')
+                    | Отмена

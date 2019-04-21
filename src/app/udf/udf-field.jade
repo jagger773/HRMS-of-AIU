@@ -1,0 +1,84 @@
+.row(ng-show='udf.loading==true')
+  .col-xs-4
+  .col-xs-4
+    #circularG
+      #circularG_1.circularG
+      #circularG_2.circularG
+      #circularG_3.circularG
+      #circularG_4.circularG
+      #circularG_5.circularG
+      #circularG_6.circularG
+      #circularG_7.circularG
+      #circularG_8.circularG
+  .col-xs-4
+.row(ng-repeat='udf_item in udf.udfs track by udf_item._id')
+  col-responsive
+    .form-group(ng-if='!udf_item.data.icon && udf_item.data.field_type == "text"')
+      label {{udf_item.name}}
+      input.form-control(type='text', ng-model='udfData.data[udf_item.data.key]', placeholder='{{udf_item.data.placeholder}}')
+    .form-group(ng-if='udf_item.data.icon && udf_item.data.field_type == "text"')
+      label {{udf_item.name}}
+      .input-group
+        span.input-group-addon
+          span(ng-class="udf_item.data.icon")
+        input.form-control(type='text', ng-model='udfData.data[udf_item.data.key]', placeholder='{{udf_item.data.placeholder}}')
+    .form-group(ng-if='!udf_item.data.icon && udf_item.data.field_type == "textarea"')
+      label {{udf_item.name}}
+      textarea.form-control(ng-model='udfData.data[udf_item.data.key]', placeholder='{{udf_item.data.placeholder}}', style='max-width: 100%;')
+    .form-group(ng-if='udf_item.data.icon && udf_item.data.field_type == "textarea"')
+      label {{udf_item.name}}
+      .input-group
+        span.input-group-addon
+          span(ng-class="udf_item.data.icon")
+        textarea.form-control(ng-model='udfData.data[udf_item.data.key]', placeholder='{{udf_item.data.placeholder}}', style='max-width: 100%;')
+    .form-group(ng-if='!udf_item.data.icon && udf_item.data.field_type == "number"')
+      label {{udf_item.name}}
+      input.form-control(type='number', ng-model='udfData.data[udf_item.data.key]', placeholder='{{udf_item.data.placeholder}}', min='{{udf_item.data.min}}', step='{{udf_item.data.step}}', max='{{udf_item.data.max}}')
+    .form-group(ng-if='udf_item.data.icon && udf_item.data.field_type == "number"')
+      label {{udf_item.name}}
+      .input-group
+        span.input-group-addon
+          span(ng-class="udf_item.data.icon")
+        input.form-control(type='number', ng-model='udfData.data[udf_item.data.key]', placeholder='{{udf_item.data.placeholder}}', min='{{udf_item.data.min}}', step='{{udf_item.data.step}}', max='{{udf_item.data.max}}')
+    .form-group(ng-if='udf_item.data.field_type == "date"')
+      label {{udf_item.name}}
+      .input-group.no-margin
+        input.form-control(type="text", uib-datepicker-popup, ng-model="udfData.data[udf_item.data.key]", is-open="picker_is_open", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+        span.input-group-btn
+          button.btn.btn-default(type="button", ng-click="picker_is_open = true")
+            i.glyphicon.glyphicon-calendar
+    .form-group(ng-if='udf_item.data.field_type == "time"')
+      label {{udf_item.name}}
+      .input-group.no-margin
+        span.input-group-addon
+          span.glyphicon.glyphicon-time
+        .form-control.no-padding.no-border.time-picker
+          uib-timepicker(ng-model="udfData.data[udf_item.data.key]", show-spinners="false", hour-step="1", minute-step="1", show-meridian="false")
+    .form-group(ng-if='udf_item.data.field_type == "checkbox"' ng-init='udfData.data[udf_item.data.key]={}')
+      label {{udf_item.name}}
+      label.form-control(ng-repeat='checkbox in udf_item.data.variables track by checkbox.key')
+        input(type='checkbox', ng-model='udfData.data[udf_item.data.key][checkbox.key]')
+        span &nbsp;{{checkbox.value}}
+    .form-group(ng-if='udf_item.data.field_type == "radio"')
+      label {{udf_item.name}}
+      label.form-control(ng-repeat='radio in udf_item.data.variables track by radio.key')
+        input(type='radio', name='udf_radio_{{udf_item.name}}', ng-model='udfData.data[udf_item.data.key]', ng-value="radio.key")
+        span &nbsp;{{radio.value}}
+    .form-group(ng-if='!udf_item.data.icon && udf_item.data.field_type == "select"')
+      label {{udf_item.name}}
+      select.form-control(ng-model='udfData.data[udf_item.data.key]', ng-options='select as select.value for select in udf_item.data.variables track by select.key')
+    .form-group(ng-if='udf_item.data.icon && udf_item.data.field_type == "select"')
+      label {{udf_item.name}}
+      .input-group.no-margin
+        span.input-group-addon
+          span(ng-class="udf_item.data.icon")
+        select.form-control(ng-model='udfData.data[udf_item.data.key]', ng-options='select as select.value for select in udf_item.data.variables track by select.key')
+    .form-group(ng-if='!udf_item.data.icon && udf_item.data.field_type == "multiSelect"')
+      label {{udf_item.name}}
+      select.form-control(ng-model='udfData.data[udf_item.data.key]', ng-options='select as select.value for select in udf_item.data.variables track by select.key', multiple='true')
+    .form-group(ng-if='udf_item.data.icon && udf_item.data.field_type == "multiSelect"')
+      label {{udf_item.name}}
+      .input-group.no-margin
+        span.input-group-addon
+          span(ng-class="udf_item.data.icon")
+        select.form-control(ng-model='udfData.data[udf_item.data.key]', ng-options='select as select.value for select in udf_item.data.variables track by select.key', multiple='true')

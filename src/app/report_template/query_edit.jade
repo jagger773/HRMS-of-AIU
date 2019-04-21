@@ -1,0 +1,83 @@
+form(ng-submit='edit.save()')
+  .modal-header
+    h3 Запрос
+  .modal-body
+    .row
+      col-responsive
+        .form-group
+          label Код
+          input.form-control(type='text' ng-model='edit.query.code' ng-required='true')
+      col-responsive
+        .form-group
+          label Наименование
+          input.form-control(type='text' ng-model='edit.query.name' ng-required='true')
+      col-responsive
+        .form-group
+          label Ключ возврата
+          input.form-control(type='text' ng-model='edit.query.result_key' ng-required='true')
+    .form-group
+      label Запрос
+      textarea.form-control(rows=10 ng-required='true' ng-model='edit.query.query')
+    .form-group-sm
+      button.btn.btn-default(type='button' ng-click='edit.buildParams()') Заполнить параметры
+    .row-striped
+      .row.row-top(ng-repeat='param in edit.query.params')
+        col-responsive
+          .form-group
+            label Наименование
+            input.form-control(type='text' ng-model='param.displayName')
+        col-responsive
+          .form-group
+            label Параметр
+            input.form-control(type='text' ng-model='param.name' ng-disabled='true')
+        col-responsive
+          .form-group(stock-dict='edit.param_types' dict-table='Enums' dict-filter='{name:"query_param_type"}')
+            label Тип
+            ui-select(ng-model='param.param_type')
+              ui-select-match {{$select.selected.data.name}}
+              ui-select-choices(repeat='param_type.data.key as param_type in edit.param_types') {{param_type.data.name}}
+        .col.col-xs-12(ng-if='param.param_type=="dictionary"')
+          a(ng-click='edit.dict_params_collapsed=!edit.dict_params_collapsed') Параметры справочника
+            span.margin-left-8.glyphicon.glyphicon-chevron-down(ng-show='edit.dict_params_collapsed')
+            span.margin-left-8.glyphicon.glyphicon-chevron-up(ng-hide='edit.dict_params_collapsed')
+          .row(uib-collapse='edit.dict_params_collapsed')
+            col-responsive
+              .form-group
+                label Таблица
+                input.form-control(type='text' ng-model='param.dictionary_table')
+            col-responsive
+              .form-group
+                label Параметр для отображения
+                input.form-control(type='text' ng-model='param.dictionary_show_param')
+            col-responsive
+              .form-group
+                label Параметр для присваивания
+                input.form-control(type='text' ng-model='param.dictionary_bind_param')
+            col-responsive
+              .form-group
+                label Фильтры
+                json-field(ng-model='param.dictionary_filter')
+            col-responsive
+              .form-group
+                label Опции
+                json-field(ng-model='param.dictionary_options')
+            col-responsive
+              .form-group
+                label Первое значение
+                json-field(ng-model='param.dictionary_first_item')
+        .col.col-xs-12(ng-if='param.param_type=="directive"')
+          a(ng-click='edit.dict_params_collapsed=!edit.dict_params_collapsed') Параметры директивы
+            span.margin-left-8.glyphicon.glyphicon-chevron-down(ng-show='edit.dict_params_collapsed')
+            span.margin-left-8.glyphicon.glyphicon-chevron-up(ng-hide='edit.dict_params_collapsed')
+          .row(uib-collapse='edit.dict_params_collapsed')
+            col-responsive
+              .form-group
+                label Элемент
+                input.form-control(type='text' ng-model='param.directive_element')
+            col-responsive
+              .form-group
+                label Атрибут для привязки
+                input.form-control(type='text' ng-model='param.directive_bind_attribute')
+  .modal-footer
+    button.btn.btn-warning(ng-disabled='edit.saving' type='button' ng-click='edit.cancel()') Отмена
+    button.btn.btn-primary(ng-disabled='edit.saving' type='submit') Сохранить

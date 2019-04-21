@@ -1,0 +1,12 @@
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold {{'ROLE_PANEL_LABEL'|translate}}
+    .panel-body
+      button.btn.btn-primary.btn-sm(ng-click='role.newRole()') {{'ADD_BUTTON_LABEL'|translate}}
+      button.btn.btn-default.btn-sm(ng-disabled='!role.selected_role' ng-click='role.editRole()')
+        span.glyphicon.glyphicon-pencil.margin-right-8
+        span {{'EDIT_BUTTON_LABEL'|translate}}
+      button.btn.btn-default.btn-sm(ng-click='role.getRoles()')
+        span.glyphicon.glyphicon-refresh
+      paged-table(options='role.rolesGridOptions', disable-search='true', disable-paging='true')

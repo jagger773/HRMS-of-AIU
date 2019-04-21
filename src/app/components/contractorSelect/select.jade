@@ -1,0 +1,28 @@
+
+
+.modal-header
+  h3 {{contractor.modalOptions.title}}
+.modal-body
+  .row
+    .col.col-xs-12.col-sm-12.col-md-4
+      form.form-horizontal(ng-submit='contractor.searchContractors()')
+        .form-group
+          label Наименование
+          input.form-control(type='search' ng-model='contractor.search_name')
+        .from-group(stock-dict='contractor.contractor_types' dict-table='Enums' dict-filter='{name:"contractor_type"}' ng-hide='contractor.modalOptions.filter.contractor_type')
+          label Тип контрагента
+          ui-select(ng-model='contractor.contractor_type')
+            ui-select-match(allow-clear='true') {{$select.selected.data.name}}
+            ui-select-choices(repeat='contractor_type.data.key as contractor_type in contractor.contractor_types | filter:$select.search track by contractor_type.data.key') {{contractor_type.data.name}}
+        .from-group(stock-dict='contractor.industries' dict-table='Industries')
+          label Индустрия
+          ui-select(ng-model='contractor.industry_id')
+            ui-select-match(allow-clear='true') {{$select.selected.name}}
+            ui-select-choices(repeat='industry._id as industry in contractor.industries | filter:{name:$select.search} track by industry._id' group-by='contractor.industryParentGroup') {{industry.name}}
+        button.btn.btn-success(type='submit') Показать
+        button.btn.btn-success(type='button' ng-click='contractor.createContractor()') Создать новый
+    .col.col-xs-12.col-sm-12.col-md-8
+      paged-table(options='contractor.gridOptions' disable-search='true')
+.modal-footer
+  button.btn.btn-default(type='button' ng-click='contractor.cancel()') Отмена
+  button.btn.btn-primary(ng-disabled='!contractor.selected_contractor' ng-click='contractor.selectContractor()') Принять

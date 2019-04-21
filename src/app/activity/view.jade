@@ -1,0 +1,72 @@
+vak-header
+.container#body
+  h3(style='text-align: center;')
+    strong Аттестационная деятельность
+  .row
+    .col-md-3
+      .panel
+        .panel-heading
+          .panel-title Разделы аттестационной деятельности
+        .panel-body.side
+            ul.list-group.side
+              li.list-group-item.select
+                a(ui-sref='view')
+                  span Научные кадры
+              li.list-group-item
+                a(ui-sref='aspirant')
+                  span Список соискателей
+              li.list-group-item
+                a(ui-sref='dissov')
+                  span {{'DISS_LABEL' | translate}}
+              li.list-group-item
+                a(ui-sref='activity')
+                  span {{'THEMES_LABEL' | translate}}
+              li.list-group-item
+                a(ui-sref='activity')
+                  span {{'LIST_OF_QUERY_LABEL' | translate}}
+              li.list-group-item
+                a(ui-sref='activity')
+                  span Оппоненты
+              li.list-group-item
+                a(ui-sref='activity')
+                  span Экспертная комиссия ДС
+              li.list-group-item
+                a(ui-sref='activity')
+                  span Отклоненные диссертации
+    .col.col-xs-12.col-sm-8.col-md-9
+      .wrapper.lter
+        .panel.panel-info
+          .panel-heading.font-bold
+          .panel-body
+            .wrapper.lter.b-b
+              .panel.panel-info
+                .panel-heading.font-bold Научные кадры
+                .panel-body
+                  form(ng-submit='view.getUsers()')
+                    .row
+                      col-responsive
+                        .form-group
+                          label Фамилия:
+                          input.form-control(type='text' ng-model="view.filter.last_name" placeholder='Введите фамилию')
+                      col-responsive
+                        .form-group
+                          label Имя:
+                          input.form-control(type='text' ng-model="view.filter.first_name" placeholder=' Введите имя')
+                      col-responsive
+                        .form-group
+                          label Отчество:
+                          input.form-control(type='text' ng-model="view.filter.middle_name" placeholder='Введите отчество')
+
+                    .btn-group-sm
+                      button.btn.btn-success(type='submit')
+                        span.glyphicon.glyphicon-search.margin-right-8
+                        span Найти
+                      button.btn.btn-default.btn-sm(ng-click='view.showUsers()') Просмотр
+                      button.btn.btn-default(type='button'  ng-click='view.filter={}') Сбросить фильтры
+                      button.btn.btn-default.btn-sm(ng-click='view.getUsers()')
+                        span.glyphicon.glyphicon-refresh
+                      .clearfix
+                  .wrapper
+                  paged-table(options='view.usersGridOptions'  disable-search='true' height='500px')
+vak-footer
+

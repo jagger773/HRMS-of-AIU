@@ -1,0 +1,11 @@
+//
+   Created by User on 9/22/2016.
+
+.modal-header
+  h3 Радактирование обложки
+.modal-body
+  .cropArea
+    img-crop(image='cover.image' result-image='cover.result_image' area-type="square")
+.modal-footer
+  button.btn.btn-default.btn-sm(ng-click='cover.cancel()') Отмена
+  button.btn.btn-primary.btn-sm(ng-click='cover.ok()') Сохранить

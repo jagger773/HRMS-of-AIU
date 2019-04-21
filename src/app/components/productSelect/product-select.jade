@@ -1,0 +1,9 @@
+.input-group
+  .input-group-addon(ng-show='loadingProducts')
+    span.glyphicon.glyphicon-refresh
+  .input-group-addon(ng-show='noProducts')
+    span.glyphicon.glyphicon-remove.text-danger
+  input.form-control(type='text' ng-model='product.selected' uib-typeahead='product as product.name for product in product.searchProduct($viewValue)' typeahead-loading='loadingProducts' typeahead-no-results='noProducts' ng-disabled='ngDisabled')
+  .input-group-btn
+    button.btn.btn-primary(type='button' ng-click='product.openSelectProduct()' ng-disabled='ngDisabled')
+      span.glyphicon.glyphicon-paperclip

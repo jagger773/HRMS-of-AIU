@@ -1,0 +1,365 @@
+//
+   Created by troy on 09.09.2016.
+.wrapper.lter.b-b
+  .row
+    .col.col-xs-12.col-lg-12
+      .panel.panel-info
+        .panel-heading
+          h3.panel-title Личная карта
+        .panel-body
+          .row
+            .col.col-xs-12.col-lg-6
+              .clearfix
+                .avatar-holder.text-center
+                  a
+                    img.profile-image.img-circle(ng-src="{{app.api}}{{view.profile.data.image}}")
+              .text-center
+                h4 {{view.profile.data.surname}} {{view.profile.data.name}}
+                div @{{view.profile.username}} &bull; {{view.profile.rec_date | amDateFormat:'MMMM DD, YYYY, HH:mm:ss'}}
+                a(href='mailto:{{view.profile.email}}') {{view.profile.email}}
+            .col.col-xs-12.col-lg-6
+              a.btn.btn-sm.btn-primary(data-original-title='Broadcast Message', data-toggle='tooltip', type='button')
+                i.glyphicon.glyphicon-envelope
+              span.pull-right
+                a.btn.btn-sm.btn-default(ng-click='view.editProfile()', data-original-title='Редактировать', data-toggle='tooltip', type='button')
+                  span Редактировать
+              .wrapper
+              table.table.table-user-information
+                tbody
+                  tr
+                    td E-mail:
+                    td {{view.profile.email}}
+                  tr
+                    td Фамилия:
+                    td {{view.profile.last_name}}
+                  tr
+                  tr
+                    td Имя
+                    td {{view.profile.first_name}}
+                  tr
+                    td Отчество
+                    td {{view.profile.middle_name}}
+                  tr
+                    td Мобильный телефон
+                    td {{view.profile.data.mobile}}
+                  tr
+                    td Рабочий телефон
+                    td {{view.profile.data.phone}}
+                  tr
+                    td Дата рождения
+                    td {{view.profile.birthday | amDateFormat: 'Do MMM YYYY'}}
+                  tr
+                    td Место рождения
+                    td {{view.profile.birthplace}}
+                  tr
+                    td Национальность
+                    td {{view.profile.nationality.name_ru}}
+                  tr
+                    td Гражданство
+                    td {{view.profile.citizenship.name_ru}}
+.wrapper.lter.b-b
+  .row
+    .col.col-xs-12.col-lg-12
+      .panel.panel-info(ng-show="view.userdegrees_count > 0")
+        .panel-heading
+          h3.panel-title
+            i.fa.fa-circle.text-success.text-xs.m-t-sm
+            span Ученая степень
+        .panel-body
+          button.btn.btn-default.btn-sm(ng-click='view.getUserdegrees()')
+            span.glyphicon.glyphicon-refresh
+          .wrapper
+            table.table.table-user-information
+              tr(style='font-weight: bold')
+                td(style='width:15%') Код
+                td(style='width:15%') Статус
+                td(style='width:15%') Дата утв.
+                td(style='width:15%') Тип документа
+                td(style='width:10%') Документ loc
+                td(style='width:10%') Степень
+                td(style='width:30%') Специальность
+                td(style='width:20%') Комментарии
+              tr(ng-repeat="degree in view.userdegrees | orderBy:'-date'")
+                td
+                  | {{ degree.document_code }}
+                td
+                  | {{ degree.actiontype.name_ru }}
+                td
+                  | {{ degree.action_date | amDateFormat:"MMM YYYY" }}
+                td
+                  | {{ degree.documenttype.name_ru }}
+                td
+                  | {{ degree.document_location }}
+                td
+                  | {{ degree.academicdegree.name_ru }}
+                td
+                  span(ng-repeat='spec in degree.degreespeciality')
+                    span {{ spec.specialty.code }}-{{ spec.specialty.name_ru }}
+                    br
+.wrapper.lter.b-b
+  .row
+    .col.col-xs-12.col-lg-12
+      .panel.panel-info(ng-show="view.ranks_count > 0")
+        .panel-heading
+          h3.panel-title Ученое звание
+        .panel-body
+          button.btn.btn-default.btn-sm(ng-click='view.getUserdegrees()')
+            span.glyphicon.glyphicon-refresh
+          .wrapper
+            table.table.table-user-information
+              tr(style='font-weight: bold')
+                td(style='width:15%') Код
+                td(style='width:15%') Статус
+                td(style='width:15%') Дата утв.
+                td(style='width:15%') Тип документа
+                td(style='width:10%') Документ loc
+                td(style='width:10%') Степень
+                td(style='width:30%') Специальность
+                td(style='width:20%') Комментарии
+              tr(ng-repeat="degree in view.ranks | orderBy:'-date'")
+                td
+                  | {{ degree.document_code }}
+                td
+                  | {{ degree.actiontype.name_ru }}
+                td
+                  | {{ degree.action_date | amDateFormat:"MMM YYYY" }}
+                td
+                  | {{ degree.documenttype.name_ru }}
+                td
+                  | {{ degree.document_location }}
+                td
+                  | {{ degree.academicdegree.name_ru }}
+                td
+                  span(ng-repeat='spec in degree.degreespeciality')
+                    span {{ spec.specialty.code }}-{{ spec.specialty.name_ru }}
+                    br
+.wrapper.lter.b-b
+  .row
+    .col.col-xs-12.col-lg-12
+      .panel.panel-info
+        .panel-heading
+          h3.panel-title Опыт работы
+        .panel-body
+          .wrapper(ng-show="view.work == null")
+            table.table.table-user-information
+              tr(style='font-weight: bold')
+                td(style='width:15%') Период
+                td(style='width:20%') Организация
+                td(style='width:15%') Должность
+                td(style='width:20%') Страна
+                td(style='width:20%') Город
+                td(style='width:25%')
+              tr(ng-repeat='work in view.works')
+                td
+                  | {{ work.date_start | amDateFormat:"MMM YYYY"}}-{{ work.date_end | amDateFormat:"MMM YYYY"}}
+                td
+                  | {{ work.org_name }}
+                td
+                  | {{ work.pos_name }}
+                td
+                  | {{ work.country.name_ru }}
+                td
+                  | {{ work.city }}
+                td(style='white-space: nowrap')
+                  .buttons
+                    button.btn.btn-primary(tooltip='Изменить', ng-click='view.editWork(work)')
+                      i.glyphicon.glyphicon-pencil
+                    button.btn.btn-danger(tooltip='Удалить', ng-click='view.confirmActionWork(work)')
+                      i.glyphicon.glyphicon-minus
+            button.btn.btn-default(ng-click='view.editWork({})') Добавить
+          .wrapper
+            .row(ng-show="view.work != null")
+              .col.col-xs-12.col-lg-3
+                h4 Информация об опыте работы
+                p Эта информация доступна в вашем профиле.
+              .col.col-xs-12.col-lg-9
+                .form-group
+                  label Организация
+                  input.form-control(type='text' ng-model='view.work.org_name' ng-trim='true')
+                .form-group
+                  label Должность
+                  input.form-control(type='text' ng-model='view.work.pos_name' ng-trim='true')
+                .form-group(stock-dict='view.Countries' dict-table='Countries')
+                  label Страна
+                  select.form-control(ng-model='view.work.country_id', ng-options='item._id as item.name_ru for item in view.Countries | filter:{name_ru:search}')
+                .form-group(stock-dict='view.Typeofgraduate' dict-table='Typeofgraduate' )
+                  label Город
+                  input.form-control(type='text' ng-model='view.work.city' ng-trim='true')
+                .form-group
+                  label Период начало
+                  .input-group.no-margin
+                    input.form-control(type="text"  uib-datepicker-popup  ng-click="view.search.popup_to_date.opened=true" ng-model="view.work.date_start" is-open="view.search.popup_to_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                    span.input-group-btn
+                      button.btn.btn-default(type="button" ng-click="view.search.popup_to_date.opened=true")
+                        i.glyphicon.glyphicon-calendar
+                .form-group
+                  label Период конец
+                  .input-group.no-margin
+                    input.form-control(type="text"  uib-datepicker-popup ng-click="view.search.popup_from_date.opened=true" ng-model="view.work.date_end" is-open="view.search.popup_from_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                    span.input-group-btn
+                      button.btn.btn-default(type="button"  ng-click="view.search.popup_from_date.opened=true")
+                        i.glyphicon.glyphicon-calendar
+                br
+                button.btn.btn-primary.m-b-lg(ng-click='view.putDataWork()')
+                  | Сохранить
+                button.btn.btn-default.m-b-lg(ng-click='view.cancelWork()')
+                  | Отмена
+.wrapper.lter.b-b
+  .row
+    .col.col-xs-12.col-lg-12
+      .panel.panel-info
+        .panel-heading
+          h3.panel-title Образование
+        .panel-body
+          .ln_solid
+            .wrapper(ng-show="view.education==null")
+              table.table.table-user-information
+                thead
+                  tr
+                    th Дата
+                    th Учебное заведение
+                    th Cпециальность
+                    th Страна
+                    th Вид обучения
+                    th Форма обучения
+                    th
+                tbody(ng-repeat='ed in view.educations')
+                  tr
+                    td {{ ed.date_start | amDateFormat: 'MMM YYYY'}}-{{ ed.date_end | amDateFormat: 'MMM YYYY'}}
+                    td
+                      span {{ ed.org_name }}
+                    td
+                      span {{ ed.faculty }}
+                    td
+                      span {{ ed.country.name_ru }}
+                    td
+                      span  {{ ed.typeofgraduate.name_ru }}
+                    td
+                      span {{ ed.typeoftraining.name_ru }}
+                    td
+                      span(file-link='{{ed.data.doc}}')
+                    td(style='white-space: nowrap')
+                      .buttons
+                        button.btn.btn-primary(tooltip='Изменить', ng-click='view.editEducation(ed)')
+                          i.glyphicon.glyphicon-pencil
+                        button.btn.btn-danger(tooltip='Удалить', ng-click='view.confirmAction(ed)')
+                          i.glyphicon.glyphicon-minus
+              button.btn.btn-default(ng-click='view.editEducation({})') Добавить
+            .wrapper
+              .row(ng-show="view.education != null")
+                .col.col-xs-12.col-lg-3
+                  h4 Информация об образовании
+                  p Эта информация доступна в вашем профиле.
+                .col.col-xs-12.col-lg-9
+                  .form-group(stock-dict='view.Organizations' dict-table='Organizations' )
+                    label Учебное заведение
+                    select.form-control(ng-model='view.education.organization_id', ng-options='item._id as item.name_ru for item in view.Organizations | filter:{name_ru:search}')
+                  .form-group
+                    label Факультет, специальность, Квалификация
+                    input.form-control(type='text' ng-model='view.education.faculty' ng-trim='true')
+                  .form-group(stock-dict='view.Countries' dict-table='Countries' )
+                    label Страна
+                    select.form-control(ng-model='view.education.country_id', ng-options='item._id as item.name_ru for item in view.Countries | filter:{name_ru:search}')
+                  .form-group(stock-dict='view.Typeofgraduate' dict-table='Typeofgraduate' )
+                    label Вид обучения
+                    select.form-control(ng-model='view.education.typeofgraduate_id', ng-options='item._id as item.name_ru for item in view.Typeofgraduate | filter:{name_ru:search}')
+                  .form-group(stock-dict='view.Typeoftraining' dict-table='Typeoftraining' )
+                    label Форма обучения
+                    select.form-control(ng-model='view.education.typeoftraining_id', ng-options='item._id as item.name_ru for item in view.Typeoftraining | filter:{name_ru:search}')
+                  .form-group
+                    label Дата поступления
+                    .input-group.no-margin
+                      input.form-control(type="text" uib-datepicker-popup="dd.MM.yyyy"  ng-click="form.search.popup_to_date.opened1=true" ng-model="view.education.date_start" is-open="view.search.popup_to_date.opened1", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                      span.input-group-btn
+                        button.btn.btn-default(type="button" ng-click="view.search.popup_to_date.opened1=true")
+                          i.glyphicon.glyphicon-calendar
+                  .form-group
+                    label Дата окончания
+                    .input-group.no-margin
+                      input.form-control(type="text"  uib-datepicker-popup="dd.MM.yyyy"   ng-click="view.search.popup_from_date.opened=true" ng-model="view.education.date_end" is-open="view.search.popup_from_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                      span.input-group-btn
+                        button.btn.btn-default(type="button"  ng-click="view.search.popup_from_date.opened=true")
+                          i.glyphicon.glyphicon-calendar
+                  .form-group
+                    div
+                      file-load(file-src='view.education.data.doc' type='pdf')
+                  br
+                  button.btn.btn-primary.m-b-lg(ng-click='view.putDataEducation()')
+                    | Сохранить
+                  button.btn.btn-default.m-b-lg(ng-click='view.cancelEducation()')
+                    | Отмена
+.wrapper.lter.b-b
+  .row
+    .col.col-xs-12.col-lg-12
+      .panel.panel-info
+        .panel-heading
+          h3.panel-title Научные работы
+        .panel-body
+          .ln_solid
+            .wrapper(ng-show="view.scientificwork==null")
+              table.table.table-user-information
+                thead
+                  tr
+                    th Название
+                    th Web ccылка на статьи
+                    th Издание, журнал(название, номер, год) или номер авторского свидетельства
+                    th Кол-во страниц формата А4
+                    th Фамилии соавторов
+                    th
+                tbody(ng-repeat='sw in view.scientificworks')
+                  tr
+                    td {{ sw.name }}
+                    td
+                      span {{ sw.web_url }}
+                    td
+                      span {{ sw.journal_data.journal }}
+                    td
+                      span {{ sw.count_page }}
+                    td
+                      span(ng-repeat='coauthor in sw.coauthor')
+                        span {{coauthor.user.last_name}} {{coauthor.user.first_name}}
+                        br
+                    td
+                      span(file-link='{{sw.data.doc}}')
+                    td(style='white-space: nowrap')
+                      .buttons
+                        button.btn.btn-primary(tooltip='Изменить', ng-click='view.editScientificwork(sw)')
+                          i.glyphicon.glyphicon-pencil
+                        button.btn.btn-danger(tooltip='Удалить', ng-click='view.confirmActionScientificwork(sw)')
+                          i.glyphicon.glyphicon-minus
+              button.btn.btn-default(ng-click='view.editScientificwork({})') Добавить
+            .wrapper
+              .row(ng-show="view.scientificwork != null")
+                .col.col-xs-12.col-lg-3
+                  h4 Информация о научных  трудах
+                  p Эта информация доступна в вашем профиле.
+                .col.col-xs-12.col-lg-9
+                  .form-group(stock-dict='view.Organizations' dict-table='Organizations' )
+                    label Название
+                    input.form-control(type='text' ng-model='view.scientificwork.name' ng-trim='true')
+                  .form-group
+                    label Web ccылка на статью
+                    input.form-control(type='text' ng-model='view.scientificwork.web_url' ng-trim='true')
+                  .form-group
+                    label Издание, журнал(название, номер, год) или номер авторского свидетельства
+                    textarea.form-control(ng-model='view.scientificwork.journal_data.journal')
+                  .form-group
+                    label Кол-во страниц формата А4
+                    input.form-control(type='number' ng-model='view.scientificwork.count_page' ng-trim='true')
+                  .form-group
+                    label Фамилии соавторов
+                    .input-group
+                      vak-per(modeldisplay='view.person.fio', modelret='view.person.user_id')
+                      span.input-group-btn
+                        button.btn.btn-secondary(type='button' ng-click="view.addCoauthor()")
+                          i.fa.fa-plus(aria-hidden='true' style="font-size: 130%;")
+                    ul.list-group(style="max-height:200px; overflow-y: auto;")
+                      li.list-group-item(ng-repeat="x in view.scientificwork.coauthor")
+                        label {{x.fio}}
+                        a.btn.btn-sm.btn-primary.pull-right(ng-click="view.deleteCoauthor($index)")
+                          i.fa.fa-trash-o(aria-hidden='true' style="font-size: 130%;")
+                  br
+                  button.btn.btn-primary.m-b-lg(ng-click='view.putDataScientificwork()')
+                    | Сохранить
+                  button.btn.btn-default.m-b-lg(ng-click='view.cancelScientificwork()')
+                    | Отмена

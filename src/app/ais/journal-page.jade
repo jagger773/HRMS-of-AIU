@@ -1,0 +1,29 @@
+vak-header
+.container#body
+  .row
+    .col-md-12
+      .panel.panel-primary
+        .panel-heading
+          .panel-title {{'ARTICLES_LABEL' | translate}}
+        .panel-body
+          input#dev-table-filter.form-control(type='text', data-action='filter', data-filters='#dev-table', placeholder="{{'ARTICLES_SEARCH_LABEL' | translate}}")
+        table#dev-table.table.table-hover
+          thead
+            tr
+              th #
+              th {{'NAME_RU_SPAN_LABEL' | translate}}
+              th {{'NAME_KG_SPAN_LABEL' | translate}}
+              th {{'FILE_LABEL' | translate}}
+          tbody
+            tr(ng-repeat='article in page.articles.articles')
+              td {{article.entry_user_id}}
+              td {{article.name_ru}}
+              td {{article.name_kg}}
+              td
+                a(href="{{article.file}}" target="_target")  {{'DOWNLOAD_FILE' | translate}}
+
+vak-footer
+
+
+
+

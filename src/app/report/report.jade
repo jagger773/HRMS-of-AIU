@@ -1,0 +1,28 @@
+.row
+  col-responsive(stock-dict='report.report_categories' dict-table='ReportCategories' dict-options='{onlyChildren:true}')
+    .form-group
+      label Категория
+      ui-select(ng-model='report.report_category_id')
+        ui-select-match {{$select.selected.name}}
+        ui-select-choices(repeat='category._id as category in report.report_categories|filter:{name:$select.search}' group-by='app.parentGroup') {{category.name}}
+  col-responsive
+    .form-group
+      label Отчет
+      ui-select(ng-model='report.selected_report')
+        ui-select-match(allow-clear='true') {{$select.selected.name}}
+        ui-select-choices(repeat='report in report.reports|filter:{name:$select.search}') {{report.name}}
+.row-striped
+  .row.row-border-top(ng-repeat='rq in report.selected_report.report_queries')
+    col-responsive(ng-repeat='rq_param in rq.params' ng-switch='rq_param.param_type')
+      .form-group(ng-switch-when='dictionary' stock-dict='report.dict[rq_param.name]' dict-table='{{rq_param.dictionary_table}}' dict-filter='rq_param.dictionary_filter' dict-options='rq_param.dictionary_options' dict-first-item='rq_param.dictionary_first_item')
+        label {{rq_param.displayName}}
+        div(dynamic='report.dictionaryHTML(rq_param)')
+      .form-group(ng-switch-when='directive')
+        label {{rq_param.displayName}}
+        div(dynamic='report.directiveHTML(rq_param)')
+      .form-group(ng-switch-default="")
+        label {{rq_param.displayName}}
+        div(dynamic='report.defaultHTML(rq_param)')
+.form-group
+  button.btn.btn-default(type='button' ng-click='report.getReportData()' ng-disabled='report.data_loading') Показать
+#reportViewer

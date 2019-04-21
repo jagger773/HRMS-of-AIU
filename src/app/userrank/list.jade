@@ -1,0 +1,10 @@
+//
+   Created by ilias on 21.06.2018.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Ученая степень
+    .panel-body
+      button.btn.btn-default.btn-sm(ng-click='list.getUserranks()')
+        span.glyphicon.glyphicon-refresh
+      paged-table(options='list.userrankGridOptions', disable-search='true', height='500px')

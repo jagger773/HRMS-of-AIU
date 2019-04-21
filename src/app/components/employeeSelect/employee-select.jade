@@ -1,0 +1,11 @@
+div
+  .input-group(ng-hide='asText===true')
+    .input-group-addon(ng-show='loadingEmployees')
+      span.glyphicon.glyphicon-refresh
+    .input-group-addon(ng-show='noEmployees')
+      span.glyphicon.glyphicon-remove.text-danger
+    input.form-control(type='text' ng-model='employee.selected' uib-typeahead='employee as employee.user.username for employee in employee.searchEmployee($viewValue)' typeahead-loading='loadingEmployees' typeahead-no-results='noEmployees' ng-disabled='ngDisabled' typeahead-template-url='app/components/employeeSelect/employee-select-typeahead.html')
+    .input-group-btn
+      button.btn.btn-primary(type='button' ng-click='employee.openSelectEmployee()' ng-disabled='ngDisabled')
+        span.glyphicon.glyphicon-paperclip
+  span(ng-show='asText===true') {{ employee.selected.user.username }}

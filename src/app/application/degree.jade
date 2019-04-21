@@ -1,0 +1,142 @@
+//
+   degree. by ilias on 26.05.2018.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Форма подачи заявки на ученую степень
+    .panel-body
+      wizard(hide-indicators="false" indicators-position="top")
+        wz-step(wz-title="Перечень документов")
+          form.form-horizontal.form-label-left
+            .row
+              .col-md-4.col-sm-4.col-xs-4
+              .col-md-4.col-sm-4.col-xs-4
+                .well.well-sm.text-center
+                  h5 Пожалуйста заполните перечень документов
+              .col-md-4.col-sm-4.col-xs-4
+                .btn-group.pull-right
+                  a.btn.btn-success(wz-next="preregistration.putData()")
+                    span Дальше
+                    i.fa.fa-long-arrow-right(aria-hidden='true')
+
+            .container
+              .ln_solid
+              .row
+                form.form-horizontal
+                  .col.col-xs-12.col-lg-3
+                    h4 Перечень документов
+                    p для подачи на ученой степени в ДС
+                  .col.col-xs-12.col-lg-9
+                    .form-group
+                      label Прикрепите заявление
+                      div
+                        file-load(file-src='degree.diss.file_order', type='dis_app', allow="pdf,word,zip")
+
+        wz-step(wz-title="Выбор ДС")
+          div(dynamic="html")
+          form.form-horizontal.form-label-left
+            .row
+              .col-md-4.col-sm-4.col-xs-4
+              .col-md-4.col-sm-4.col-xs-4
+                .well.well-sm.text-center
+                  h5 Выберите Диссертационный совет
+              .col-md-4.col-sm-4.col-xs-4
+                .btn-group.pull-right
+                  a.btn.btn-primary(wz-previous="import.clear()")
+                    span Назад
+                    i.fa.fa-long-arrow-left(aria-hidden='true')
+                  a.btn.btn-success(wz-next )
+                    span Дальше
+                    i.fa.fa-long-arrow-right(aria-hidden='true')
+            .container
+              .row
+                .col-md-12.col-sm-12.col-xs-12
+                  .x_content
+                    form.form-horizontal.form-label-left(id="news-form")
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Тема диссертации
+                          span.required *
+                        .col-md-6.col-sm-6.col-xs-12
+                          product-select(product-id='degree.theme._id')
+                          //ui-select.form-control(ng-model='degree.theme' ng-required='true' on-select="degree.getDiss()")
+                          //  ui-select-match(allow-clear='true') {{$select.selected.name}}
+                          //  ui-select-choices(repeat='theme as theme in degree.themes') {{theme.name}}
+
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 На соискание ученой степени
+                          span.required *
+                        .col-md-6.col-sm-6.col-xs-12
+                          input.form-control(ng-model='degree.academicdegree.name_ru')
+
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Специальность
+                          span.required *
+                        .col-md-6.col-sm-6.col-xs-12
+                          input.form-control(ng-model='degree.specialty.name_ru')
+
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Отрасль науки
+                          span.required *
+                        .col-md-6.col-sm-6.col-xs-12
+                          input.form-control(ng-model='degree.branchesofscience.name_ru')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Прикрепить перечень документов
+                        .col-md-8.col-sm-8.col-xs-12
+                          div
+                            file-load(file-src='degree.application.file', type='zvk_doc', allow="zip")
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Автореферат
+                        .col-md-8.col-sm-8.col-xs-12
+                          div
+                            doc-load(file-src='degree.application.data.avtoreferat', type='zvk_doc', allow="doc")
+
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Диссертационный совет
+                          span.required *
+                        table.table.table-bordered
+                          thead
+                            tr
+                              th
+                              th Наименование организации, при которой функционирует ДС и шифр совета
+                              th Отрасль науки, по которой присуждается ученая степень
+                              th Шифр и название специальности, по которой проводится защита диссертации
+                              th
+                          tbody(ng-repeat='dis in degree.diss')
+                            tr
+                              td {{$index+1}}
+                              td
+                                span {{dis.organization.name_ru}}
+                                br
+                                span {{dis.code}}
+                                br
+                                span Срок полномочий до {{dis.date_end | amDateFormat:"DD.MM.YYYY" }}
+                              td
+                                span(ng-repeat='degree in dis.programs')
+                                  span {{ degree.academicdegree.name_ru }} {{ degree.branchesofscience.name_ru }}
+                                  br
+                              td
+                                span(ng-repeat='degree in dis.programs')
+                                  span {{degree.specialty.name_ru}}
+                                  br
+                              td
+                                button.btn.btn-default(type="button", ng-click="degree.saveApp(dis._id)") {{ 'APPLICATION_BUTTON_LABEL' | translate}}
+
+                      .form-group
+                        .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+                          button.btn.btn-default(type="button", ng-click="degree.goBack()") {{ 'CANCEL_BUTTON_LABEL' | translate}}
+                          //button.btn.btn-primary(type="button", ng-click="degree.saveApp()") {{ 'SAVE_BUTTON_LABEL' | translate}}
+
+script(type='text/ng-template', id='myPopoverTemplate.html').
+  <div style="max-width: 200px
+  ;
+    max-height: 500px
+  ;
+    overflow-y: auto
+  ;">
+  <ul class="list-group">
+  <li ng-repeat="y in x.countries" class="list-group-item">
+  {{$index+1}}: "{{y.name}}"
+  </li>
+  </ul>
+  </div>
+

@@ -1,0 +1,14 @@
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Мои Заявки
+    .panel-body
+      button.btn.btn-primary.btn-sm(ng-click="application.regDocument()", ng-disabled="application.selected_application == null && application.selected_application.status != 'new'")
+        span Регистрация
+      button.btn.btn-default.btn-sm(ng-click="application.go('app.queue.view', {document: application.selected_application})",
+      ng-disabled="application.selected_application == null && application.selected_application.status == 'new'")
+        span Просмотр
+      button.btn.btn-default.btn-sm(ng-click="application.go('app.queue.protocol', {document: application.selected_application})", ng-disabled="application.selected_application == null")
+        span Протокол
+      button.btn.btn-default.btn-sm(ng-click='application.getApplications()')
+        span.glyphicon.glyphicon-refresh
+      paged-table(options='application.applicationsGridOptions', disable-search='true')

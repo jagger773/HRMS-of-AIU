@@ -1,0 +1,44 @@
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold {{item.menu._id ? "Изменить":"Добавить"}}
+    .panel-body
+      form.bs-example.form-validation(ng-submit='item.putMenu()')
+        .form-group
+          .row
+            .col-md-2.text-right
+              label Родитель
+            .col.col-md-10
+              ui-select(ng-model="item.menu.parent_id", ng-disabled='item.children.length>0')
+                ui-select-match(allow-clear='true') {{$select.selected.name}}
+                ui-select-choices(repeat='menu._id as menu in (menu.menus | filter:{name:$select.search} | filter: menu.filterOnlyParents | orderBy:"data.position") track by menu._id', ui-disable-choice='menu._id==item.menu._id') {{menu.name}}
+        .form-group
+          .row
+            .col-md-2.text-right
+              label Наименование
+            .col.col-md-10
+              input.form-control(type='text', ng-model='item.menu.name', ng-required='true' ng-trim='true')
+        .form-group(ng-hide='item.disabled')
+          .row
+            .col-md-2.text-right
+              label Путь
+            .col.col-md-10
+              input.form-control(type='text', ng-model='item.menu.data.route')
+        .form-group
+          .row
+            .col-md-2.text-right
+              label Позиция
+            .col.col-md-10
+              input.form-control(type='number', ng-model='item.menu.data.position', ng-required='true')
+        .form-group
+          .row
+            .col-md-2.text-right
+              label Иконка
+            .col.col-md-10
+              div(ng-class='{"input-group": item.menu.data.icon}')
+                .input-group-btn
+                  button.btn.btn-default(ng-if='item.menu.data.icon')
+                    i(ng-class='item.menu.data.icon')
+                input.form-control(type='text', ng-model='item.menu.data.icon')
+        button.btn.btn-primary.btm-sm(ng-if='item.menu._id') Сохранить
+        button.btn.btn-primary.btm-sm(ng-if='!item.menu._id') Добавить
+        button.btn.btn-danger.btm-sm(ng-if='item.menu._id', ng-click='item.removeMenu()') Удалить

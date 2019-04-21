@@ -1,0 +1,13 @@
+.row(ng-controller='EnumController as enum')
+  col-responsive
+    .form-group
+      label Тип
+      input.form-control(type='text' ng-model='edit.dictionary.name' ng-required='true' ng-trim='true')
+  col-responsive
+    .form-group
+      label Наименование
+      input.form-control(type='text' ng-model='edit.dictionary.data.name' ng-required='true' ng-trim='true')
+  col-responsive
+    .form-group
+      label Ключ
+      input.form-control(type='text' ng-model='edit.dictionary.data.key' ng-required='true' ng-trim='true')

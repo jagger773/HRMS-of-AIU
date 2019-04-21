@@ -1,0 +1,53 @@
+//
+   Created by ilias on 21.06.2018.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Добавление/редактирование образование
+    .panel-body
+      .wrapper
+        .row
+          .col.col-xs-12.col-lg-3
+            h4 Информация об образовании
+            p Эта информация доступна в вашем профиле.
+          .col.col-xs-12.col-lg-9
+            .form-group
+              label Учебное заведение
+             input.form-control(type='text' ng-model='edit.usereducation.org_name' ng-trim='true')
+            .form-group
+              label Факультет, специальность, Квалификация
+              input.form-control(type='text' ng-model='edit.usereducation.faculty' ng-trim='true')
+            .form-group(stock-dict='edit.Countries' dict-table='Countries' )
+              label Страна
+              select.form-control(ng-model='edit.usereducation.country_id', ng-options='item._id as item.name_ru for item in edit.Countries | filter:{name_ru:search}')
+            .form-group(stock-dict='edit.Typeofgraduate' dict-table='Typeofgraduate' )
+              label Вид обучения
+              select.form-control(ng-model='edit.usereducation.typeofgraduate_id', ng-options='item._id as item.name_ru for item in edit.Typeofgraduate | filter:{name_ru:search}')
+            .form-group(stock-dict='edit.Typeoftraining' dict-table='Typeoftraining' )
+              label Форма обучения
+              select.form-control(ng-model='edit.usereducation.typeoftraining_id', ng-options='item._id as item.name_ru for item in edit.Typeoftraining | filter:{name_ru:search}')
+            .form-group
+              label Дата поступления
+              .input-group.no-margin
+                input.form-control(type="text" uib-datepicker-popup="dd.MM.yyyy"  ng-click="form.search.popup_to_date.opened1=true" ng-model="edit.usereducation.date_start" is-open="edit.search.popup_to_date.opened1", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                span.input-group-btn
+                  button.btn.btn-default(type="button" ng-click="edit.search.popup_to_date.opened1=true")
+                    i.glyphicon.glyphicon-calendar
+            .form-group
+              label Дата окончания
+              .input-group.no-margin
+                input.form-control(type="text"  uib-datepicker-popup="dd.MM.yyyy"   ng-click="edit.search.popup_from_date.opened=true" ng-model="edit.usereducation.date_end" is-open="edit.search.popup_from_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                span.input-group-btn
+                  button.btn.btn-default(type="button"  ng-click="edit.search.popup_from_date.opened=true")
+                  button.btn.btn-default(type="button"  ng-click="edit.search.popup_from_date.opened=true")
+                  button.btn.btn-default(type="button"  ng-click="edit.search.popup_from_date.opened=true")
+                  button.btn.btn-default(type="button"  ng-click="edit.search.popup_from_date.opened=true")
+                    i.glyphicon.glyphicon-calendar
+            .form-group
+              div
+                file-load(file-src='edit.usereducation.data.doc' type='pdf')
+            br
+            button.btn.btn-primary.m-b-lg(ng-click='edit.putDataEducation()')
+              | Сохранить
+            button.btn.btn-default.m-b-lg(ng-click='edit.cancelEducation()')
+              | Отмена

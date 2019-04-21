@@ -1,0 +1,179 @@
+.login {
+    display: flex;
+    flex-direction: row;
+}
+
+.login.desktop {
+    visibility: visible;
+}
+
+.login.mobile {
+    visibility: hidden;
+}
+
+.login .flex {
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+.login [layout] {
+    display: flex;
+}
+
+.login [layout=row] {
+    flex-direction: row;
+}
+
+.login [layout=column] {
+    flex-direction: column;
+}
+
+.login .login-left, .login .login-right {
+    padding: 64px;
+}
+
+.login .login-left>*, .login .login-right>* {
+    max-width: 500px;
+}
+
+.login .login-left {
+    background-color: #151a22;
+    flex-basis: 60%;
+}
+
+.login .login-left *::-moz-selection {
+    color: white;
+}
+
+.login .login-left *::selection {
+    color: white;
+}
+
+.login .login-left>.stok-logo>img {
+    height: 100px;
+    max-width: 100%;
+}
+
+.login .login-left>.stok-description {
+    margin: 15px 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    justify-content: center;
+}
+
+.login .login-right {
+    background-color: #00a876;
+    flex-basis: 40%;
+    justify-content: center;
+}
+
+.login .login-right>h2 {
+    color: rgba(255,255,255,0.8);
+}
+
+.login .login-right input.form-control {
+    background-color: #00a876;
+    border: none;
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: white;
+
+    -webkit-transition: border 0.3s;
+    -moz-transition: border 0.3s;
+    -ms-transition: border 0.3s;
+    -o-transition: border 0.3s;
+    transition: border 0.3s;
+}
+
+.login .login-right input.form-control.ng-touched.ng-invalid-required {
+    border: none;
+    border-bottom: 2px solid #f44336;
+}
+
+.login .login-right input.form-control:focus {
+    background-color: #00a876;
+    border: none;
+    border-bottom: 2px solid white;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: white;
+}
+
+.login .login-right input.form-control::-webkit-input-placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+.login .login-right input.form-control::-webkit-input-placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+.login .login-right input.form-control::-moz-placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+.login .login-right input.form-control:-moz-placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+.login .login-right input.form-control:-ms-input-placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+.login .login-right .btn-login {
+    background-color: white;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: #00a876;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 8px 15px;
+    -webkit-transition: box-shadow 0.3s;
+    -moz-transition: box-shadow 0.3s;
+    -ms-transition: box-shadow 0.3s;
+    -o-transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s;
+}
+
+.login .login-right .btn-login:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    -webkit-box-shadow: 0 4px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 4px rgba(0,0,0,0.5);
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 768px) {
+    .login {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .login.desktop {
+        visibility: hidden;
+    }
+
+    .login.mobile {
+        visibility: visible;
+    }
+
+    .login .login-left {
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 15px;
+        flex-basis: 100%;
+    }
+
+    .login .login-left>* {
+        max-width: 100%;
+    }
+
+    .login .login-right {
+        padding: 15px;
+        flex-basis: 100%;
+    }
+}

@@ -1,0 +1,54 @@
+//
+   Created by Aibek on 25/08/16.
+
+form(ng-submit='user.updateUser()')
+  .modal-header
+    h3 Пользователь
+  .modal-body
+    ul.nav.nav-tabs
+      li.active
+        a(data-toggle='tab', data-target='#home') Информация для авторизации
+      li
+        a(data-toggle='tab', data-target='#menu1') Информация о пользователе
+    .tab-content
+      #home.tab-pane.fade.in.active
+        .row
+          .col.col-xs-12.col-sm-6
+            .form-group
+              label Емайл
+              input.form-control(type='email', ng-model='user.user.email', ng-trim='true')
+          .col.col-xs-12.col-sm-6
+            .form-group
+              label Пароль
+              input.form-control(type='password', ng-model='user.user.password', ng-trim='true')
+          .col.col-xs-12.col-sm-6(stock-dict='user.roles' dict-table='Roles')
+            .form-group
+              label Роли
+              ui-select.form-control(ng-model='user.user.roles_id' ng-required='true' multiple)
+                ui-select-match {{$item.name}}
+                ui-select-choices(repeat='type._id as type in user.roles') {{type.name}}
+      #menu1.tab-pane.fade
+        .row
+          .col.col-xs-12.col-sm-6
+            .form-group
+              label Фамилия
+              input.form-control(type='text', ng-model='user.user.data.surname', ng-trim='true')
+          .col.col-xs-12.col-sm-6
+            .form-group
+              label Имя
+              input.form-control(type='text', ng-model='user.user.data.name', ng-trim='true')
+          .col.col-xs-12.col-sm-6
+            .form-group
+              label Отчество
+              input.form-control(type='text', ng-model='user.user.data.patronymic', ng-trim='true')
+          .col.col-xs-12.col-sm-6
+            .form-group
+              label Дата рождения
+              .input-group.no-margin
+                input.form-control(id="middle-name" type="text", uib-datepicker-popup="dd-MM-yyyy", ng-click="user.popup_delivery_date.opened=true",  ng-model="user.user.data.date_of_birth", is-open="user.popup_delivery_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                span.input-group-btn
+                  button.btn.btn-default(type="button", ng-click="user.popup_delivery_date.opened=true" )
+                    i.glyphicon.glyphicon-calendar
+  .modal-footer
+    button.btn.btn-primary.btn-sm.pull-right(type='submit') Сохранить
+    button.btn.btn-warning.btn-sm.pull-right(type='button', ng-click='user.cancel()') Отмена

@@ -1,0 +1,277 @@
+//
+   Created by ilias on 19.05.2018.
+.wrapper.lter
+  .panel.panel-info
+    .panel-heading.font-bold Создания диссертационного совета
+    .panel-body
+      .wrapper
+        .row
+          .col-md-6.col-sm-6.col-xs-12
+            button.btn.btn-default(type="button", ng-click="create.goBack()") Назад
+            button.btn.btn-primary(type="button", ng-click="create.saveDissov()") {{ 'SAVE_BUTTON_LABEL' | translate}}
+      .wrapper.lter
+        .panel.panel-info
+          .panel-heading.font-bold Основные данные
+          .panel-body
+            .row
+              .col.col-xs-12.col-lg-12
+                .wrapper
+                  .form-horizontal.form-label-left
+                    .form-group
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Шифр
+                      .col-md-7.col-sm-7.col-xs-12
+                        input.form-control(type="text",  required="required", ng-model="create.diss.code")
+                    .form-group
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Номер приказа
+                      .col-md-7.col-sm-7.col-xs-12
+                        input.form-control(type="text",  required="required", ng-model="create.diss.number_order")
+
+                    .form-group
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Документ приказа
+                      .col-md-7.col-sm-7.col-xs-12
+                        div
+                          file-load(file-src='create.diss.file_order', type='dic_work', allow="pdf,word,zip")
+
+                    .form-group
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Организация
+                        span.required *
+                      .col-md-7.col-sm-7.col-xs-12
+                        .input-group
+                          vak-org(modeldisplay='create.organization.name_ru', modelret='create.organization.organization_id')
+                          span.input-group-btn
+                            button.btn.btn-secondary(type='button' ng-click="create.addOrganization()")
+                              i.fa.fa-plus(aria-hidden='true' style="font-size: 130%;")
+                        ul.list-group(style="max-height:200px; overflow-y: auto;")
+                          li.list-group-item(ng-repeat="x in create.diss.organizations")
+                            label {{x.name_ru}}
+                            a.btn.btn-sm.btn-primary.pull-right(ng-click="create.deleteOrganization($index)")
+                              i.fa.fa-trash-o(aria-hidden='true' style="font-size: 130%;")
+                    .form-group
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Дата начала
+                      .col-md-7.col-sm-7.col-xs-12
+                        .input-group.no-margin
+                          input.form-control(type="text" uib-datepicker-popup min-date="create.today"
+                          ng-change="create.recalculateOnEventAll()"  ng-click="create.search.popup_to_date.opened=true"
+                          ng-model="create.diss.date_start" is-open="create.search.popup_to_date.opened", close-text="Закрыть",
+                          current-text='Сегодня', clear-text='Очистить')
+                          span.input-group-btn
+                            button.btn.btn-default(type="button" ng-click="create.search.popup_to_date.opened=true")
+                              i.glyphicon.glyphicon-calendar
+
+                    .form-group
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Срок полномочий до
+                      .col-md-7.col-sm-7.col-xs-12
+                        .input-group.no-margin
+                          input.form-control(type="text"  uib-datepicker-popup disabled
+                          ng-click="create.search.popup_to_date.opened1=true" ng-model="create.diss.date_end"
+                          is-open="create.search.popup_to_date.opened1", close-text="Закрыть", current-text='Сегодня',
+                          clear-text='Очистить')
+                          span.input-group-btn
+                            button.btn.btn-default(type="button" ng-click="create.search.popup_to_date.opened1=true" disabled)
+                              i.glyphicon.glyphicon-calendar
+
+
+                    .form-group(stock-dict='create.Academicdegrees' dict-table='Academicdegree')
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Присуждаемая степень
+                      .col-md-7.col-sm-7.col-xs-12
+                        select.form-control(ng-model='create.degree_academicdegree', ng-options='item as item.name_ru for item in create.Academicdegrees | filter:{name_ru:search}')
+                    .form-group
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Специальность
+                        span.required *
+                      .col-md-7.col-sm-7.col-xs-12
+                        .input-group
+                          vak-spec(modelobject='create.degree_specialty' modelret='create.degree_specialty._id')
+                          span.input-group-btn
+                            button.btn.btn-secondary(type='button' ng-click="create.addDegreeSpeciality()")
+                              i.fa.fa-plus(aria-hidden='true' style="font-size: 130%;")
+                        ul.list-group(style="max-height:200px; overflow-y: auto;")
+                          li.list-group-item(ng-repeat="x in create.degree_specialities")
+                            label {{x.name}}
+                            a.btn.btn-sm.btn-primary.pull-right(ng-click="create.deleteDegreeSpeciality($index)")
+                              i.fa.fa-trash-o(aria-hidden='true' style="font-size: 130%;")
+                    .form-group
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Отрасль науки
+                        span.required *
+                      .col-md-7.col-sm-7.col-xs-12
+                        .input-group
+                          vak-bran(modelobject='create.degree_branchesofscience' modelret='create.degree_branchesofscience._id')
+                          span.input-group-btn
+                            button.btn.btn-secondary(type='button' ng-click="create.addDegreeBranchesofscience()")
+                              i.fa.fa-plus(aria-hidden='true' style="font-size: 130%;")
+                        ul.list-group(style="max-height:200px; overflow-y: auto;")
+                          li.list-group-item(ng-repeat="x in create.degree_branchesofsciences")
+                            label {{x.name}}
+                            a.btn.btn-sm.btn-primary.pull-right(ng-click="create.deleteDegreeBranchesofscience($index)")
+                              i.fa.fa-trash-o(aria-hidden='true' style="font-size: 130%;")
+
+                    .form-group
+                      label.control-label.col-md-2.col-sm-2.col-xs-12
+                      .col-md-7.col-sm-7.col-xs-12
+                        button.btn.btn-primary.m-b-lg(ng-click='create.putDataDegree()')
+                          | Добавить
+                    .row
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Шифр и название специальности, по которой проводится защита диссертации
+                      .col-md-7.col-sm-7.col-xs-12
+                        .ln_solid
+                          .wrapper
+                            table.table.table-user-information.table-striped
+                              tr(style='font-weight: bold')
+                                td(style='width:15%') Ученая степень
+                                td(style='width:20%') Отрасль науки
+                                td(style='width:15%') Специальность
+                                td(style='width:25%')
+                              tr(ng-repeat='degree in create.degrees')
+                                td
+                                  | {{ degree.academicdegree.name }}
+                                td
+                                  span(ng-repeat='branch in degree.branchesofscience')
+                                    span {{ branch.name }}
+                                    br
+                                td
+                                  span(ng-repeat='spec in degree.specialty')
+                                    span {{ spec.name }}
+                                    br
+                                td(style='white-space: nowrap')
+                                  .buttons
+                                    button.btn.btn-warning(tooltip='Изменить', ng-click='create.editDegree($index)')
+                                      i.glyphicon.glyphicon-pencil
+                                    button.btn.btn-danger(tooltip='Удалить', ng-click='create.confirmActionDegree($index)')
+                                      i.glyphicon.glyphicon-trash
+      .wrapper.lter
+        .panel.panel-danger
+          .panel-heading.font-bold Контакты
+          .panel-body
+            .row
+              .col.col-xs-12.col-sm-6.col-md-6
+                .form-group
+                  label Телефон
+                  .input-group
+                    input.form-control(type='number', ng-model='create.phone', ng-trim='true')
+                    span.input-group-btn
+                      button.btn.btn-secondary(type='button' ng-click="create.addPhone()")
+                        i.fa.fa-plus(aria-hidden='true' style="font-size: 130%;")
+                  ul.list-group(style="max-height:200px; overflow-y: auto;")
+                    li.list-group-item(ng-repeat="x in create.diss.data.phones")
+                      label {{x}}
+                      a.btn.btn-sm.btn-primary.pull-right(ng-click="create.deletePhone($index)")
+                        i.fa.fa-trash-o(aria-hidden='true' style="font-size: 130%;")
+              .col.col-xs-12.col-sm-6.col-md-6
+                .form-group
+                  label Адрес
+                  .input-group
+                    input.form-control(type='text', ng-model='create.address', ng-trim='true')
+                    span.input-group-btn
+                      button.btn.btn-secondary(type='button' ng-click="create.addAddress()")
+                        i.fa.fa-plus(aria-hidden='true' style="font-size: 130%;")
+                  ul.list-group(style="max-height:200px; overflow-y: auto;")
+                    li.list-group-item(ng-repeat="x in create.diss.data.addresses")
+                      label {{x}}
+                      a.btn.btn-sm.btn-primary.pull-right(ng-click="create.deleteAddress($index)")
+                        i.fa.fa-trash-o(aria-hidden='true' style="font-size: 130%;")
+              .col.col-xs-12.col-sm-6.col-md-6
+                .form-group
+                  label E-mail
+                  .input-group
+                    input.form-control(type='email', ng-model='create.email', ng-trim='true')
+                    span.input-group-btn
+                      button.btn.btn-secondary(type='button' ng-click="create.addEmail()")
+                        i.fa.fa-plus(aria-hidden='true' style="font-size: 130%;")
+                  ul.list-group(style="max-height:200px; overflow-y: auto;")
+                    li.list-group-item(ng-repeat="x in create.diss.data.emails")
+                      label {{x}}
+                      a.btn.btn-sm.btn-primary.pull-right(ng-click="create.deleteEmail($index)")
+                        i.fa.fa-trash-o(aria-hidden='true' style="font-size: 130%;")
+              .col.col-xs-12.col-sm-6.col-md-6
+                .form-group
+                  label Вебсайт
+                  .input-group
+                    input.form-control(type='text', ng-model='create.website', ng-trim='true')
+                    span.input-group-btn
+                      button.btn.btn-secondary(type='button' ng-click="create.addWebsite()")
+                        i.fa.fa-plus(aria-hidden='true' style="font-size: 130%;")
+                  ul.list-group(style="max-height:200px; overflow-y: auto;")
+                    li.list-group-item(ng-repeat="x in create.diss.data.websites")
+                      label {{x}}
+                      a.btn.btn-sm.btn-primary.pull-right(ng-click="create.deleteWebsite($index)")
+                        i.fa.fa-trash-o(aria-hidden='true' style="font-size: 130%;")
+      .wrapper.lter
+        .panel.panel-success
+          .panel-heading.font-bold Состав
+          .panel-body
+            .row
+              .form-horizontal.form-label-left
+                .form-group
+                  label.control-label.col-md-2.col-sm-2.col-xs-12 ФИО персоны
+                  .col-md-7.col-sm-7.col-xs-12
+                    vak-per(modelobject='create.user_person', modeldisplay, modelret='create.user_person.id')
+                .form-group
+                  label.control-label.col-md-2.col-sm-2.col-xs-12 по автореферату
+                  .col-md-7.col-sm-7.col-xs-12
+                    .input-group
+                      vak-spec(modelobject='create.refspecialty', modeldisplay, modelret='create.refspecialty._id')
+                      span.input-group-btn
+                        button.btn.btn-secondary(type='button' ng-click="create.addRefspecialty()")
+                          i.fa.fa-plus(aria-hidden='true' style="font-size: 130%;")
+                    ul.list-group(style="max-height:200px; overflow-y: auto;")
+                      li.list-group-item(ng-repeat="x in create.refspecialties")
+                        label {{ x.code }}
+                        a.btn.btn-sm.btn-primary.pull-right(ng-click="create.deleteRefspecialty($index)")
+                          i.fa.fa-trash-o(aria-hidden='true' style="font-size: 130%;")
+                .form-group
+                  label.control-label.col-md-2.col-sm-2.col-xs-12 по трудам
+                  .col-md-7.col-sm-7.col-xs-12
+                    .input-group
+                      vak-spec(modelobject='create.workspecialty', modeldisplay, modelret='create.workspecialty._id')
+                      span.input-group-btn
+                        button.btn.btn-secondary(type='button' ng-click="create.addWorkspecialty()")
+                          i.fa.fa-plus(aria-hidden='true' style="font-size: 130%;")
+                    ul.list-group(style="max-height:200px; overflow-y: auto;")
+                      li.list-group-item(ng-repeat="x in create.workspecialties")
+                        label {{ x.code }}
+                        a.btn.btn-sm.btn-primary.pull-right(ng-click="create.deleteWorkspecialty($index)")
+                          i.fa.fa-trash-o(aria-hidden='true' style="font-size: 130%;")
+                .form-group
+                  label.control-label.col-md-2.col-sm-2.col-xs-12 Роль
+                  .col-md-3.col-sm-3.col-xs-12
+                    select.form-control(name='singleSelect', ng-model='create.role')
+                      option(value='Председатель') Председатель
+                      option(value='Зам. председателя') Зам. председателя
+                      option(value='Ученый секретарь') Ученый секретарь
+                      option(value='Член') Член
+            .row
+              .col-md-3.col-sm-3.col-xs-12
+                  button.btn.btn-default(ng-click='create.addUser()') Добавить
+            .row
+              .wrapper
+                table.table.table-user-information
+                  tr(style='font-weight: bold')
+                    td(style='width:20%') ФИО
+                    td(style='width:15%') год рождение
+                    td(style='width:15%') Роль
+                    td(style='width:20%') по Автореферату
+                    td(style='width:20%') По трудам
+                    td(style='width:25%')
+                  tr(ng-repeat='comp in create.diss_users')
+                    td
+                      | {{comp.user.last_name}}
+                      | {{comp.user.first_name}}
+                      | {{comp.user.middle_name}}
+                    td
+                      | {{comp.user.birthday | amDateFormat:"DD.MM.YYYY"}}
+                    td
+                      | {{ comp.role }}
+                    td
+                      span(ng-repeat='degree in comp.abstract')
+                        span {{ degree.code}}
+                        br
+                    td
+                      span(ng-repeat='work in comp.work')
+                        span {{ work.code}}
+                        br
+                    td(style='white-space: nowrap')
+                      .buttons
+                        button.btn.btn-warning(tooltip='Редактировать', ng-click='create.editUser($index)')
+                          i.glyphicon.glyphicon-pencil
+                        button.btn.btn-danger(tooltip='Удалить', ng-click='create.confirmAction($index)')
+                          i.glyphicon.glyphicon-trash
+

@@ -1,0 +1,35 @@
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Пользователи
+    .panel-body
+      form(ng-submit='list.getUsers()')
+        .row
+          col-responsive
+            .form-group
+              label Фамилия:
+              input.form-control(type='text' ng-model="list.filter.last_name" placeholder='Введите фамилию')
+          col-responsive
+            .form-group
+              label Имя:
+              input.form-control(type='text' ng-model="list.filter.first_name" placeholder=' Введите имя')
+          col-responsive
+            .form-group
+              label Отчество:
+              input.form-control(type='text' ng-model="list.filter.middle_name" placeholder='Введите отчество')
+
+        .btn-group-sm
+          button.btn.btn-success(type='submit')
+            span.glyphicon.glyphicon-search.margin-right-8
+            span Найти
+          button.btn.btn-default(type='button'  ng-click='list.filter={}') Сбросить фильтры
+          .clearfix
+      .wrapper
+      button.btn.btn-primary.btn-sm(ng-click="list.newUser()") Добавить
+      button.btn.btn-default.btn-sm(ng-click="list.showUser()" ng-disabled="list.selected_user == null")
+        span Просмотр
+      button.btn.btn-default.btn-sm(ng-click="list.editUser(list.selected_user.id)" ng-disabled="list.selected_user == null")
+        span.glyphicon.glyphicon-pencil.margin-right-8
+        span Изменить
+      button.btn.btn-default.btn-sm(ng-click='list.getUsers()')
+        span.glyphicon.glyphicon-refresh
+      paged-table(options='list.usersGridOptions', disable-search='true' height='500px')

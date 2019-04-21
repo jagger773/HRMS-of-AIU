@@ -1,0 +1,20 @@
+.container.w-xxl.w-auto-xs
+  a.navbar-brand.block.m-t(ui-sref='ais') Высшая Аттестационная Коммисия КР
+  .m-b-lg
+    a(ui-sref='ais')
+      img(src='assets/images/logo.png', alt='Vak logo', style='width: 25%; display: block;  margin-left: auto; margin-right: auto')
+    .wrapper.text-center
+      h2 Регистрация
+    form.login-right.flex(layout="column" ng-submit="auth.register()")
+      div.form-group
+        input.form-control(type="email" placeholder="Email" ng-required='true'  ng-model='auth.email')
+      div.form-group
+        input.form-control(type="password" placeholder="Пароль"  ng-required='true' ng-model='auth.password')
+      div.form-group
+        div(vc-recaptcha='', key='auth.publicKey')
+      div
+        button.btn.btn-default.pull-right(ui-sref='ais') Отмена
+        button.btn.btn-primary.pull-right(type='submit' ng-disabled='auth.auth_loading') Зарегистрироваться
+
+
+

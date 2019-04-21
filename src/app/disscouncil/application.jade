@@ -1,0 +1,27 @@
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Подача заявления
+    .panel-body
+      .row
+        .col.col-xs-12.col-lg-12
+          .wrapper
+            form.form-horizontal.form-label-left(id="news-form")
+              //.form-group
+              //  label.control-label.col-md-2.col-sm-2.col-xs-12 Ученая степень
+              //  .col-md-7.col-sm-7.col-xs-12
+              //    ui-select.form-control(ng-model='application.newapp.degree' ng-required='true')
+              //      ui-select-match {{$select.selected.name}}
+              //      ui-select-choices(repeat='degree_id as degree in application.academic_degrees | filter: $select.search') {{degree.name}}
+
+              .form-group
+                label.control-label.col-md-2.col-sm-2.col-xs-12 Тема
+                .col-md-6.col-sm-6.col-xs-12
+                  ui-select.form-control(ng-model='application.newapp.theme' ng-required='true')
+                    ui-select-match {{$select.selected.name}}
+                    ui-select-choices(repeat='theme in application.themes | filter: $select.search') {{theme.name}}
+
+
+              .form-group
+                .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+                  button.btn.btn-default(type="button", ng-click="application.go('app.disscouncil.view', {disscouncil: application.diss})") {{ 'BACK_BUTTON_LABEL' | translate}}
+                  button.btn.btn-default(type="button", ng-click="application.send()") {{ 'APPLICATION_BUTTON_LABEL' | translate}}

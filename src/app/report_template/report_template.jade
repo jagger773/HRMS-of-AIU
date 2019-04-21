@@ -1,0 +1,20 @@
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Шаблоны отчетов
+    .panel-body
+      .form-group
+        button.btn.btn-primary(ui-sref='app.report_designer') Новый шаблон
+        button.btn.btn-default(ng-click='report_template.editTemplate()' ng-disabled='!report_template.selected_template') Редактировать
+        button.btn.btn-default(ng-click='report_template.getTemplates()')
+          span.glyphicon.glyphicon-refresh
+      paged-table(options='report_template.gridOptions' disable-search='true')
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Запросы отчетов
+    .panel-body
+      .form-group
+        button.btn.btn-primary(ng-click='report_template.newQuery()') Новый запрос
+        button.btn.btn-default(ng-click='report_template.editQuery()' ng-disabled='!report_template.selected_query') Редактировать
+        button.btn.btn-default(ng-click='report_template.getQueries()')
+          span.glyphicon.glyphicon-refresh
+      paged-table(options='report_template.queriesGridOptions' disable-search='true')

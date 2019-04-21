@@ -1,0 +1,45 @@
+// header
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold {{'DASHBOARD_PANEL_LABEL'|translate}}
+    .panel-body
+      h3.text-center Добро пожаловать в АИС ВАК
+      .row
+        .col.col-xs-12.col-lg-6
+          .clearfix
+            .avatar-holder.text-center
+              a
+                img.profile-image.img-circle(ng-src="{{app.api}}{{app.ua.data.image}}")
+          .text-center
+            h4 {{app.ua.data.surname}} {{app.ua.data.name}}
+            div @{{app.ua.username}} &bull; {{app.ua.rec_date | amDateFormat:'MMMM DD, YYYY, HH:mm:ss'}}
+            a(href='mailto:{{app.ua.email}}') {{app.ua.email}}
+        .col.col-xs-12.col-lg-6
+          .wrapper
+          table.table.table-user-information
+            tbody
+              tr
+                td E-mail:
+                td {{app.ua.email}}
+              tr
+                td Фамилия:
+                td {{app.ua.last_name}}
+              tr
+              tr
+                td Имя
+                td {{app.ua.first_name}}
+              tr
+                td Отчество
+                td {{app.ua.middle_name}}
+              tr
+                td Мобильный телефон
+                td {{app.ua.data.mobile}}
+              tr
+                td Рабочий телефон
+                td {{app.ua.data.phone}}
+              tr
+                td Дата рождения
+                td {{app.ua.birthday | amDateFormat: 'Do MMM YYYY'}}
+
+
+

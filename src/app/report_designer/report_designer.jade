@@ -1,0 +1,39 @@
+panel(title='Шаблон отчета')
+  form(ng-submit='report_designer.save()')
+    .from-group
+      button.btn.btn-primary(type='submit' ng-disabled='report_designer.saving || report_designer.loading') Сохранить
+    .row
+      col-responsive
+        .form-group
+          label Компания
+          company-select(company-id='report_designer.template.company_id')
+      col-responsive
+        .form-group
+          label Код
+          input.form-control(type='text' ng-model='report_designer.template.code' ng-required='true')
+      col-responsive
+        .form-group
+          label Наименование
+          input.form-control(type='text' ng-model='report_designer.template.name' ng-required='true')
+      col-responsive(stock-dict='report_designer.report_categories' dict-table='ReportCategories' dict-options='{onlyChildren:true}')
+        .form-group
+          label Категория
+          ui-select(ng-model='report_designer.template.report_category_id')
+            ui-select-match {{$select.selected.name}}
+            ui-select-choices(repeat='category._id as category in report_designer.report_categories' group-by='app.parentGroup') {{category.name}}
+      col-responsive
+        .form-group
+          label Коды запросов
+          json-field(ng-model='report_designer.template.report_queries_code')
+    .form-group
+      label Шаблон
+      textarea.form-control(rows=10 ng-model='report_designer.template.template')
+    .form-group
+      button.btn.btn-default.btn-sm(type='button' ng-click='report_designer.updateTemplate()') Обновить шаблон
+panel(title='Параметры запросов')
+  .form-group
+    json-field(ng-model='report_designer.report_queries_params')
+  .form-group
+    button.btn.btn-primary(ng-disabled='report_designer.loading' ng-click='report_designer.applyQueryCodes()') Применить коды запросов
+
+#reportDesigner

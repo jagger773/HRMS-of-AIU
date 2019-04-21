@@ -1,0 +1,14 @@
+//
+   Created by ilias on 21.06.2018.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Опыт работы
+    .panel-body
+      button.btn.btn-primary.btn-sm(ng-click="list.newUserWork()") Добавить
+        button.btn.btn-default.btn-sm(ng-click="list.editUserWork(list.selected_userwork)" ng-disabled="list.selected_userwork == null")
+          span.glyphicon.glyphicon-pencil.margin-right-8
+          span Изменить
+      button.btn.btn-default.btn-sm(ng-click='list.getUserWorks()')
+        span.glyphicon.glyphicon-refresh
+      paged-table(options='list.userworkGridOptions', disable-search='true', height='500px')

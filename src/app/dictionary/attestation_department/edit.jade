@@ -1,0 +1,12 @@
+//
+   Created by ilias on 19.06.2018.
+
+.row(ng-controller='Attestation_departmentController as attestation_department')
+  col-responsive
+    .form-group
+      label {{'NAME_RU_SPAN_LABEL'|translate}}
+      input.form-control(type='text' ng-model='edit.dictionary.name_ru' ng-required='true' ng-trim='true')
+  col-responsive
+    .form-group
+      label {{'NAME_KG_SPAN_LABEL'|translate}}
+      input.form-control(type='text' ng-model='edit.dictionary.name_kg' ng-required='true' ng-trim='true')

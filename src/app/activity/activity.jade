@@ -1,0 +1,38 @@
+vak-header
+.container#body
+  h3(style='text-align: center;')
+    strong Аттестационная деятельность
+  .row
+    .col-md-3
+      .panel
+        .panel-heading
+          .panel-title Разделы публикаций
+        .panel-body.side
+          ul.list-group.side
+            li.list-group-item.select
+              a(ui-sref='view')
+                span Научные кадры
+            li.list-group-item
+              a(ui-sref='aspirant')
+                span Список соискателей
+            li.list-group-item
+              a(ui-sref='dissov')
+                span {{'DISS_LABEL' | translate}}
+            li.list-group-item
+              a(ui-sref='activity')
+                span {{'THEMES_LABEL' | translate}}
+            li.list-group-item
+              a(ui-sref='activity')
+                span {{'LIST_OF_QUERY_LABEL' | translate}}
+            li.list-group-item
+              a(ui-sref='activity')
+                span Оппоненты
+            li.list-group-item
+              a(ui-sref='activity')
+                span Экспертная комиссия ДС
+            li.list-group-item
+              a(ui-sref='activity')
+                span Отклоненные диссертации
+    .col.col-xs-12.col-sm-8.col-md-9
+      ui-view
+vak-footer

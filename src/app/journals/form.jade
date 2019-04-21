@@ -1,0 +1,109 @@
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Добавление нового журнала
+    .panel-body
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          .x_panel
+            .x_content
+              form.form-horizontal.form-label-left(id="news-form")
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Название RU
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    input.form-control.col-md-7.col-xs-12(type="text", id="name_ru", name="name_ru", required="required", ng-model="form.journal.name_ru")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Название KG
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    input.form-control.col-md-7.col-xs-12(type="text", id="name_kg", name="name_kg", required="required", ng-model="form.journal.name_kg")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 О журнале
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    textarea.form-control.col-md-7.col-xs-12(id="about", name="about", cols="10", rows="5", required="required", ng-model="form.journal.about")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 ISSN печатной версии
+                    span.required  *
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="issn_print_v", name="issn_print_v", required="required", ng-model="form.journal.issn_print_v")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 ISSN электронной версии
+                    span.required  *
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="issn_electronic_v", name="issn_electronic_v", required="required", ng-model="form.journal.issn_electronic_v")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Подписной индекс
+                    span.required  *
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="signature_index", name="signature_index", required="required", ng-model="form.journal.signature_index")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Учредитель
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="founder", name="founder", required="required", ng-model="form.journal.founder")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Адрес
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="address", name="address", required="required", ng-model="form.journal.address")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Тел
+                    span.required  *
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="phone", name="phone", required="required", ng-model="form.journal.phones")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Факс
+                    span.required  *
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="fax", name="fax", required="required", ng-model="form.journal.fax")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Email
+                    span.required  *
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="email", name="email", required="required", ng-model="form.journal.email")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Информационная карта журнала в РИНЦ
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="info_card_rins", name="info_card_rins", ng-model="form.journal.info_card_rins")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Информационная карта журнала в Web of Science
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="info_card_wos", name="info_card_wos", ng-model="form.journal.info_card_wos")
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Информационная карта журнала в Scopus
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="info_card_scopus", name="info_card_scopus", ng-model="form.journal.info_card_scopus")
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Требования для авторов
+                  .col-md-6.col-sm-6.col-xs-12
+                    //input(type="file", flow-btn)
+                    file-load(file-src='form.journal.requirements', type='pdf', allow="pdf")
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Обложка журнала
+                  .col-md-6.col-sm-6.col-xs-12(flow-init='{singleFile:true}')
+                    .clearfix.pull-left
+                      img.profile-image-lg(ng-src="{{app.api}}{{form.journal.img_url}}")
+                    h5 Загрузить новую обложку
+                    span.btn.btn-default.margin-right-8(flow-btn flow-file-added="form.imageSelected($event, $flow, $file)") Выбрать файл...
+                    span {{$flow.files[0].name}}
+
+                .form-group
+                  .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+                    button.btn.btn-default(type="button", ng-click="form.goBack()") Отмена
+                    button.btn.btn-primary(type="button", ng-click="form.saveJournal()", ng-disabled='form.isSaving') Сохранить
+
+

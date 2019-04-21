@@ -1,0 +1,37 @@
+vak-header
+.container#body
+  h3(style='text-align: center;')
+    strong Нормативные документы
+  .row
+    .sidenav.col-md-3.col-sm-3.col-xs-12
+      .panel
+        .panel-heading
+          .panel-title Разделы нормативных документов
+        .panel-body.side
+          ul.list-group
+            li.list-group-item(ng-repeat="department in regulations.departments" ng-click="regulations.getRegulations(department._id)") {{department.name_ru}}
+            li.list-group-item(ng-click="regulations.goToAnti()") {{'ANTI_PLAGIARISM_LABEL' | translate}}
+
+    .col-md-9.col-sm-9.col-xs-12
+      .panel
+        .panel-heading
+          .panel-title {{'REGULATIONS_LABEL' | translate}}
+        .panel-body
+        table#dev-table.table.table-hover.table-bordered
+          thead
+            tr
+              th #
+              th {{'NAME_RU_LABEL' | translate}}
+              th {{'NAME_KG_LABEL' | translate}}
+              th {{'FILE_LABEL' | translate}}
+          tbody
+            tr(ng-repeat='regulation in regulations.regulations.list')
+              td {{$index+1}}
+              td {{regulation.name_ru}}
+              td {{regulation.name_kg}}
+              td
+                a(href="{{regulations.link + regulation.file}}" target="_blank")  {{'DOWNLOAD_FILE' | translate}}
+
+vak-footer
+
+

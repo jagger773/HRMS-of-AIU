@@ -1,0 +1,38 @@
+//
+   Created by ilias on 21.06.2018.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Ученая степень
+    .panel-body
+      button.btn.btn-default.btn-sm(ng-click='list.getUserdegrees()')
+        span.glyphicon.glyphicon-refresh
+      .wrapper
+        table.table.table-user-information
+          tr(style='font-weight: bold')
+            td(style='width:15%') Код
+            td(style='width:15%') Статус
+            td(style='width:15%') Дата утв.
+            td(style='width:15%') Тип документа
+            td(style='width:10%') Документ loc
+            td(style='width:10%') Степень
+            td(style='width:30%') Специальность
+            td(style='width:20%') Комментарии
+          tr(ng-repeat="degree in list.userdegrees | orderBy:'-date'")
+            td
+              | {{ degree.document_code }}
+            td
+              | {{ degree.actiontype.name_ru }}
+            td
+              | {{ degree.action_date | amDateFormat:"MMM YYYY" }}
+            td
+              | {{ degree.documenttype.name_ru }}
+            td
+              | {{ degree.document_location }}
+            td
+              | {{ degree.academicdegree.name_ru }}
+            td
+              span(ng-repeat='spec in degree.degreespeciality')
+                span {{ spec.specialty.code }}-{{ spec.specialty.name_ru }}
+                br
+      //paged-table(options='list.userdegreeGridOptions', disable-search='true', height='500px')

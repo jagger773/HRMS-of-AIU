@@ -1,0 +1,21 @@
+{
+	"PLURAL": "{GENDER, select, male{He} female{She} other{They}} liked this.",
+	"LOGOUT": "Выйти",
+	"ADMINISTRATION": "Администрирование",
+	"USER": "Пользователь",
+
+	"DIALOGS_ERROR": "Ошибка",
+	"DIALOGS_ERROR_MSG": "Произошла неизвестная ошибка.",
+	"DIALOGS_CLOSE": "Закрыть",
+	"DIALOGS_PLEASE_WAIT": "Пожалуйста, подождите",
+	"DIALOGS_PLEASE_WAIT_ELIPS": "Пожалуйста, подождите...",
+	"DIALOGS_PLEASE_WAIT_MSG": "Ожидание завершения действия.",
+	"DIALOGS_PERCENT_COMPLETE": "% завершено",
+	"DIALOGS_NOTIFICATION": "Информация",
+	"DIALOGS_NOTIFICATION_MSG": "Unknown application notification.",
+	"DIALOGS_CONFIRMATION": "Подтверждение",
+	"DIALOGS_CONFIRMATION_MSG": "Необходимо подтверждение.",
+	"DIALOGS_OK": "OK",
+	"DIALOGS_YES": "Да",
+	"DIALOGS_NO": "Нет"
+}

@@ -1,0 +1,101 @@
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Добавление нового журнала
+    .panel-body
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          .x_panel
+            .x_content
+              form.form-horizontal.form-label-left(id="news-form")
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Название RU
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    input.form-control.col-md-7.col-xs-12(type="text", id="name_ru", name="name_ru", required="required", ng-model="view.journal.name_ru", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Название KG
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    input.form-control.col-md-7.col-xs-12(type="text", id="name_kg", name="name_kg", required="required", ng-model="view.journal.name_kg", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 О журнале
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    textarea.form-control.col-md-7.col-xs-12(id="about", name="about", cols="10", rows="5", required="required", ng-model="view.journal.about", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 ISSN печатной версии
+                    span.required  *
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="issn_print_v", name="issn_print_v", required="required", ng-model="view.journal.issn_print_v", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 ISSN электронной версии
+                    span.required  *
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="issn_electronic_v", name="issn_electronic_v", required="required", ng-model="view.journal.issn_electronic_v", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Подписной индекс
+                    span.required  *
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="signature_index", name="signature_index", required="required", ng-model="view.journal.signature_index", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Учредитель
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="founder", name="founder", required="required", ng-model="view.journal.founder", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Адрес
+                    span.required  *
+                  .col-md-6.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="address", name="address", required="required", ng-model="view.journal.address", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Тел
+                    span.required  *
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="phone", name="phone", required="required", ng-model="view.journal.phones", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Факс
+                    span.required  *
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="fax", name="fax", required="required", ng-model="view.journal.fax", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Email
+                    span.required  *
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="email", name="email", required="required", ng-model="view.journal.email", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Информационная карта журнала в РИНЦ
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="info_card_rins", name="info_card_rins", ng-model="view.journal.info_card_rins", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Информационная карта журнала в Web of Science
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="info_card_wos", name="info_card_wos", ng-model="view.journal.info_card_wos", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Информационная карта журнала в Scopus
+                  .col-md-3.col-sm-6.col-xs-12
+                    input.form-control.col-md-6.col-xs-12(type="text", id="info_card_scopus", name="info_card_scopus", ng-model="view.journal.info_card_scopus", disabled)
+
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Требования для авторов
+                  .col-md-6.col-sm-6.col-xs-12
+                    //input(type="file", flow-btn)
+                    file-load(file-src='view.journal.requirements', type='pdf', allow="pdf", disabled)
+
+                .form-group
+                  .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+                    button.btn.btn-default(type="button", ng-click="view.goBack()") {{ 'BACK_BUTTON_LABEL' | translate}}
+
+

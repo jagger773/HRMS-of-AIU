@@ -1,0 +1,46 @@
+//
+   Created by ilias on 19.05.2018.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Диссертационные советы
+    .panel-body
+      button.btn.btn-primary.btn-sm(ng-click="list.newDiss()") Добавить
+      button.btn.btn-default.btn-sm(ng-click="list.showDiss()" ng-disabled="list.selected_work == null")
+        span Просмотр
+      button.btn.btn-default.btn-sm(ng-click="list.editDiss()" disabled)
+        span Изменить
+      button.btn.btn-danger(type="button", ng-click="list.removeDiss()",ng-disabled="list.selected_work == null")
+        span {{'DELETE_BUTTON_LABEL'|translate}}
+      button.btn.btn-default.btn-sm(ng-click='list.getDiss()')
+        span.glyphicon.glyphicon-refresh
+      .wrapper
+      table.table.table-bordered
+        thead
+          tr
+            th
+            th Наименование организации, при которой функционирует ДС и шифр совета
+            th Отрасль науки, по которой присуждается ученая степень
+            th Шифр и название специальности, по которой проводится защита диссертации
+        tbody(ng-repeat='dis in list.diss')
+          tr.work(ng-click='list.rowValue(dis)', ng-class="{'selected-row':list.isSelected(dis)}" )
+            td {{$index+1}}
+            td
+              span(ng-repeat='org in dis.organizations')
+                span {{org.organization.name_ru}}
+                br
+              span(style="font-weight:bold") {{dis.code}}
+              br
+              span Срок полномочий до {{dis.date_end | amDateFormat:"DD.MM.YYYY" }}
+            td
+              span(ng-repeat='degree in dis.programs')
+                span.radius-label {{ degree.academicdegree.name_ru }}
+                span {{ degree.branchesofscience.name_ru }}
+                br
+            td
+              span(ng-repeat='degree in dis.programs')
+                span {{degree.specialty.code}}-{{degree.specialty.name_ru}}
+                br
+
+
+

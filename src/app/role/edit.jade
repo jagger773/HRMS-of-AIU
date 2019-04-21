@@ -1,0 +1,46 @@
+
+form(ng-submit='role.saveRole()')
+  .modal-header
+    h3 Роль
+  .modal-body
+    .row
+      col-responsive
+        .form-group
+          label Название
+          input.form-control(type='text', ng-model='role.role.name', ng-required='true' ng-trim='true')
+        .form-group
+          label Имя роли для одобрения
+          input.form-control(type='text', ng-model='role.role.data.approval_name', ng-required='true'  ng-trim='true')
+      col-responsive
+        label Права
+        .form-group
+          label.form-control
+            input(type='checkbox', ng-model='role.role.data.read', disabled='true')
+            span &nbsp;Чтение
+        .form-group
+          label.form-control
+            input(type='checkbox', ng-model='role.role.data.write')
+            span &nbsp;Редактирование
+        .form-group
+          label.form-control
+            input(type='checkbox', ng-model='role.role.data.delete')
+            span &nbsp;Удаление
+      col-responsive
+        .form-group
+          label Меню
+          ul.menu_tree
+            li.menu_tree_item(ng-repeat='menu in role.menus| filter: {parent_id:null}' ng-init='collapsed=true')
+              .menu_tree_toggle(ng-click='collapsed=!collapsed')
+                .fa.fa-caret-right(ng-show='collapsed')
+                .fa.fa-caret-down(ng-show='!collapsed')
+              label.checkbox-inline
+                input(type='checkbox' ng-model='menu.selected' ng-change='role.menuCheckedChange(menu)')
+                span {{menu.name}}
+              ul.menu_tree(uib-collapse='collapsed')
+                li.menu_tree_item(ng-repeat='menu_child in role.menus | filter: {parent_id:menu._id}')
+                  label.checkbox-inline
+                    input(type='checkbox' ng-model='menu_child.selected' ng-change='role.menuCheckedChange(menu_child)')
+                    span {{menu_child.name}}
+  .modal-footer
+    button.btn.btn-primary.btn-sm.pull-right(ng-disabled='role.saving===true' type='submit') Сохранить
+    button.btn.btn-warning.btn-sm.pull-right(ng-disabled='role.saving===true' type='button', ng-click='role.cancel()') Отмена

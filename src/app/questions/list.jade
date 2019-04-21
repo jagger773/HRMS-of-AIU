@@ -1,0 +1,49 @@
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold {{ 'PERSON_NAME_LABEL' | translate }}
+    .panel-body
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          .x_panel
+            .x_title
+              h2 {{ 'SEARCHFILTER_BUTTON_LABEL' | translate }}
+              .clearfix
+            .x_content
+              .row
+                .col-md-3.col-sm-12.col-xs-12.form-group
+                  label.control-label {{ 'PERSON_NAME_LABEL' | translate }}
+                  input.form-control(type="text", ng-model="list.searchValues.name")
+                .col-md-3.col-sm-12.col-xs-12.form-group
+                  label.control-label {{ 'DATE_CREATION_LABEL_FROM' | translate }}
+                  .input-group.no-margin
+                    input.form-control(type="text", name="valid_from", ng-model="list.searchValues.created_from", uib-datepicker-popup="dd.MM.yyyy", datepicker-options="list.dateOptions", is-open="list.dateOptions.opened1", close-text="{{ 'CLOSE_BUTTON_LABEL' | translate}}", current-text="{{ 'TODAY_BUTTON_LABEL' | translate}}", clear-text="{{ 'CLEAR_BUTTON_LABEL' | translate}}")
+                    span.input-group-btn
+                      button.btn.btn-default(type="button", ng-click="list.dateOptions.opened1 = true")
+                        i.glyphicon.glyphicon-calendar
+                .col-md-3.col-sm-12.col-xs-12.form-group
+                  label.control-label {{ 'DATE_CREATION_LABEL_TO' | translate }}
+                  .input-group.no-margin
+                    input.form-control(type="text", name="valid_to", ng-model="list.searchValues.created_to", uib-datepicker-popup="dd.MM.yyyy", datepicker-options="list.dateOptions", is-open="list.dateOptions.opened2", close-text="{{ 'CLOSE_BUTTON_LABEL' | translate}}", current-text="{{ 'TODAY_BUTTON_LABEL' | translate}}", clear-text="{{ 'CLEAR_BUTTON_LABEL' | translate}}")
+                    span.input-group-btn
+                      button.btn.btn-default(type="button", ng-click="list.dateOptions.opened2 = true")
+                        i.glyphicon.glyphicon-calendar
+                .col-md-3.col-sm-12.col-xs-12.form-group
+                  label.control-label {{ 'ACTIVE_LABEL' | translate }}
+                  select.form-control(ng-model="list.searchValues.is_active")
+                    option(value="all") {{ 'EVERY_LABEL' | translate }}
+                    option(value="yes") {{ 'ACTIVE_LABEL' | translate }}
+                    option(value="no") {{ 'NON_ACTIVE_LABEL' | translate }}
+              .row
+                .col-md-4.col-sm-12.col-xs-12
+                  button.btn.btn-default(type="button", ng-click="list.getQuestions()") {{ 'SEARCH_BUTTON_LABEL' | translate }}
+                  button.btn.btn-primary(type="button", ng-click="list.openEditForm()", ng-disabled="!list.selected_questions")
+                    span.glyphicon.glyphicon-pencil.margin-right-8
+                    span {{'ANSWER_TO_QUESTION_LABEL'|translate}}
+                  button.btn.btn-danger(type="button", ng-click="list.removeNews()",ng-disabled="!list.selected_questions")
+                    span {{'DELETE_BUTTON_LABEL'|translate}}
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          .row
+            .col-md-12
+              paged-table(options='list.gridOptions', disable-search='false')
+

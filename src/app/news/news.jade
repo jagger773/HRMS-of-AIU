@@ -1,0 +1,32 @@
+vak-header
+.container#body
+  h3(style='text-align: center;')
+    strong Новости и публикации
+  .row
+    .sidenav.col-md-3.col-sm-3.col-xs-12
+      .panel
+        .panel-heading
+          .panel-title Разделы публикации
+        .panel-body.side
+          ul.list-group
+            li.list-group-item(ng-repeat="sectionsofpublication in news.sectionsofpublications | orderBy:'order'" ng-click="news.getNews(sectionsofpublication._id)") {{sectionsofpublication.name_ru}}
+
+    .col-md-9.col-sm-9.col-xs-12
+      .panel
+        .panel-heading
+          .panel-title
+        .panel-body
+        table#dev-table.table.table-hover.table-bordered
+          thead
+            tr
+              th №
+              th Наименование
+              th Дата создания
+          tbody
+            tr(ng-repeat="new in news.news | orderBy:'-created_from'" ng-click='news.goToAdvertsPage(new)')
+              td {{$index+1}}
+              td {{new.name_ru}}
+              td
+                time.comment-date {{new.created_from | amDateFormat:'DD MMM YYYY'}}
+vak-footer
+

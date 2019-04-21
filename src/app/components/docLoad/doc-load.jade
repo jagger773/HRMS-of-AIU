@@ -1,0 +1,45 @@
+.file-load
+  .bdr.bdr-v
+    .bdr-h
+  .file-content(tabindex='0' flow-init flow-object='file.flow')
+    .file-thumbnail
+      img(ng-src='assets/pdf/default/pdf_icon.svg')
+    .file-opt
+      .file-icon
+        span.glyphicon.glyphicon-file
+      .file-info
+        div(ng-repeat='file_item in $flow.files | limitTo: 1')
+          uib-progressbar.progress-xs(max="file_item.size" value="file_item.sizeUploaded()" ng-class='{active: file_item.isUploading(), success: file_item.isComplete()}')
+          div
+            .file-name
+              span {{file_item.name}}
+            .file-size
+              span {{file_item.size|fileSize}}
+          .file-btns
+            .btn-group-sm
+              button.btn.btn-default(type='button' uib-tooltip='Загрузить новый' tooltip-append-to-body='true' flow-btn ng-hide='file.isUploading()')
+                span.glyphicon.glyphicon-cloud-upload
+              button.btn.btn-warning(type='button' uib-tooltip='Повторить' tooltip-append-to-body='true' ng-click='file_item.retry()' ng-show='file_item.error')
+                span.glyphicon.glyphicon-refresh
+        div(ng-if='$flow.files.length==0 && file.file')
+          div
+            .file-name
+              span {{file.file.name}}
+            .file-size
+              span {{file.file.size|fileSize}}
+          .file-btns
+            .btn-group-sm
+              button.btn.btn-default(type='button' uib-tooltip='Загрузить новый' tooltip-append-to-body='true' flow-btn)
+                span.glyphicon.glyphicon-cloud-upload
+              a.btn.btn-primary(href='{{file.api + fileSrc}}' target='_blank' uib-tooltip='Скачать' tooltip-append-to-body='true')
+                span.glyphicon.glyphicon-download-alt
+        div(ng-if='$flow.files.length==0 && !file.file')
+          div
+            .file-name
+              span Выберите файл
+            .file-size
+          .file-btns
+            .btn-group-sm
+              button.btn.btn-default(type='button' uib-tooltip='Загрузить новый' tooltip-append-to-body='true' flow-btn)
+                span.glyphicon.glyphicon-cloud-upload
+                |   Выбрать

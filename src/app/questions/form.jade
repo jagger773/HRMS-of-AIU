@@ -1,0 +1,28 @@
+.container
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 {{ 'NEWS_CREATE_LABEL' | translate}}
+          .clearfix
+        .x_content
+          form.form-horizontal.form-label-left(id="news-form")
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'LINK_LABEL' | translate}}
+                span.required *
+              .col-md-6.col-sm-6.col-xs-12
+                textarea.form-control.col-md-7.col-xs-12(id="answer", name="answer", width="100", height="80", required="required", ng-model="form.questionsItem.answer")
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'ACTIVE_LABEL' | translate}}
+                span.required *
+              .col-md-6.col-sm-6.col-xs-12
+                .checkbox
+                  label
+                    input.flat(type="checkbox", checked="checked", ng-model="form.questionsItem.is_active")
+            .form-group
+              .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+                button.btn.btn-default(type="button", ng-click="form.goBack()") {{ 'CANCEL_BUTTON_LABEL' | translate}}
+                button.btn.btn-primary(type="button", ng-click="form.saveQuestions()") {{ 'SAVE_BUTTON_LABEL' | translate}}
+
+
+

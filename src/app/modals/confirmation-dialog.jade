@@ -1,0 +1,10 @@
+//
+   Created by troy on 30.11.2016.
+
+.panel.panel-default
+  .panel-heading Окно подтверждения!
+  .panel-body
+    | Вы уверены {{profile_dialog.text.text}}
+  .panel-footer
+    button#delete.btn.btn-success(type='button', ng-click="profile_dialog.ok()") ДА
+    button.btn.btn-primary(type='button', ng-click="profile_dialog.cancel()") НЕТ

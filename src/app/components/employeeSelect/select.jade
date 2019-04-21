@@ -1,0 +1,29 @@
+
+.modal-header
+  h3 Выбрать сотрудника
+.modal-body
+  .row
+    .col.col-xs-12.col-sm-12.col-md-4
+      form.form-horizontal(ng-submit='employee.searchEmployees()')
+        .form-group
+          label Имя пользователя
+          input.form-control(type='search' ng-model='employee.search_name')
+        .from-group(stock-dict='edit.accesses' dict-table='Enums' dict-filter='{name:"access"}')
+          label Доступ
+          ui-select(ng-model='employee.access')
+            ui-select-match(allow-clear='true') {{$select.selected.data.name}}
+            ui-select-choices(repeat='access.data.key as access in edit.accesses | filter:$select.search track by access.data.key') {{access.data.name}}
+        .from-group(stock-dict='edit.roles' dict-table='Roles')
+          label Роль
+          ui-select(ng-model='employee.role_id' ng-disabled='employee.desabled_role==false')
+            ui-select-match(allow-clear='true') {{$select.selected.name}}
+            ui-select-choices(repeat='role._id as role in edit.roles | filter:{name:$select.search} track by role._id') {{role.name}}
+        .from-group(stock-dict='employee.branches' dict-table='Branches')
+          label Филиал
+          branch-select(ng-model='employee.branch_id' branches='employee.branches')
+        button.btn.btn-success(type='submit') Показать
+    .col.col-xs-12.col-sm-12.col-md-8
+      paged-table(options='employee.gridOptions' disable-search='true')
+.modal-footer
+  button.btn.btn-default(type='button' ng-click='employee.cancel()') Отмена
+  button.btn.btn-primary(ng-disabled='!employee.selected_employee' ng-click='employee.selectEmployee()') Принять

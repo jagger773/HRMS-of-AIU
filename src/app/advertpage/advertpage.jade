@@ -1,0 +1,31 @@
+vak-header
+.container#body
+  h2.center {{advertpage.adverts.name_ru}}
+  br
+  .wrapper.lter.b-b
+    .panel.panel-info
+      .panel-heading.font-bold
+        .panel.title Создано:
+          time.comment-date {{advertpage.adverts.created_from | amDateFormat:'DD MMM YYYY HH:mm'}}
+        .panel-body.actual
+          div.container
+            div.col-sm-10.col-md-10
+              div.row
+                div.form-group
+                  div.col-sm-12.col-md-12
+                    h4 Тема: {{advertpage.adverts.name_ru}}
+                    div(dynamic='advertpage.adverts.description')
+                    div Ссылка: {{advertpage.adverts.link}}
+            .row
+              div.col-md-2
+                h6(ng-show="advertpage.adverts.files.length > 0")
+                  h4 Прикрепленные документы:
+                    div(ng-repeat="files in advertpage.adverts.files")
+                      span.glyphicon.glyphicon-file
+                        a.col.padder-v(ng-href="{{advertpage.api}}_uploads/defaults/{{files.filename}}" target="_blank")
+                          span {{files.filename}}
+          .pull-right
+            button.btn.btn-primary(type="button",  ui-sref='news') Вернуться назад
+  vak-footer
+
+

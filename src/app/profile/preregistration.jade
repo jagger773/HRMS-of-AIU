@@ -1,0 +1,351 @@
+//
+   Created by admin on 26.06.2018.
+
+.wrapper.lter.b-b
+  .row
+    .col.col-xs-12.col-lg-12
+      .panel.panel-info
+        .panel-heading
+          h3.panel-title Пожалуйста, заполните ваши данные
+        .panel-body
+          wizard(hide-indicators="false" indicators-position="top")
+            wz-step(wz-title="Основные данные")
+              form.form-horizontal.form-label-left
+                .row
+                  .col-md-4.col-sm-4.col-xs-4
+                  .col-md-4.col-sm-4.col-xs-4
+                    .well.well-sm.text-center
+                      h2 Основные данные
+                      //pre.text-left {{new_product.new_product|json}}
+                  .col-md-4.col-sm-4.col-xs-4
+                    .btn-group.pull-right
+                      //a.btn.btn-success(wz-next="import.read()" ng-disabled="!import.fileData") Дальше
+                      a.btn.btn-success(wz-next="preregistration.putData()")
+                        span Дальше
+                        i.fa.fa-long-arrow-right(aria-hidden='true')
+
+                .container
+                  .row
+                    .col.col-xs-12.col-lg-3
+                      h4 Аватар пользователя
+                      p Здесь вы можете поменять ваш аватар или удалить.
+                    .col.col-xs-12.col-lg-9(flow-init='{singleFile:true}')
+                      .clearfix.pull-left
+                        img.profile-image-lg(ng-src="{{app.api}}{{preregistration.profile.data.image}}")
+                      h5 Загрузить новый аватар
+                      span.btn.btn-default.margin-right-8(flow-btn flow-file-added="preregistration.imageSelected($event, $flow, $file)") Выбрать файл...
+                      span {{$flow.files[0].name}}
+                      hr
+                      btn.btn.btn-default(ng-click='preregistration.profile.data.image="image/user/default/user_icon.png"') Удалить аватар
+                  .ln_solid
+                  .row
+                        form.form-horizontal
+                          .col.col-xs-12.col-lg-3
+                            h4 Основные параметры
+                            p Эта информация доступна в вашем профиле.
+                          .col.col-xs-12.col-lg-9
+                            .form-group
+                              label E-mail
+                              input.form-control(type='text' ng-model='preregistration.profile.email' ng-trim='true' ng-required='true')
+                            .form-group
+                              label Фамилия
+                              input.form-control(type='text' ng-model='preregistration.profile.last_name' ng-trim='true')
+                            .form-group
+                              label Имя
+                              input.form-control(type='text' ng-model='preregistration.profile.first_name' ng-trim='true')
+                            .form-group
+                              label Отчество
+                              input.form-control(type='text' ng-model='preregistration.profile.middle_name' ng-trim='true')
+                            .form-group
+                              label Адрес
+                              input.form-control(type='text' ng-model='preregistration.profile.data.address' ng-trim='true')
+                            .form-group
+                              label Мобильный телефон
+                              input.form-control(type='text' ng-model='preregistration.profile.data.mobile' ng-trim='true')
+                            .form-group
+                              label Рабочий телефон
+                              input.form-control(type='text' ng-model='preregistration.profile.data.phone' ng-trim='true')
+                            .form-group
+                              label Дата рождения
+                              .input-group.no-margin
+                                input.form-control(type="text" uib-datepicker-popup min-date="preregistration.today" ng-click="preregistration.search.popup_to_date.opened=true" ng-model="preregistration.profile.birthday" is-open="preregistration.search.popup_to_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                                span.input-group-btn
+                                  button.btn.btn-default(type="button" ng-click="preregistration.search.popup_to_date.opened=true")
+                                    i.glyphicon.glyphicon-calendar
+                            .form-group(stock-dict='preregistration.Citizenship' dict-table='Citizenship')
+                              label Гражданство
+                              select.form-control(ng-model='preregistration.profile.citizenship_id', ng-options='item._id as item.name_ru for item in preregistration.Citizenship | filter:{name_ru:search}')
+                            .form-group(stock-dict='preregistration.Nationality' dict-table='Nationality')
+                              label Национальность
+                              select.form-control(ng-model='preregistration.profile.nationality_id', ng-options='item._id as item.name_ru for item in preregistration.Nationality | filter:{name_ru:search}')
+                            .form-group
+                              label Место рождения
+                              input.form-control(type='text' ng-model='preregistration.profile.birthplace')
+            wz-step(wz-title="Образование")
+              div(dynamic="html")
+              form.form-horizontal.form-label-left
+                .row
+                  .col-md-4.col-sm-4.col-xs-4
+                  .col-md-4.col-sm-4.col-xs-4
+                    .well.well-sm.text-center
+                      h2 Заполните образование
+                  .col-md-4.col-sm-4.col-xs-4
+                    .btn-group.pull-right
+                      a.btn.btn-primary(wz-previous="import.clear()")
+                        span Назад
+                        i.fa.fa-long-arrow-left(aria-hidden='true')
+                      a.btn.btn-success(wz-next)
+                        span Дальше
+                        i.fa.fa-long-arrow-right(aria-hidden='true')
+                .container
+                  .row
+                    .wrapper(ng-show="preregistration.education==null")
+                      table.table.table-user-information
+                        thead
+                          tr
+                            th Дата
+                            th Учебное заведение
+                            th Cпециальность
+                            th Страна
+                            th Вид обучения
+                            th Форма обучения
+                            th
+                        tbody(ng-repeat='ed in preregistration.educations')
+                          tr
+                            td {{ ed.date_start | amDateFormat: 'MMM YYYY'}}-{{ ed.date_end | amDateFormat: 'MMM YYYY'}}
+                            td
+                              span {{ ed.org_name }}
+                            td
+                              span {{ ed.faculty }}
+                            td
+                              span {{ ed.country.name_ru }}
+                            td
+                              span  {{ ed.typeofgraduate.name_ru }}
+                            td
+                              span {{ ed.typeoftraining.name_ru }}
+                            td
+                              span(file-link='{{ed.data.doc}}')
+                            td(style='white-space: nowrap')
+                              .buttons
+                                button.btn.btn-primary(tooltip='Изменить', ng-click='preregistration.editEducation(ed)')
+                                  i.glyphicon.glyphicon-pencil
+                                button.btn.btn-danger(tooltip='Удалить', ng-click='preregistration.confirmAction(ed)')
+                                  i.glyphicon.glyphicon-minus
+                      button.btn.btn-default(ng-click='preregistration.editEducation({})') Добавить
+                    .wrapper
+                    .row(ng-show="preregistration.education != null")
+                      .col.col-xs-12.col-lg-3
+                        h4 Информация об образовании
+                        p Эта информация доступна в вашем профиле.
+                      .col.col-xs-12.col-lg-9
+                        .form-group
+                          label Учебное заведение
+                          vak-org(modeldisplay='preregistration.education.organization.name_ru', modelret='preregistration.education.organization_id')
+                        .form-group
+                          label Факультет, специальность, Квалификация
+                          input.form-control(type='text' ng-model='preregistration.education.faculty' ng-trim='true')
+                        .form-group(stock-dict='preregistration.Countries' dict-table='Countries' )
+                          label Страна
+                          select.form-control(ng-model='preregistration.education.country_id', ng-options='item._id as item.name_ru for item in preregistration.Countries | filter:{name_ru:search}')
+                        .form-group(stock-dict='preregistration.Typeofgraduate' dict-table='Typeofgraduate' )
+                          label Вид обучения
+                          select.form-control(ng-model='preregistration.education.typeofgraduate_id', ng-options='item._id as item.name_ru for item in preregistration.Typeofgraduate | filter:{name_ru:search}')
+                        .form-group(stock-dict='preregistration.Typeoftraining' dict-table='Typeoftraining' )
+                          label Форма обучения
+                          select.form-control(ng-model='preregistration.education.typeoftraining_id', ng-options='item._id as item.name_ru for item in preregistration.Typeoftraining | filter:{name_ru:search}')
+                        .form-group
+                          label Дата поступления
+                          .input-group.no-margin
+                            input.form-control(type="text" uib-datepicker-popup="dd.MM.yyyy"  ng-click="form.search.popup_to_date.opened1=true" ng-model="preregistration.education.date_start" is-open="preregistration.search.popup_to_date.opened1", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                            span.input-group-btn
+                              button.btn.btn-default(type="button" ng-click="preregistration.search.popup_to_date.opened1=true")
+                                i.glyphicon.glyphicon-calendar
+                        .form-group
+                          label Дата окончания
+                          .input-group.no-margin
+                            input.form-control(type="text"  uib-datepicker-popup="dd.MM.yyyy"   ng-click="preregistration.search.popup_from_date.opened=true" ng-model="preregistration.education.date_end" is-open="preregistration.search.popup_from_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                            span.input-group-btn
+                              button.btn.btn-default(type="button"  ng-click="preregistration.search.popup_from_date.opened=true")
+                                i.glyphicon.glyphicon-calendar
+                        .form-group
+                          div
+                            file-load(file-src='preregistration.education.data.doc' type='pdf')
+                        br
+                        button.btn.btn-primary.m-b-lg(ng-click='preregistration.putDataEducation()')
+                          | Сохранить
+                        button.btn.btn-default.m-b-lg(ng-click='preregistration.cancelEducation()')
+                          | Отмена
+            wz-step(wz-title="Опыт работы")
+              div(dynamic="html")
+              form.form-horizontal.form-label-left
+                .row
+                  .col-md-4.col-sm-4.col-xs-4
+                  .col-md-4.col-sm-4.col-xs-4
+                    .well.well-sm.text-center
+                      h2 Заполните Ваш опыт работы
+                  .col-md-4.col-sm-4.col-xs-4
+                    .btn-group.pull-right
+                      a.btn.btn-primary(wz-previous="import.clear()")
+                        span Назад
+                        i.fa.fa-long-arrow-left(aria-hidden='true')
+                      a.btn.btn-success(wz-next )
+                        span Дальше
+                        i.fa.fa-long-arrow-right(aria-hidden='true')
+                .container
+                  .row
+                  .wrapper(ng-show="preregistration.work == null")
+                    table.table.table-user-information
+                      tr(style='font-weight: bold')
+                        td(style='width:15%') Период
+                        td(style='width:20%') Организация
+                        td(style='width:15%') Должность
+                        td(style='width:20%') Страна
+                        td(style='width:20%') Город
+                        td(style='width:25%')
+                      tr(ng-repeat='work in preregistration.works')
+                        td
+                          | {{ work.date_start | amDateFormat:"MMM YYYY"}}-{{ work.date_end | amDateFormat:"MMM YYYY"}}
+                        td
+                          | {{ work.org_name }}
+                        td
+                          | {{ work.pos_name }}
+                        td
+                          | {{ work.country.name_ru }}
+                        td
+                          | {{ work.city }}
+                        td(style='white-space: nowrap')
+                          .buttons
+                            button.btn.btn-primary(tooltip='Изменить', ng-click='preregistration.editWork(work)')
+                              i.glyphicon.glyphicon-pencil
+                            button.btn.btn-danger(tooltip='Удалить', ng-click='preregistration.confirmActionWork(work)')
+                              i.glyphicon.glyphicon-minus
+                    button.btn.btn-default(ng-click='preregistration.editWork({})') Добавить
+                  .wrapper
+                    .row(ng-show="preregistration.work != null")
+                      .col.col-xs-12.col-lg-3
+                        h4 Информация об опыте работы
+                        p Эта информация доступна в вашем профиле.
+                      .col.col-xs-12.col-lg-9
+                        .form-group
+                          label Организация
+                          input.form-control(type='text' ng-model='preregistration.work.org_name' ng-trim='true')
+                        .form-group
+                          label Должность
+                          input.form-control(type='text' ng-model='preregistration.work.pos_name' ng-trim='true')
+                        .form-group(stock-dict='preregistration.Countries' dict-table='Countries')
+                          label Страна
+                          select.form-control(ng-model='preregistration.work.country_id', ng-options='item._id as item.name_ru for item in preregistration.Countries | filter:{name_ru:search}')
+                        .form-group(stock-dict='preregistration.Typeofgraduate' dict-table='Typeofgraduate' )
+                          label Город
+                          input.form-control(type='text' ng-model='preregistration.work.city' ng-trim='true')
+                        .form-group
+                          label Период начало
+                          .input-group.no-margin
+                            input.form-control(type="text"  uib-datepicker-popup  ng-click="preregistration.search.popup_to_date.opened=true" ng-model="preregistration.work.date_start" is-open="preregistration.search.popup_to_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                            span.input-group-btn
+                              button.btn.btn-default(type="button" ng-click="preregistration.search.popup_to_date.opened=true")
+                                i.glyphicon.glyphicon-calendar
+                        .form-group
+                          label Период конец
+                          .input-group.no-margin
+                            input.form-control(type="text"  uib-datepicker-popup ng-click="preregistration.search.popup_from_date.opened=true" ng-model="preregistration.work.date_end" is-open="preregistration.search.popup_from_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                            span.input-group-btn
+                              button.btn.btn-default(type="button"  ng-click="preregistration.search.popup_from_date.opened=true")
+                                i.glyphicon.glyphicon-calendar
+                        br
+                        button.btn.btn-primary.m-b-lg(ng-click='preregistration.putDataWork()')
+                          | Сохранить
+                        button.btn.btn-default.m-b-lg(ng-click='preregistration.cancelWork()')
+                          | Отмена
+            wz-step(wz-title="Научные работы")
+              form.form-horizontal.form-label-left
+                .row
+                  .col-md-4.col-sm-4.col-xs-4
+                  .col-md-4.col-sm-4.col-xs-4
+                    .well.well-sm.text-center
+                      h2 Ваши научные работы
+                  .col-md-4.col-sm-4.col-xs-4
+                    .btn-group.pull-right
+                      a.btn.btn-primary(wz-previous)
+                        span Назад
+                        i.fa.fa-long-arrow-left(aria-hidden='true')
+                      a.btn.btn-success( ng-click="preregistration.confirmActionFinish()")
+                        | Готово
+                .container
+                  .row
+                    .wrapper(ng-show="preregistration.scientificwork==null")
+                      table.table.table-user-information
+                        thead
+                          tr
+                            th Название
+                            th Web ccылка на статью
+                            th Издание, журнал(название, номер, год) или номер авторского свидетельства
+                            th Кол-во страниц формата А4
+                            th Фамилии соавторов
+                            th
+                        tbody(ng-repeat='sw in preregistration.scientificworks')
+                          tr
+                            td {{ sw.name }}
+                            td
+                              span {{ sw.web_url }}
+                            td
+                              span {{ sw.journal_data.journal }}
+                            td
+                              span {{ sw.count_page }}
+                            td
+                              span(ng-repeat='coauthor in sw.coauthor')
+                                span {{coauthor.user.last_name}} {{coauthor.user.first_name}}
+                                br
+                            td
+                              span(file-link='{{ed.data.doc}}')
+                            td(style='white-space: nowrap')
+                              .buttons
+                                button.btn.btn-primary(tooltip='Изменить', ng-click='preregistration.editScientificwork(ed)')
+                                  i.glyphicon.glyphicon-pencil
+                                button.btn.btn-danger(tooltip='Удалить', ng-click='preregistration.confirmActionScientificwork(ed)')
+                                  i.glyphicon.glyphicon-minus
+                      button.btn.btn-default(ng-click='preregistration.editScientificwork({})') Добавить
+                    .wrapper
+                    .row(ng-show="preregistration.scientificwork != null")
+                      .col.col-xs-12.col-lg-3
+                        h4 Информация о научных  трудах
+                        p Эта информация доступна в вашем профиле.
+                      .col.col-xs-12.col-lg-9
+                        .form-group(stock-dict='preregistration.Organizations' dict-table='Organizations' )
+                          label Название
+                          input.form-control(type='text' ng-model='preregistration.scientificwork.name' ng-trim='true')
+                        .form-group
+                          label Web ccылка на статью
+                          input.form-control(type='text' ng-model='preregistration.scientificwork.web_url' ng-trim='true')
+                        .form-group
+                          label Издание, журнал(название, номер, год) или номер авторского свидетельства
+                          textarea.form-control(ng-model='preregistration.scientificwork.journal_data.journal')
+                        .form-group
+                          label Кол-во страниц формата А4
+                          input.form-control(type='number' ng-model='preregistration.scientificwork.count_page' ng-trim='true')
+                        .form-group
+                          label Фамилии соавторов
+                          .input-group
+                            vak-per(modeldisplay='preregistration.person.fio', modelret='preregistration.person.user_id')
+                            span.input-group-btn
+                              button.btn.btn-secondary(type='button' ng-click="preregistration.addCoauthor()")
+                                i.fa.fa-plus(aria-hidden='true' style="font-size: 130%;")
+                          ul.list-group(style="max-height:200px; overflow-y: auto;")
+                            li.list-group-item(ng-repeat="x in preregistration.scientificwork.coauthor")
+                              label {{x.fio}}
+                              a.btn.btn-sm.btn-primary.pull-right(ng-click="preregistration.deleteCoauthor($index)")
+                                i.fa.fa-trash-o(aria-hidden='true' style="font-size: 130%;")
+                        br
+                        button.btn.btn-primary.m-b-lg(ng-click='preregistration.putDataScientificwork()')
+                          | Сохранить
+                        button.btn.btn-default.m-b-lg(ng-click='preregistration.cancelScientificwork()')
+                          | Отмена
+
+script(type='text/ng-template', id='myPopoverTemplate.html').
+  <div style="max-width: 200px; max-height: 500px; overflow-y: auto;">
+    <ul class="list-group">
+      <li ng-repeat="y in x.countries" class="list-group-item">
+        {{$index+1}}: "{{y.name}}"
+      </li>
+    </ul>
+  </div>

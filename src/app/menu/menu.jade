@@ -1,0 +1,13 @@
+
+.col.col-md-2.col-sm-3
+  .wrapper
+  .row
+    .col.col-md-12
+      button.btn.btn-primary.btn-sm(ui-sref='app.menu.item({id:"new"})') Добавить
+      button.btn.btn-default.btn-sm(ng-click='menu.getMenus()')
+        span.glyphicon.glyphicon-refresh
+  .list-group(ng-repeat='menu_item in menu.menus | filter: menu.filterOnlyParents | orderBy : "data.position"')
+    a.list-group-item(ui-sref='app.menu.item({id:menu_item._id})') {{menu_item.data.position}}) {{menu_item.name}}
+    a.list-group-item(ui-sref='app.menu.item({id:child._id})', ng-repeat='child in menu.menus | filter:{parent_id:menu_item._id} | orderBy : "data.position"') &#9;{{child.data.position}}. {{child.name}}
+.col.col-md-10.col-sm-9
+  ui-view

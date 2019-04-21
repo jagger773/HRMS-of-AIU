@@ -1,0 +1,46 @@
+vak-header
+.container#body
+  .row
+    .left-side.col-md-6.col-sm-12
+      .wrapper.lter.b-b
+        .panel
+          .panel-heading.font-bold Новости и публикации
+          .panel-body.border-wrapper
+            .holder
+              .border-wrapper(ng-repeat='item in ais.news')
+                a.h5.text-primary.m-b-sm.text-center(ng-click="ais.goToNewsPage(item)") {{item.New.name_ru | limitTo: 75 }}{{item.name_ru.length > 75 ? '...' : ''}}
+                  span.small.pull-right
+                .row
+                  .col-md-3.col-sm-3.col-xs-12
+                    time.comment-date.small {{item.New.created_from | amDateFormat:'DD MMM YYYY'}}
+                    .normal(ng-switch='item.section')
+                      button.tagmain(ng-switch-when='Новости') Новости
+                      button.tagmain(ng-switch-when='Объявления') Объявления
+                      button.tagmain(ng-switch-when='Бюллетень ВАК') Бюллетень ВАК
+                      button.tagmain(ng-switch-when='Пресс-Релиз') Пресс-Релиз
+                      button.tagmain(ng-switch-when='Планы ВАК') Планы ВАК
+                      button.tagmain(ng-switch-when='Отчеты ВАК') Отчеты ВАК
+                  .col-md-8.col-sm-8.col-xs-12
+                    p(ng-bind-html="item.New.description | limitTo: 500")
+                hr
+              span.pull-right
+                button(type='button' ui-sref='news') Все новости и публикации
+
+    .col.col-md-6.col-sm-12
+      .wrapper.lter.b-b
+        .panel
+          .panel-heading.font-bold Диссертационные советы за 2017
+          .panel-body
+            canvas.my-wrapper#bar.chart.chart-bar(chart-data="ais.data", chart-labels="ais.labels" chart-series="ais.series")
+      .wrapper.lter.b-b
+        .panel
+          .panel-heading.font-bold Динамика роста диссертационных советов
+          .panel-body
+            canvas.my-wrapper#line.chart.chart-line(chart-data="ais.datad", chart-labels="ais.labelsd", chart-series="ais.seriesd", chart-options="ais.optionsd", chart-dataset-override="ais.datasetOverrided", chart-click="ais.onClick")
+  .row.pull-down
+    .three-border.col-md-2(ng-repeat="banner in ais.banners")
+      a(href="{{banner.link}}" target="_blank")
+        img(src="{{ais.api}}{{banner.file}}" alt="Баннер")
+
+vak-footer
+

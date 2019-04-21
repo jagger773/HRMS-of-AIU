@@ -1,0 +1,12 @@
+//
+   Created by ilias on 24.05.2018.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Мои Заявки
+    .panel-body
+      button.btn.btn-default.btn-sm(ng-click="list.showDiss()")
+        span Подать заявку
+      button.btn.btn-default.btn-sm(ng-click='list.getApplications()')
+        span.glyphicon.glyphicon-refresh
+      paged-table(options='list.applicationsGridOptions', disable-search='true')

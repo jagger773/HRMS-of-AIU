@@ -1,0 +1,44 @@
+//
+   Created by ilias on 21.06.2018.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Добавление/редактирование опыта работы
+    .panel-body
+      .wrapper
+        .row
+          .col.col-xs-12.col-lg-3
+            h4 Информация об опыте работы
+            p Эта информация доступна в вашем профиле.
+          .col.col-xs-12.col-lg-9
+            .form-group
+              label Организация
+              input.form-control(type='text' ng-model='edit.userwork.org_name' ng-trim='true')
+            .form-group
+              label Должность
+              input.form-control(type='text' ng-model='edit.userwork.pos_name' ng-trim='true')
+            .form-group(stock-dict='edit.Countries' dict-table='Countries')
+              label Страна
+              select.form-control(ng-model='edit.userwork.country_id', ng-options='item._id as item.name_ru for item in edit.Countries | filter:{name_ru:search}')
+            .form-group(stock-dict='edit.Typeofgraduate' dict-table='Typeofgraduate' )
+              label Город
+              input.form-control(type='text' ng-model='edit.userwork.city' ng-trim='true')
+            .form-group
+              label Период начало
+              .input-group.no-margin
+                input.form-control(type="text"  uib-datepicker-popup  ng-click="edit.search.popup_to_date.opened=true" ng-model="edit.userwork.date_start" is-open="edit.search.popup_to_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                span.input-group-btn
+                  button.btn.btn-default(type="button" ng-click="edit.search.popup_to_date.opened=true")
+                    i.glyphicon.glyphicon-calendar
+            .form-group
+              label Период конец
+              .input-group.no-margin
+                input.form-control(type="text"  uib-datepicker-popup ng-click="edit.search.popup_from_date.opened=true" ng-model="edit.userwork.date_end" is-open="edit.search.popup_from_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                span.input-group-btn
+                  button.btn.btn-default(type="button"  ng-click="edit.search.popup_from_date.opened=true")
+                    i.glyphicon.glyphicon-calendar
+            br
+            button.btn.btn-primary.m-b-lg(ng-click='edit.putDataWork()')
+              | Сохранить
+            button.btn.btn-default.m-b-lg(ng-click='edit.cancelWork()')
+              | Отмена

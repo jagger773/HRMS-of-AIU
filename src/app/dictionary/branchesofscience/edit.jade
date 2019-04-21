@@ -1,0 +1,13 @@
+.row(ng-controller='BranchesofscienceController as branchesofscience')
+  col-responsive
+    .form-group
+      label {{'CODE_SPAN_LABEL'|translate}}
+      input.form-control(type='text' ng-model='edit.dictionary.code' ng-required='true' ng-trim='true')
+  col-responsive
+    .form-group
+      label {{'NAME_RU_SPAN_LABEL'|translate}}
+      input.form-control(type='text' ng-model='edit.dictionary.name_ru' ng-required='true' ng-trim='true')
+  col-responsive
+    .form-group
+      label {{'NAME_KG_SPAN_LABEL'|translate}}
+      input.form-control(type='text' ng-model='edit.dictionary.name_kg' ng-required='true' ng-trim='true')

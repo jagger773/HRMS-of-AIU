@@ -1,0 +1,28 @@
+vak-header
+.container#body
+  h3(style='text-align: center;')
+    strong Высшая аттестационная комиссия Кыргызской Республики
+  .row
+    .col-md-3
+      .panel
+        .panel-heading
+          .panel-title Разделы публикаций
+        .panel-body.side
+          ul.list-group.side
+            li.list-group-item
+              a(ui-sref='structura')
+                span Структура ВАК
+            li.list-group-item.select
+              a(ui-sref='sostav')
+                span Состав ВАК КР
+            li.list-group-item
+              a(ui-sref='prezidium')
+                span Президиум ВАК КР
+            li.list-group-item
+              a(ui-sref='expert')
+                span Экспертные советы
+    .col-md-8.pdf
+      nv-file-select
+        embed#plugin(width='100%', height='500', name='plugin', src='assets/pdf/sostav VAK.pdf', type='application/pdf', internalinstanceid='14')
+
+vak-footer

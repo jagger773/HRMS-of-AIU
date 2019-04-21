@@ -1,0 +1,13 @@
+vak-header
+.container#body
+  h2.center.col-md-offset-5 {{advert_page.adverts.name_ru}}
+  br
+  .the-news
+    p {{advert_page.adverts.description_ru}}
+    a Ссылка: {{advert_page.adverts.link}}
+    br
+    em {{advert_page.adverts.created_from}}
+    button(type='button') {{'DOWNLOAD_FILE' | translate}}
+vak-footer
+
+

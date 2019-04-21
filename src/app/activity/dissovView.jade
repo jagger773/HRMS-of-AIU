@@ -1,0 +1,130 @@
+vak-header
+.container#body
+  .wrapper.lter.b-b
+    .panel.panel-info
+      .panel-heading.font-bold Просмотр диссертационного совета {{dissov_view.diss.code}}
+      .panel-body.my-wrapper
+        .row
+          .col.col-xs-12.col-lg-12
+            .form-group
+              .col-md-6.col-sm-6.col-xs-12
+                button.btn.btn-default(type="button", ui-sref='dissov') {{ 'BACK_BUTTON_LABEL' | translate}}
+            .wrapper
+              .row
+                form.form-horizontal.form-label-left(id="news-form")
+                  .line.line-dashed.b-b.line-lg.pull-in
+                  .form-group
+                    label.col-xs-2.control-label
+                      strong Номер приказа:
+                    .col-xs-4
+                      p.form-control-static {{dissov_view.diss.number_order}}
+                  .line.line-dashed.b-b.line-lg.pull-in
+                  .form-group
+                    label.col-xs-2.control-label
+                      strong Документ приказа:
+                    .col-xs-4
+                      a.col.padder-v(ng-href="{{app.api}}{{dissov_view.diss.file_order}}" target="_blank")
+                        p.form-control-static скачать файл
+                  .line.line-dashed.b-b.line-lg.pull-in
+                  .form-group
+                    label.col-xs-2.control-label
+                      strong Организации:
+                    .col-xs-4
+                      span.form-control-static(ng-repeat='org in dissov_view.diss.organizations')
+                        span {{org.organization.name_ru}}
+                        brs
+                  .line.line-dashed.b-b.line-lg.pull-in
+                  .form-group
+                    label.col-xs-2.control-label
+                      strong Дата начала:
+                    .col-xs-4
+                      p.form-control-static {{dissov_view.diss.date_start | amDateFormat:"DD.MM.YYYY"}}
+                  .line.line-dashed.b-b.line-lg.pull-in
+                  .form-group
+                    label.col-xs-2.control-label
+                      strong Срок полномочий до:
+                    .col-xs-4
+                      p.form-control-static {{dissov_view.diss.date_end | amDateFormat:"DD.MM.YYYY"}}
+                  .line.line-dashed.b-b.line-lg.pull-in
+                  .form-group
+                    label.col-xs-2.control-label
+                      strong Телефон:
+                    .col-xs-4
+                      span.form-control-static(ng-repeat='phone in dissov_view.diss.data.phones')
+                        span {{phone}}
+                        br
+                  .line.line-dashed.b-b.line-lg.pull-in
+                  .form-group
+                    label.col-xs-2.control-label
+                      strong Адрес:
+                    .col-xs-4
+                      span.form-control-static(ng-repeat='adress in dissov_view.diss.data.addresses')
+                        span {{adress}}
+                        br
+                  .line.line-dashed.b-b.line-lg.pull-in
+                  .form-group
+                    label.col-xs-2.control-label
+                      strong Email:
+                    .col-xs-4
+                      span.form-control-static(ng-repeat='email in dissov_view.diss.data.emails')
+                        span {{email}}
+                        br
+                  .line.line-dashed.b-b.line-lg.pull-in
+                  .form-group
+                    label.col-xs-2.control-label
+                      strong Web-сайты:
+                    .col-xs-4
+                      span.form-control-static(ng-repeat='website in dissov_view.diss.data.websites')
+                        span {{website}}
+                        br
+                  .line.line-dashed.b-b.line-lg.pull-in
+                  .form-group
+                    .col-xs-12.col-lg-9.col-md-offset-1.col-xs-offset-1
+                      table.table.table-bordered
+                        tr(style='font-weight: bold')
+                          td(style='width:15%')
+                          td(style='width:15%') Ученая степень
+                          td(style='width:20%') Отрасль науки
+                          td(style='width:15%') Специальность
+                        tr(ng-repeat='degree in dissov_view.diss.programs')
+                          td
+                            | {{$index+1}}
+                          td
+                            | {{ degree.academicdegree.name_ru }}
+                          td
+                            | {{ degree.branchesofscience.code }}-{{ degree.branchesofscience.name_ru }}
+                          td
+                            | {{degree.specialty.code}}-{{degree.specialty.name_ru}}
+                  .line.line-dashed.b-b.line-lg.pull-in
+                  .form-group
+                    .row
+                      .col-xs-12.col-lg-9.col-md-offset-1.col-xs-offset-1
+                        .wrapper
+                          label Состав диссертационного совета
+                          table.table.table-bordered
+                            tr(style='font-weight: bold')
+                              td(style='width:15%')
+                              td(style='width:15%') ФИО
+                              td(style='width:15%') год рождение
+                              td(style='width:15%') Роль
+                              td(style='width:20%') по Автореферату
+                              td(style='width:20%') По трудам
+                            tr(ng-repeat='comp in dissov_view.diss.compositions')
+                              td
+                                | {{$index+1}}
+                              td
+                                | {{comp.user.first_name}} {{comp.user.last_name}}
+                              td
+                                | {{comp.user.birthday | amDateFormat:"DD.MM.YYYY"}}
+                              td
+                                | {{ comp.role}}
+                              td
+                                span(ng-repeat='degree in comp.abstract')
+                                  span {{ degree.code}}
+                                  br
+                              td
+                                span(ng-repeat='work in comp.work')
+                                  span {{ work.code}}
+                                  br
+vak-footer
+

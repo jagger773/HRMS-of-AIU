@@ -1,0 +1,11 @@
+//
+   Created by User on 9/22/2016.
+
+.modal-header
+  h3 Радактирование аватара
+.modal-body
+  .cropArea
+    img-crop(image='avatar.image' result-image='avatar.result_image')
+.modal-footer
+  button.btn.btn-default.btn-sm(ng-click='avatar.cancel()') Отмена
+  button.btn.btn-primary.btn-sm(ng-click='avatar.ok()') Сохранить

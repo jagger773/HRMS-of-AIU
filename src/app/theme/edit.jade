@@ -1,0 +1,72 @@
+//
+   Created by ilias on 18.05.2018.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Форма создания темы
+    .panel-body
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          .x_content
+            form.form-horizontal.form-label-left(id="news-form")
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Тема диссертации
+                  span.required *
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text",  required="required", ng-model="edit.theme.name")
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Фамилия соискателя, аспиранта, докторанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required" ng-model='edit.theme.last_name')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Имя соискателя, аспиранта, докторанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required" ng-model='edit.theme.first_name')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Отчество соискателя, аспиранта, докторанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required" ng-model='edit.theme.middle_name')
+              .form-group(stock-dict='edit.Academicdegrees' dict-table='Academicdegree')
+                label.control-label.col-md-3.col-sm-3.col-xs-12 На соискание ученой степени
+                  span.required *
+                .col-md-6.col-sm-6.col-xs-12
+                  select.form-control(ng-model='edit.theme.academicdegree_id', ng-options='item._id as item.name_ru for item in edit.Academicdegrees | filter:{name_ru:search}')
+              .form-group(stock-dict='edit.Branchesofsciences' dict-table='Branchesofscience')
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Отрасль науки
+                  span.required *
+                .col-md-6.col-sm-6.col-xs-12
+                  select.form-control(ng-model='edit.theme.branchesofscience_id', ng-options='item._id as item.name_ru for item in edit.Branchesofsciences | filter:{name_ru:search}')
+              .form-group(stock-dict='edit.Specialty' dict-table='Specialty')
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Специальность
+                  span.required *
+                .col-md-6.col-sm-6.col-xs-12
+                  select.form-control(ng-model='edit.theme.specialty_id', ng-options='item._id as item.name_ru for item in edit.Specialty | filter:{name_ru:search}')
+              .form-group(stock-dict='edit.Organizations' dict-table='Organizations')
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Организация
+                  span.required *
+                .col-md-6.col-sm-6.col-xs-12
+                  select.form-control(ng-model='edit.theme.organization_id', ng-options='item._id as item.name_ru for item in edit.Organizations | filter:{name_ru:search}')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Дата утверждения темы диссертации
+                .col-md-6.col-sm-6.col-xs-12
+                  .input-group.no-margin
+                    input.form-control(type="text"  uib-datepicker-popup  ng-click="edit.search.popup_to_date.opened=true" ng-model="edit.theme.approval_date" is-open="edit.search.popup_to_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                    span.input-group-btn
+                      button.btn.btn-default(type="button" ng-click="edit.search.popup_to_date.opened=true")
+                        i.glyphicon.glyphicon-calendar
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Фамилия научного руководителя/ консультанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required", ng-model='edit.theme.consultant.last_name')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Имя научного руководителя/ консультанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required", ng-model='edit.theme.consultant.first_name')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Отчество научного руководителя/ консультанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required", ng-model='edit.theme.consultant.middle_name')
+              .form-group
+                .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+                  button.btn.btn-default(type="button", ng-click="edit.goBack()") {{ 'CANCEL_BUTTON_LABEL' | translate}}
+                  button.btn.btn-primary(type="button", ng-click="edit.saveTheme()") {{ 'SAVE_BUTTON_LABEL' | translate}}

@@ -1,0 +1,294 @@
+//
+   Created by ilias on 25.06.2018.
+
+.wrapper.lter
+.container
+  .row
+    .col-md-12.col-lg-12.col-xs-12
+      .panel.no-border
+        .panel-heading.bg-primary.lt
+          .m-sm
+            span.pull-right
+              i.fa.fa-caret-up.text-warning.text-lg
+            span.h4.text-white Протокол
+            select.form-control(name='singleSelect', ng-model='protocol.remarkvalue' ng-change="protocol.eventRemark(protocol.remarkvalue)")
+              option(value='false') Положительное
+              option(value='true') Отрицательное
+        .hbox.bg-light.bg(ng-show="protocol.remark == true")
+          .col.wrapper.text-center
+            .h4 Замечание
+            .wrapper
+              .form-horizontal.form-label-left
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Дата замечания
+                  .col-md-8.col-sm-8.col-xs-12
+                    .input-group.no-margin
+                      input.form-control(type="text" uib-datepicker-popup min-date="protocol.today"
+                      ng-change="protocol.recalculateOnEventAll()"  ng-click="protocol.search.popup_to_date.opened=true"
+                      ng-model="protocol.remark_document.date" is-open="protocol.search.popup_to_date.opened", close-text="Закрыть",
+                      current-text='Сегодня', clear-text='Очистить' ng-disabled="true")
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12  Документ замечания
+                  .col-md-8.col-sm-8.col-xs-12
+                    div
+                      file-load(file-src='protocol.remark_document.doc', type='dic_work', allow="pdf")
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Комментарии
+                  .col-md-8.col-sm-8.col-xs-12
+                    textarea.form-control(rows='5', ng-model='protocol.remark_document.remark.comment')
+                button.btn.btn-success.btn-sm.pull-right(ng-click="protocol.saveRemark()")
+                  span Отправить замечание
+        .hbox.bg-light.bg(ng-show="protocol.document.status == 'registration' && protocol.remark == false")
+          .col.wrapper.text-center
+            .h4 Предвар. рассм. дис-ции, дата назнач. экспер. комиссии ДС
+            .wrapper
+              .form-horizontal.form-label-left
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Дата рассмотрения
+                  .col-md-8.col-sm-8.col-xs-12
+                    .input-group.no-margin
+                      input.form-control(type="text" uib-datepicker-popup min-date="protocol.today"
+                      ng-change="protocol.recalculateOnEventAll()"  ng-click="protocol.search.popup_to_date.opened=true"
+                      ng-model="protocol.preview.date" is-open="protocol.search.popup_to_date.opened", close-text="Закрыть",
+                      current-text='Сегодня', clear-text='Очистить' ng-disabled="true")
+                      span.input-group-btn
+                        button.btn.btn-default(type="button" ng-click="protocol.search.popup_to_date.opened=true")
+                          i.glyphicon.glyphicon-calendar
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12  Документ протокола
+                  .col-md-8.col-sm-8.col-xs-12
+                    div
+                      file-load(file-src='protocol.preview.doc', type='dic_work', allow="pdf")
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Комментарии
+                  .col-md-8.col-sm-8.col-xs-12
+                    textarea.form-control(rows='5', ng-model='protocol.preview.comment')
+
+        .hbox.bg-light.bg(ng-show="protocol.document.status == 'registration' && protocol.remark == false")
+          .col.wrapper.text-center
+            .h4 Состав экспертной комиссии
+            .wrapper
+              .form-horizontal.form-label-left
+                .form-group
+                  label.control-label.col-md-2.col-sm-2.col-xs-12 ФИО персоны
+                  .col-md-8.col-sm-8.col-xs-12
+                    ui-select(ng-model='protocol.composition' ng-required='true')
+                      ui-select-match {{$select.selected.user.first_name}} {{$select.selected.user.last_name}}
+                      ui-select-choices(repeat='item as item in protocol.users') {{item.user.first_name}} {{item.user.last_name}}
+                    button.btn.btn-primary(ng-click='protocol.addUser()') Добавить
+              table.table
+                tr(style='font-weight: bold')
+                  td ФИО
+                  td год рождение
+                  td Роль
+                  td Степень
+                  td Звание
+                  td
+                tr(ng-repeat='comp in protocol.diss_users')
+                  td
+                    | {{comp.user.first_name}} {{comp.user.last_name}}
+                  td
+                    | {{comp.user.birthday | amDateFormat:"DD.MM.YYYY"}}
+                  td
+                    | {{ comp.role }}
+                  td
+                    | {{ comp.abstract.specialty.code }} {{ comp.abstract.specialty.name_ru }}
+                  td
+                    | {{ comp.work.specialty.code }} {{ comp.work.specialty.name_ru }}
+                  td(style='white-space: nowrap')
+                    .buttons
+                      button.btn.btn-danger(tooltip='Удалить', ng-click='protocol.confirmActionRank($index)')
+                        i.glyphicon.glyphicon-minus
+              button.btn.btn-success.btn-sm.pull-right(ng-click="protocol.savePreview()", ng-disabled="protocol.document.status != 'registration'")
+                span Записать
+        .hbox.bg-bg-light.bg(ng-show="protocol.document.status == 'comopinion' && protocol.remark == false")
+          .col.wrapper.text-center
+            .h4 Заключение экспертной комиссии
+            .wrapper
+              .form-horizontal.form-label-left
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Дата заключения
+                  .col-md-8.col-sm-8.col-xs-12
+                    .input-group.no-margin
+                      input.form-control(type="text" uib-datepicker-popup min-date="protocol.today"
+                      ng-change="protocol.recalculateOnEventAll()"  ng-disabled="true", ng-click="protocol.search.popup_to_date.opened=true"
+                      ng-model="protocol.comopinion.date" is-open="protocol.search.popup_to_date.opened", close-text="Закрыть",
+                      current-text='Сегодня', clear-text='Очистить')
+                      span.input-group-btn
+                        button.btn.btn-default(type="button" ng-click="protocol.search.popup_to_date.opened=true")
+                          i.glyphicon.glyphicon-calendar
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Документ
+                  .col-md-8.col-sm-8.col-xs-12
+                    div
+                      file-load(file-src='protocol.comopinion.doc', type='dic_work', allow="zip")
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Комментарии
+                  .col-md-8.col-sm-8.col-xs-12
+                    textarea.form-control(rows='5', ng-model='protocol.comopinion.comment')
+              button.btn.btn-success.btn-sm.pull-right(ng-click="protocol.saveComopinion()")
+                span Записать
+
+        .hbox.bg-primary.bg(ng-show="protocol.document.status == 'prejudice' && protocol.remark == false")
+          .col.wrapper.text-center
+            .h4 Предвар. защита диссертации (результаты защиты)
+            .wrapper
+              .form-horizontal.form-label-left
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Дата рассмотрения
+                  .col-md-8.col-sm-8.col-xs-12
+                    .input-group.no-margin
+                      input.form-control(type="text" uib-datepicker-popup min-date="protocol.today"
+                      ng-disabled="true" ng-click="protocol.search.popup_to_date.opened=true"
+                      ng-model="protocol.prejudice.date" is-open="protocol.search.popup_to_date.opened1", close-text="Закрыть",
+                      current-text='Сегодня', clear-text='Очистить')
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Документ
+                  .col-md-8.col-sm-8.col-xs-12
+                    div
+                      file-load(file-src='protocol.prejudice.doc', type='dic_work', allow="pdf,word,zip")
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Комментарии
+                  .col-md-8.col-sm-8.col-xs-12
+                    textarea.form-control(rows='5', ng-model='protocol.prejudice.comment')
+        .hbox.bg-light.bg(ng-show="protocol.document.status == 'prejudice' && protocol.remark == false")
+          .col.wrapper.text-center
+            .h4 Официальные оппоненты
+            .wrapper
+              .form-horizontal.form-label-left(ng-hide='protocol.foreigner_flag != null')
+                .form-group
+                  label.control-label.col-md-2.col-sm-2.col-xs-12 ФИО персоны
+                  .col-md-7.col-sm-7.col-xs-12
+                    vak-per(modeldisplay='protocol.opponent.user.name', modelret='protocol.opponent.user.id')
+                .form-group(stock-dict='protocol.Academicdegrees' dict-table='Academicdegree')
+                  label.control-label.col-md-2.col-sm-2.col-xs-12 Степень
+                  .col-md-7.col-sm-7.col-xs-12
+                    select.form-control(ng-model='protocol.opponent.academicdegree', ng-options='item.name_ru as item.name_ru for item in protocol.Academicdegrees | filter:{name_ru:search}')
+                .form-group
+                  label.control-label.col-md-2.col-sm-2.col-xs-12 Отрасль науки
+                  .col-md-7.col-sm-7.col-xs-12
+                    vak-bran(modeldisplay='protocol.opponent.branchesofscience', modelret='protocol.opponent.branchesofscience._id')
+                .form-group
+                  label.control-label.col-md-2.col-sm-2.col-xs-12 Специальность
+                  .col-md-7.col-sm-7.col-xs-12
+                    vak-spec(modeldisplay='protocol.opponent.specialty', modelret='protocol.opponent.specialty._id')
+                .form-group(stock-dict='protocol.Academicrank' dict-table='Academicrank')
+                  label.control-label.col-md-2.col-sm-2.col-xs-12 Звание
+                  .col-md-7.col-sm-7.col-xs-12
+                    select.form-control(ng-model='protocol.opponent.academicrank', ng-options='item.name_ru as item.name_ru for item in protocol.Academicrank | filter:{name_ru:search}')
+                .row
+                  .col-md-6.col-sm-6.col-xs-12
+                    button.btn.btn-primary(ng-click='protocol.editForeigner({})') Иностранный оппонент
+                    button.btn.btn-success(ng-click='protocol.addOpponent()') Добавить
+              .row(ng-show="protocol.foreigner_flag != null")
+                .wrapper
+                  .form-horizontal.form-label-left
+                    .form-group
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 ФИО иностранца
+                      .col-md-7.col-sm-7.col-xs-12
+                        input.form-control(type='text' ng-model='protocol.foreigner.user.name')
+                    .form-group(stock-dict='protocol.Academicdegrees' dict-table='Academicdegree')
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Степень
+                      .col-md-7.col-sm-7.col-xs-12
+                        select.form-control(ng-model='protocol.foreigner.academicdegree', placeholder="Выберите степень", ng-options='item.name_ru as item.name_ru for item in protocol.Academicdegrees | filter:{name_ru:search}')
+                    .form-group
+                        label.control-label.col-md-2.col-sm-2.col-xs-12 Отрасль науки
+                        .col-md-7.col-sm-7.col-xs-12
+                          vak-bran(modeldisplay='protocol.foreigner.branchesofscience.name_ru', modelret='protocol.foreigner.branchesofscience._id')
+                    .form-group
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Специальность
+                      .col-md-7.col-sm-7.col-xs-12
+                        vak-spec(modeldisplay='protocol.foreigner.specialty.name_ru', modelret='protocol.foreigner.specialty._id')
+                    .form-group(stock-dict='protocol.Academicrank' dict-table='Academicrank')
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Звание
+                      .col-md-7.col-sm-7.col-xs-12
+                        select.form-control(ng-model='protocol.foreigner.academicrank', placeholder="Выберите звание", ng-options='item.name_ru as item.name_ru for item in protocol.Academicrank | filter:{name_ru:search}')
+
+                    .row
+                      .col-md-6.col-sm-6.col-xs-12
+                        button.btn.btn-default(ng-click='protocol.editForeigner(null)') Скрыть
+                        button.btn.btn-success(ng-click='protocol.addForeigner(protocol.foreigner)') Добавить
+              .row
+                .wrapper
+                  table.table.table-user-information
+                    tr(style='font-weight: bold')
+                      td(style='width:15%') ФИО
+                      td(style='width:20%') Степень
+                      td(style='width:20%') Звание
+                      td(style='width:25%')
+                    tr(ng-repeat='comp in protocol.oppenets')
+                      td
+                        | {{comp.user.name}}
+                      td
+                        | {{ comp.academicdegree }} {{ comp.branchesofscience }} {{ comp.specialty }}
+                      td
+                        | {{ comp.academicrank }}
+                      td(style='white-space: nowrap')
+                        .buttons
+                          button.btn.btn-danger(tooltip='Удалить', ng-click='protocol.confirmActionRank($index)')
+                            i.glyphicon.glyphicon-minus
+                  .form-horizontal.form-label-left
+                    .form-group
+                      label.control-label.col-md-2.col-sm-2.col-xs-12 Ведущая организация
+                      .col-md-7.col-sm-7.col-xs-12
+                        vak-org(modeldisplay='protocol.foreigner.organization.name_ru', modelret='protocol.foreigner.organization.organization_id')
+                  .form-group
+                    button.btn.btn-success.btn-sm.pull-right(ng-click="protocol.savePrejudice()")
+                      span Записать
+        .hbox.bg-light.bg(ng-show="protocol.document.status == 'sequencing' && protocol.remark == false")
+          .col.wrapper.text-center
+            .h4 Предвар. время защиты (месяц, год не позднее 3х месяцев со дня подачи документов по кандидатской и 4-х докторской диссертации)
+            .wrapper
+              .form-horizontal.form-label-left
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Дата рассмотрения
+                  .col-md-8.col-sm-8.col-xs-12
+                    .input-group.no-margin
+                      input.form-control(type="text" uib-datepicker-popup min-date="protocol.today"
+                      ng-disabled="true" ng-click="protocol.search.popup_to_date.opened=true"
+                      ng-model="protocol.sequencing.date" is-open="protocol.search.popup_to_date.opened1", close-text="Закрыть",
+                      current-text='Сегодня', clear-text='Очистить')
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Отзывы оппонентов
+                  .col-md-8.col-sm-8.col-xs-12
+                    div
+                      file-load(file-src='protocol.sequencing.opponent_doc', type='dic_work', allow="pdf,word,zip")
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Отзыв от ведущей организации
+                  .col-md-8.col-sm-8.col-xs-12
+                    div
+                      file-load(file-src='protocol.sequencing.organization_doc', type='dic_work', allow="pdf,word,zip")
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Комментарии
+                  .col-md-8.col-sm-8.col-xs-12
+                    textarea.form-control(rows='5', ng-model='protocol.sequencing.comment')
+                .form-group
+                  button.btn.btn-success.btn-sm.pull-right(ng-click="protocol.saveSequencing()")
+                    span Записать
+
+        .hbox.bg-light.bg(ng-show="protocol.document.status == 'protection' && protocol.remark == false")
+          .col.wrapper.text-center
+            .h4 Защита
+            .wrapper
+              .form-horizontal.form-label-left
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Дата
+                  .col-md-8.col-sm-8.col-xs-12
+                    .input-group.no-margin
+                      input.form-control(type="text" uib-datepicker-popup min-date="protocol.today"
+                      ng-disabled="true" ng-click="protocol.search.popup_to_date.opened=true"
+                      ng-model="protocol.protection.date" is-open="protocol.search.popup_to_date.opened1", close-text="Закрыть",
+                      current-text='Сегодня', clear-text='Очистить')
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 отчет
+                  .col-md-8.col-sm-8.col-xs-12
+                    div
+                      file-load(file-src='protocol.protection.doc', type='dic_work', allow="pdf,word,zip")
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12 Комментарии
+                  .col-md-8.col-sm-8.col-xs-12
+                    textarea.form-control(rows='5', ng-model='protocol.protection.comment')
+                .form-group
+                  button.btn.btn-success.btn-sm.pull-right(ng-click="protocol.saveProtection()")
+                    span Записать
+

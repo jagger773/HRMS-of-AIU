@@ -1,0 +1,27 @@
+.container
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 {{ 'BANNER_ADD_LABEL' | translate}}
+          .clearfix
+        .x_content
+          form.form-horizontal.form-label-left(id="banners-form")
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'LINK_LABEL' | translate}}
+                span.required *
+              .col-md-6.col-sm-6.col-xs-12
+                input.form-control.col-md-7.col-xs-12(type="text", id="link", name="link", required="required", ng-model="form.bannersItem.link")
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'FILE_LABEL' | translate}}
+                span.required *
+              .col-md-6.col-sm-6.col-xs-12
+                .form-group
+                  file-load(file-src='form.bannersItem.file', type='banners', allow="pdf,word,png,jpeg,jpg,gif")
+            .form-group
+              .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+                button.btn.btn-default(type="button", ng-click="form.goBack()") {{ 'CANCEL_BUTTON_LABEL' | translate}}
+                button.btn.btn-primary(type="button", ng-click="form.saveBanners()") {{ 'SAVE_BUTTON_LABEL' | translate}}
+
+
+

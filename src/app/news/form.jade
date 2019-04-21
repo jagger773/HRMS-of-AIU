@@ -1,0 +1,68 @@
+.container
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 {{ 'NEWS_CREATE_LABEL' | translate}}
+          .clearfix
+        .x_content
+          form.form-horizontal.form-label-left(id="news-form")
+            .form-group
+              label.control-label.col-md3.col-sm-3.col-xs-12 Дата
+              .col-md-6.col-sm-6.col-xs-12
+                .input-group.no-margin
+                  input.form-control(type="text" uib-datepicker-popup ng-click="form.search.popup_to_date.opened=true" ng-model="form.newsItem.created_from" is-open="form.search.popup_to_date.opened" close-text="Закрыть" current-text='Сегодня' clear-text='Очистить')
+                  span.input-group-btn
+                    button.btn.btn-default(type="button" ng-click="form.search.popup_to_date.opened=true")
+                      i.glyphicon.glyphicon-calendar
+            .form-group(stock-dict='form.Sectionsofpublication' dict-table='Sectionsofpublication' )
+              label.control-label.col-md-3.col-sm-3.col-xs-12 Выберите раздел публикации
+                span.required *
+              .col-md-6.col-sm-6.col-xs-12
+                select.form-control(ng-model='form.newsItem.sectionsofpublication_id', ng-options='item._id as item.name_ru for item in form.Sectionsofpublication | filter:{name_ru:search}')
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'NAME_RU_SPAN_LABEL' | translate}}
+                span.required *
+              .col-md-6.col-sm-6.col-xs-12
+                input.form-control.col-md-7.col-xs-12(type="text", id="name_ru", name="name_ru", required="required", ng-model="form.newsItem.name_ru")
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'DESCRIPTION_LABEL_RU' | translate}}
+                span.required *
+              .col-md-8.col-sm-8.col-xs-12
+                wysiwyg-edit(content="form.newsItem.description", ng-model='form.newsItem.description' required)
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'LINK_LABEL' | translate}}
+              .col-md-6.col-sm-6.col-xs-12
+                textarea.form-control.col-md-7.col-xs-12(id="link", name="link", width="100", height="80", ng-model="form.newsItem.link")
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'ACTIVE_LABEL' | translate}}
+                span.required *
+              .col-md-6.col-sm-6.col-xs-12
+                .checkbox
+                  label
+                    input.flat(type="checkbox", checked="checked", ng-model="form.newsItem.is_active")
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'FILE_LABEL' | translate}}
+                span.required *
+              .col-md-6.col-sm-6.col-xs-12
+                .form-group
+                  div(flow-init='form.uploader.flow.opts' flow-name="form.uploader.flow" flow-file-success="form.uploader.controllerFn($flow, $file, $message)" flow-file-added="!!{jpg:1,gif:1,png:1,doc:1,xls:1,xlsx:1,pnt:1,htm:1,pdf:1,txt:1,docx:1}[$file.getExtension()]")
+                    button.btn.btn-default.btn-sm(flow-btn)
+                      span.glyphicon.glyphicon-plus Файл
+                    button.btn.btn-default.btn-sm(ng-click="form.upload()" type="button") Загрузить
+                    div(ng-repeat="file in form.uploader.flow.files")
+                      span {{file.name}} -
+                      a(ng-click="removeFile(file.name); file.cancel();") X
+                      div.progress.progress-striped(ng-class="{active: file.isUploading()}")
+                        div.progress-bar(role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ng-style="{width: (file.progress() * 100) + '%'}" style="width: 100%;")
+                          span.sr-only.ng-binding 1% Complete
+
+                  span файлы: {{form.uploader.flow.files.length}}
+
+            .form-group
+              .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+                button.btn.btn-default(type="button", ng-click="form.goBack()") {{ 'CANCEL_BUTTON_LABEL' | translate}}
+                button.btn.btn-primary(type="button", ng-click="form.saveNews()") {{ 'SAVE_BUTTON_LABEL' | translate}}
+
+
+

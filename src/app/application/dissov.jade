@@ -1,0 +1,23 @@
+//
+   Created by ilias on 24.05.2018.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Подача зявки
+    .panel-body
+      button.btn.btn-default.btn-sm.pull-left(ui-sref='app.application.list')
+        span Назад
+      h3.text-center Выберите вид заявки
+      .wrapper-md
+        .row
+          .col-md-12
+            .row.row-sm.text-center
+              .col-md-6
+                a.block.panel.padder-v.bg-info.item(ui-sref='app.application.degree')
+                  i.fa.fa-graduation-cap.fa-5x(aria-hidden='true')
+                  h4 Ученая степень
+              .col-md-6
+                a.block.panel.padder-v.bg-info.item(ui-sref='app.application.rank')
+                  i.fa.fa-address-card.fa-5x(aria-hidden='true')
+                  h4 Ученое звание
+

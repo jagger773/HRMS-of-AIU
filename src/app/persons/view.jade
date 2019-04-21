@@ -1,0 +1,144 @@
+//
+   Created by troy on 09.09.2016.
+.wrapper.lter.b-b
+  .row
+    .col.col-xs-12.col-lg-12
+      .panel.panel-info
+        .panel-heading
+          h3.panel-title Основные данные
+        .panel-body
+          button.btn.btn-default(ui-sref='app.persons.list', data-original-title='Назад', data-toggle='tooltip', type='button') Назад
+          .row
+            .col.col-xs-12.col-lg-6
+              .clearfix
+                .avatar-holder.text-center
+                  a
+                    img.profile-image.img-circle(alt='User Pic', src="{{view.user.data.image}}")
+              .text-center
+                h4 {{view.user.data.surname}} {{view.user.data.name}}
+                div @{{view.user.username}} &bull; {{view.user.rec_date | amDateFormat:'MMMM DD, YYYY, HH:mm:ss'}}
+                a(href='mailto:{{view.user.email}}') {{view.user.email}}
+            .col.col-xs-12.col-lg-6
+              .wrapper
+              table.table.table-user-information
+                tbody
+                  tr
+                    td E-mail:
+                    td {{view.user.email}}
+                  tr
+                    td Фамилия:
+                    td {{view.user.last_name}}
+                  tr
+                  tr
+                    td Имя
+                    td {{view.user.first_name}}
+                  tr
+                    td Отчество
+                    td {{view.user.middle_name}}
+                  tr
+                    td Должность
+                    td {{view.user.data.position}}
+                  tr
+                    td Мобильный телефон
+                    td {{view.user.data.mobile}}
+                  tr
+                    td Рабочий телефон
+                    td {{view.user.data.phone}}
+                  tr
+                    td Дата рождения
+                    td {{view.user.birthday | amDateFormat: 'Do MMM YYYY'}}
+
+          .wrapper.lter.b-b
+            .row
+              .col.col-xs-12.col-lg-12
+                uib-tabset.tab-container
+                  uib-tab(heading='Ученая степень')
+                    .ln_solid
+                      .wrapper
+                        table.table.table-user-information
+                          tr(style='font-weight: bold')
+                            td(style='width:15%') Степень
+                            td(style='width:20%') Отрасль науки
+                            td(style='width:15%') Шифр
+                            td(style='width:20%') Дата
+                          tr(ng-repeat='degree in view.degrees | orderBy:"-date"')
+                            td
+                              | {{ degree.academicdegree.name_ru }}
+                            td
+                              | {{ degree.branchesofscience.name_ru }}
+                            td
+                              | {{ degree.code }}
+                            td
+                              | {{ degree.date | amDateFormat:"MMM YYYY" }}
+
+                  uib-tab(heading='Ученое звание')
+                    .ln_solid
+                      .wrapper
+                        table.table.table-user-information
+                          tr(style='font-weight: bold')
+                            td(style='width:15%') Звание
+                            td(style='width:20%') Специальность
+                            td(style='width:15%') Уч. совет(Акад. совет)
+                            td(style='width:20%') организация
+                            td(style='width:20%') Дата
+                          tr(ng-repeat='rank in view.ranks | orderBy:"-date"')
+                            td
+                              | {{ rank.academicrank.name_ru }}
+                            td
+                              | {{ rank.specialty.name_ru }}
+                            td
+                              | {{ rank.academiccouncil.name_ru }}
+                            td
+                              | {{ rank.organization.name_ru }}
+                            td
+                              | {{ rank.date | amDateFormat:"MMM YYYY" }}
+
+                  uib-tab(heading='Опыт работы')
+                    .ln_solid
+                      .wrapper
+                        table.table.table-user-information
+                          tr(style='font-weight: bold')
+                            td(style='width:15%') Период
+                            td(style='width:20%') Организация
+                            td(style='width:15%') Должность
+                            td(style='width:20%') Страна
+                            td(style='width:20%') Город
+                          tr(ng-repeat='work in view.works')
+                            td
+                              | {{ work.date_start | amDateFormat:"MMM YYYY"}}-{{ work.date_end | amDateFormat:"MMM YYYY"}}
+                            td
+                              | {{ work.org_name }}
+                            td
+                              | {{ work.pos_name }}
+                            td
+                              | {{ work.country.name_ru }}
+                            td
+                              | {{ work.city }}
+
+                  uib-tab(heading='Образование')
+                    .ln_solid
+                    .wrapper
+                      table.table.table-user-information
+                        thead
+                          tr
+                            th(style='width:20%') Дата
+                            th(style='width:80%') Учебное заведение
+                        tbody(ng-repeat='ed in view.educations')
+                          tr
+                            td {{ ed.date_start | amDateFormat: 'MMM YYYY'}}-{{ ed.date_end | amDateFormat: 'MMM YYYY'}}
+                            td
+                              span {{ ed.organization.name_ru }}
+                              br
+                              span Cпециальность: {{ ed.faculty }}
+                              br
+                              span Страна: {{ ed.country.name_ru }}
+                              br
+                              span Вид обучения: {{ ed.typeofgraduate.name_ru }}
+                              br
+                              span Форма обучения: {{ ed.typeoftraining.name_ru }}
+                              br
+                              span(file-link='{{ed.data.doc}}')
+
+
+                  uib-tab(heading='Научные работы и статьи')
+

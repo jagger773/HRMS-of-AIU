@@ -1,0 +1,41 @@
+head
+  //link(rel='stylesheet', type='text/css', href='../ais.css')
+.container.header-ais
+    .pull-right.signin
+      span.login-btn
+        a(ui-sref='login') {{'LOGIN' | translate}}
+          i.fa.fa-sign-in
+    .wrapper-ais
+      a(ui-sref='ais')
+        img(src='assets/images/logo-vak.png', alt='Картинка', height='91px', width='91px')
+      h1
+        | {{'VAK_LABEL' | translate}}
+        br
+        | {{'KR_LABEL' | translate}}
+      .language-wrapper-ais
+        a(ng-click="vak.changeLanguage('ru')")
+          em
+            | Русс
+        a(ng-click="vak.changeLanguage('kg')")
+          em
+            | Кырг
+      .ais-nav
+        ul
+          li
+            span.login-btn
+              a(ui-sref='structura') {{'ABOUT_LABEL' | translate}}
+          li
+            span.login-btn
+              a(ui-sref='journal') {{'E_JOURNAL_LABEL' | translate}}
+          li
+            span.login-btn
+              a(ui-sref='view') Аттестационная деятельность
+          li
+            span.login-btn
+              a(ui-sref='news')  {{'NEWS_AND_AD_LABEL' | translate}}
+          li
+            span.login-btn
+              a(ui-sref='regulations') {{'REGULATIONS_LABEL' | translate}}
+          li
+            span.login-btn
+              a(ui-sref='questions') {{'QUESTIONS_AND_ANSWERS_LABEL' | translate}}

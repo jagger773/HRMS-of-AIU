@@ -1,0 +1,75 @@
+
+form(ng-submit='udf.putUDF()')
+  .modal-header
+    h3 Пользовательское поле
+  .modal-body
+    .row(style='margin-bottom: 32px; box-shadow: 0 5px 15px rgba(0, 0, 0, .5); border-radius: 6px;')
+      .col.col-xs-12.bg-success
+        label Предварительный показ
+      udf-view.col.col-xs-12(ng-init='udf.testData={data:{test:true}}' udf-table='{{udf.udf.udf_purpose}}' udf-data='udf.testData' udf-pre-view='udf.udf')
+    .row
+      col-responsive
+        .form-group
+          label Параметр
+          input.form-control(type='text' ng-model='udf.udf.data.key' ng-required='true' ng-trim='true')
+      col-responsive
+        .form-group
+          label Наименование
+          input.form-control(type='text' ng-model='udf.udf.name' ng-required='true' ng-trim='true')
+      col-responsive
+        .form-group
+          label Заполнитель
+          input.form-control(type='text' ng-model='udf.udf.data.placeholder' ng-trim='true')
+      col-responsive(stock-dict='udf.udf_purposes' dict-table='Enums' dict-filter='{name:"udf_purpose"}')
+        .form-group
+          label Назначение
+          ui-select(ng-model='udf.udf.udf_purpose' ng-required='true')
+            ui-select-match {{$select.selected.data.name}}
+            ui-select-choices(repeat='purpose.data.key as purpose in udf.udf_purposes track by purpose.data.key') {{purpose.data.name}}
+      col-responsive(stock-dict='udf.udf_fields' dict-table='Enums' dict-filter='{name:"field_type"}')
+        .form-group
+          label Элемент
+          ui-select(ng-model='udf.udf.data.field_type' ng-required='true')
+            ui-select-match {{$select.selected.data.name}}
+            ui-select-choices(repeat='field.data.key as field in udf.udf_fields track by field.data.key') {{field.data.name}}
+      col-responsive(ng-if='udf.hasIcon()')
+        .form-group
+          label Иконка
+          input.form-control(type='text' ng-model='udf.udf.data.icon' ng-trim='true')
+    .row(ng-if='udf.udf.data.field_type == "number"')
+      col-responsive
+        .form-group
+          label Мин. значение
+          input.form-control(type='number' ng-model='udf.udf.data.min')
+      col-responsive
+        .form-group
+          label Макс. значение
+          input.form-control(type='number' ng-model='udf.udf.data.max')
+      col-responsive
+        .form-group
+          label Шаг
+          input.form-control(type='number' min='0' step='{{.001/1000}}' ng-model='udf.udf.data.step')
+    table.table(ng-if='udf.withVariables()')
+      thead
+        tr
+          th Ключ
+          th Значение
+          th
+        tr
+          th
+            input.form-control(type='text' ng-model='udf.var_temp.key' ng-trim='true')
+          th
+            input.form-control(type='text' ng-model='udf.var_temp.value' ng-trim='true')
+          th
+            button.btn.btn-success.btn-sm(type='button' ng-click='udf.addVariable()')
+              span.glyphicon.glyphicon-plus
+      tbody
+        tr(ng-repeat='variable in udf.udf.data.variables track by variable.key')
+          td {{variable.key}}
+          td {{variable.value}}
+          td
+            button.btn.btn-danger.btn-sm(ng-click='udf.delVariable(variable)')
+              span.glyphicon.glyphicon-trash
+  .modal-body
+    button.btn.btn-primary.btn-sm.pull-right(ng-disabled='udf.saving===true') Сохранить
+    button.btn.btn-warning.btn-sm.pull-right(ng-disabled='udf.saving===true' type='button' ng-click='udf.cancel()') Отменить

@@ -1,0 +1,12 @@
+div
+  .input-group(ng-hide='asText===true')
+    .input-group-addon(ng-show='loadingContractors')
+      span.glyphicon.glyphicon-refresh
+    .input-group-addon(ng-show='noContractors')
+      span.glyphicon.glyphicon-remove.text-danger
+    input.form-control(type='text' ng-model='contractor.selected' uib-typeahead='contractor as contractor.name for contractor in contractor.searchContractor($viewValue)' typeahead-loading='loadingContractors' typeahead-no-results='noContractors' ng-disabled='ngDisabled' ng-required='ngRequired')
+    .input-group-btn
+      button.btn.btn-primary(type='button' ng-click='contractor.openSelectContractor()' ng-disabled='ngDisabled')
+        span.glyphicon.glyphicon-paperclip
+  span(ng-show='asText===true') {{ contractor.selected.name }}
+

@@ -1,0 +1,31 @@
+
+.modal-header
+  h3 Реестр тем
+.modal-body
+  .row
+    .col.col-xs-12.col-sm-12.col-md-4
+      form.form-horizontal(ng-submit='theme.searchProducts()')
+        .form-group
+          label Наименование
+          input.form-control(type='search' ng-model='theme.search_name')
+        .from-group(stock-dict='edit.product_types' dict-table='Enums' dict-filter='{name:"product_type"}' ng-hide='theme.modalOptions.filter.product_type')
+          label Ученая степень
+          ui-select(ng-model='theme.product_type')
+            ui-select-match(allow-clear='true') {{$select.selected.data.name}}
+            ui-select-choices(repeat='type.data.key as type in edit.product_types | filter:$select.search track by type.data.key') {{type.data.name}}
+        .from-group
+          label Специальность
+          ui-select(ng-model='theme.category_id')
+            ui-select-match(allow-clear='true') {{$select.selected.name}}
+            ui-select-choices(repeat='category._id as category in edit.categories | filter:{name:$select.search} track by category._id' group-by='theme.categoryParentGroup') {{category.name}}
+        .from-group(stock-dict='theme.units' dict-table='Units')
+          label Отрасль науки
+          ui-select(ng-model='theme.unit_id')
+            ui-select-match(allow-clear='true') {{$select.selected.name}}
+            ui-select-choices(repeat='unit._id as unit in theme.units | filter:{name:$select.search} track by unit._id') {{unit.name}}
+        button.btn.btn-success(type='submit') Показать
+    .col.col-xs-12.col-sm-12.col-md-8
+      paged-table(options='theme.gridOptions' disable-search='true' height='500')
+.modal-footer
+  button.btn.btn-default(type='button' ng-click='theme.cancel()') Отмена
+  button.btn.btn-primary(ng-disabled='!theme.selected_product' ng-click='theme.selectProduct()') Принять

@@ -1,0 +1,45 @@
+image: chrome:v1
+
+stages:
+  - test
+  - deploy
+
+cache:
+  paths:
+  - node_modules/
+  - bower_components/
+
+#test_protractor:
+#  stage: test
+#  script:
+#    - npm install
+#    - bower -F install --allow-root
+#    - gulp protractor:dist
+#  only:
+#    - master
+#    - /^issue.*$/
+
+deploy_test_client:
+  stage: deploy
+  script:
+  - npm install
+  - bower -F install --allow-root
+  - find src/app/index.run.coffee -type f -exec sed -i 's/http:\/\/localhost:7000//g' {} +
+  - gulp build
+  - rsync -rav --delete-after dist/* root@91.207.28.78:/var/www/www-root/data/www/aisvak.ivtlab.kg/vak_client
+  - ssh root@erp.kg "cd /var/www/www-root/data/www/aisvak.ivtlab.kg/; chown -R www-data:www-data vak_client"
+  only:
+  - master
+
+deploy_test_server:
+  stage: deploy
+  script:
+  - rsync -rav --delete-after backend/* root@erp.kg:/var/www/www-root/data/www/aisvak.ivtlab.kg/aisvak_server
+  - ssh root@erp.kg "cd /var/www/www-root/data/www/aisvak.ivtlab.kg/; chown -R www-data:www-data aisvak_server"
+  - ssh root@erp.kg "cd /var/www/www-root/data/www/aisvak.ivtlab.kg/aisvak_server; pip install -r requirements.txt"
+  - ssh root@erp.kg "touch /etc/uwsgi/apps-available/aisvak_test.ini"
+  only:
+  - master
+
+
+

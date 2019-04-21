@@ -1,0 +1,28 @@
+vak-header
+.container#body
+  .wrapper-main
+    div.tab-container
+      ul.nav.nav-tabs.nav-justified
+        li.active
+          a(data-target="#tab1", data-toggle="tab") Научно-периодические издания
+            //span.label.label-default.badge-sm {{find.count_themes}}
+        li
+          a(href='http://ais.vak.kg/jurnalVAK/' target='_blank') Журнал ВАК диссертационных исследовании
+            //span.badge.bg-primary.badge-sm {{find.count_comments}}
+      div.tab-content
+        div.tab-pane.active(id="tab1")
+          .journal_box
+            .row
+              .col-lg-4.col-md-4.col-sm-4.col-xs-12(ng-repeat='jour in journal.journals')
+                a.block(ng-click="journal.goToPage(jour._id)")
+                  .box-part.text-center
+                    .title
+                      h3 {{jour.founder}}
+                    .text
+                      h4 {{jour.name_ru}}
+                    img(ng-src='http://localhost:7003/image/{{jour.img_url}}', alt='картинка', style='width:50%;hight:50%',)
+                    .text
+                      h4 _N_Баллов
+        div.tab-pane(id="tab2")
+vak-footer
+

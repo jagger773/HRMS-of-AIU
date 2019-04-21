@@ -1,0 +1,105 @@
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Форма создания темы
+    .panel-body
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          .x_content
+            form.form-horizontal.form-label-left(id="news-form")
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Тема диссертации
+                .col-md-6.col-sm-6.col-xs-12
+                  textarea.form-control.col-md-7.col-xs-12(id="link", name="link", width="100", height="80", required="required", ng-model="create.theme.name")
+              .form-group(stock-dict='create.Program' dict-table='Program')
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Связь темы с программами (НСУР, НИР, инициатив)
+                .col-md-6.col-sm-6.col-xs-12
+                  select.form-control(ng-model='create.theme.program_id', ng-options='item._id as item.name_ru for item in create.Program | filter:{name_ru:search}')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Если соискатель, аспирант, докторант есть в базе
+                .col-md-6.col-sm-6.col-xs-12
+                  a.btn.btn-default(type="button", ng-click="create.getUsers()") Выбрать из списка
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Фамилия соискателя, аспиранта, докторанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required" ng-model='create.theme.last_name')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Имя соискателя, аспиранта, докторанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required" ng-model='create.theme.first_name')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Отчество соискателя, аспиранта, докторанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required" ng-model='create.theme.middle_name')
+              .form-group(stock-dict='create.Academicdegrees' dict-table='Academicdegree')
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Cоискание ученой степени
+                .col-md-6.col-sm-6.col-xs-12
+                  select.form-control(ng-model='create.theme.academicdegree_id', ng-options='item._id as item.name_ru for item in create.Academicdegrees | filter:{name_ru:search}')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Отрасль науки
+                .col-md-6.col-sm-6.col-xs-12
+                  .input-group
+                    vak-bran(modeldisplay='create.theme.branch.name_ru', modelret='create.theme.branchesofscience_id')
+                    span.input-group-btn
+                      button.btn.btn-secondary(type='button' ng-click="create.addWorkspecialty()")
+                        i.fa.fa-plus(aria-hidden='true' style="font-size: 130%;")
+                  ul.list-group(style="max-height:200px; overflow-y: auto;")
+                    li.list-group-item(ng-repeat="x in create.workspecialties")
+                      label {{ x.code }}
+                      a.btn.btn-sm.btn-primary.pull-right(ng-click="create.deleteWorkspecialty($index)")
+                        i.fa.fa-trash-o(aria-hidden='true' style="font-size: 130%;")
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Специальность
+                .col-md-6.col-sm-6.col-xs-12
+                  .input-group
+                    vak-spec(modeldisplay='create.theme.specialty.name_ru', modelret='create.theme.specialty_id')
+                    span.input-group-btn
+                      button.btn.btn-secondary(type='button' ng-click="create.addWorkspecialty()")
+                        i.fa.fa-plus(aria-hidden='true' style="font-size: 130%;")
+                  ul.list-group(style="max-height:200px; overflow-y: auto;")
+                    li.list-group-item(ng-repeat="x in create.workspecialties")
+                      label {{ x.code }}
+                      a.btn.btn-sm.btn-primary.pull-right(ng-click="create.deleteWorkspecialty($index)")
+                        i.fa.fa-trash-o(aria-hidden='true' style="font-size: 130%;")
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Наименование организации, утвердившей тему диссертации
+                .col-md-6.col-sm-6.col-xs-12
+                  vak-org(modeldisplay='create.theme.organization.name_ru', modelret='create.theme.organization_id')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Дата утверждения темы диссертации
+                .col-md-6.col-sm-6.col-xs-12
+                  .input-group.no-margin
+                    input.form-control(type="text"  uib-datepicker-popup  ng-click="create.search.popup_to_date.opened=true" ng-model="create.theme.approval_date" is-open="create.search.popup_to_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                    span.input-group-btn
+                      button.btn.btn-default(type="button" ng-click="create.search.popup_to_date.opened=true")
+                        i.glyphicon.glyphicon-calendar
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Фамилия научного руководителя/ консультанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required", ng-model='create.theme.consultant.last_name')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Имя научного руководителя/ консультанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required", ng-model='create.theme.consultant.first_name')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Отчество научного руководителя/ консультанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required", ng-model='create.theme.consultant.middle_name')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Cоискание ученой степени научного руководителя/ консультанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required", ng-model='create.theme.consultant.academicdegree_id')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Отрасль науки научного руководителя/ консультанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required", ng-model='create.theme.consultant.branchesofscience_id')
+              .form-group
+                label.control-label.col-md-3.col-sm-3.col-xs-12 Специальность научного руководителя/ консультанта
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-12(type="text", required="required", ng-model='create.theme.consultant.specialty_id')
+
+
+              .form-group
+                .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+                  button.btn.btn-default(type="button", ng-click="create.goBack()") {{ 'CANCEL_BUTTON_LABEL' | translate}}
+                  button.btn.btn-primary(type="button", ng-click="create.saveTheme()") {{ 'SAVE_BUTTON_LABEL' | translate}}

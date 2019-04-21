@@ -1,0 +1,27 @@
+.container.w-xxl.w-auto-xs
+  a.navbar-brand.block.m-t(ui-sref='ais') Высшая Аттестационная Коммисия КР
+  .m-b-
+    a(ui-sref='ais')
+      img(src='assets/images/logo.png', alt='Vak logo', style='width: 25%; display: block;  margin-left: auto; margin-right: auto')
+    .wrapper.text-center
+      h2 Убедитесь есть ли вы в системе?
+        h3.text-center Выберите соответсвующую ячейку
+        .wrapper-md
+          .row
+            .col-md-12
+              .row.row-sm.text-center
+                .col-md-6
+                  a.block.panel.padder-v.bg-info.item(ui-sref='view')
+                    i.fa.fa-check-circle-o.fa-5x(aria-hidden='true')
+                    h4 Для людей с ученой степенью
+                .col-md-6
+                  a.block.panel.padder-v.bg-info.item(ui-sref='register')
+                    i.fa.fa-times-circle-o.fa-5x(aria-hidden='true')
+                    h4 Для людей
+                      br
+                      |без
+                      br
+                      |ученой степени
+              button.btn.btn-lg.btn-primary.btn-block(ui-sref='login')
+                span Отмена
+

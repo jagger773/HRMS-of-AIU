@@ -1,0 +1,7 @@
+a.media
+  .media-left
+    .media-object
+      img.user-image(stock-src='{{match.model.user.data.image}}')
+  .media-body
+    span(ng-bind-html="match.label | uibTypeaheadHighlight:query")
+    .text-muted {{match.model.user.data.surname}} {{match.model.user.data.name}} {{match.model.user.data.middlename}}

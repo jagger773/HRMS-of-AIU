@@ -1,0 +1,40 @@
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Пользователи
+    .panel-body
+      form(ng-submit='users.getUsers()')
+        .row
+          col-responsive
+            .form-group
+              label Email:
+              input.form-control(type='text' ng-model="users.filter.email" placeholder='Введите email')
+        .row
+          col-responsive
+            .form-group
+              label Фамилия:
+              input.form-control(type='text' ng-model="users.filter.last_name" placeholder='Введите фамилию')
+          col-responsive
+            .form-group
+              label Имя:
+              input.form-control(type='text' ng-model="users.filter.first_name" placeholder=' Введите имя')
+          col-responsive
+            .form-group
+              label Отчество:
+              input.form-control(type='text' ng-model="users.filter.middle_name" placeholder='Введите отчество')
+
+        .btn-group-sm
+          button.btn.btn-success(type='submit')
+            span.glyphicon.glyphicon-search.margin-right-8
+            span Найти
+          button.btn.btn-default(type='button'  ng-click='users.filter={}') Сбросить фильтры
+          .clearfix
+      .wrapper
+      button.btn.btn-primary.btn-sm(ng-click="users.newUser()") Добавить
+      button.btn.btn-primary.btn-sm(ng-click="users.saveUsers()") Загрузка пользователей
+      button.btn.btn-default.btn-sm(ng-click="users.editUser()" ng-disabled="users.selected_user == null")
+        span.glyphicon.glyphicon-pencil.margin-right-8
+        span Изменить
+      button.btn.btn-default.btn-sm(ng-click='product.getProducts()')
+        span.glyphicon.glyphicon-refresh
+      paged-table(options='users.usersGridOptions', disable-search='true')

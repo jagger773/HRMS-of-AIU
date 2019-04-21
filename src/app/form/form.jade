@@ -1,0 +1,49 @@
+vak-header
+.container#body
+  h2.center.col-md-offset-4 {{'FORM_CREATE_QUESTION_LABEL' | translate}}
+  .container
+    form.form-horizontal.form-label-left(name="questionForm")
+      .form-group
+        label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'NAME_RU_SPAN_LABEL' | translate}}
+          span.required *
+        .col-md-6.col-sm-6.col-xs-12
+          input.form-control.col-md-7.col-xs-12(type="text",name="name",ng-minlength='3', ng-maxlength='10', ng-model="form.questionItem.name" required)
+          span(ng-show='questionForm.name.$dirty && questionForm.name.$error.required') Поле должно быть заполненно
+          span(ng-show='questionForm.name.$dirty && questionForm.name.$error.minlength') Имя слишком короткое
+          span(ng-show='questionForm.name.$dirty && questionForm.name.$error.maxlength') Имя слишком длинное
+      .form-group
+        label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'CITY_LABEL' | translate}}
+          span.required *
+        .col-md-6.col-sm-6.col-xs-12
+          input.form-control.col-md-7.col-xs-12(type="text", name="city",ng-minlength='2', ng-maxlength='12', ng-model="form.questionItem.city")
+          span(ng-show='questionForm.city.$dirty && questionForm.city.$error.required') Поле должно быть заполненно
+          span(ng-show='questionForm.city.$dirty && questionForm.city.$error.minlength') Название города слишком короткое
+          span(ng-show='questionForm.city.$dirty && questionForm.city.$error.minlength') Название города слишком длинное
+      .form-group
+        label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'EMAIL_LABEL' | translate}}
+          span.required *
+        .col-md-6.col-sm-6.col-xs-12
+          input.form-control.col-md-7.col-xs-12(name="email", type="email",  required, ng-model="form.questionItem.email")
+          span(ng-show='questionForm.email.$dirty && questionForm.email.$error.required') Поле должно быть заполненно
+          span(ng-show='questionForm.email.$dirty && questionForm.email.$error.email') Неправильный email. Пример: vak@mail.ru
+      .form-group
+        label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'URL_LABEL' | translate}}
+          span.required *
+        .col-md-6.col-sm-6.col-xs-12
+          input.form-control.col-md-7.col-xs-12(type="text", name="url", ng-model="form.questionItem.url", required)
+          span(ng-show='questionForm.url.$dirty && questionForm.url.$error.required') Поле должно быть заполненно
+          span(ng-show='questionForm.url.$dirty && questionForm.url.$error.url') Неправильный url. Пример: http://google.com
+      .form-group
+        label.control-label.col-md-3.col-sm-3.col-xs-12 {{ 'QUESTION_LABEL' | translate}}
+          span.required *
+        .col-md-6.col-sm-6.col-xs-12
+          textarea.form-control.col-md-7.col-xs-12(type="text", name="question", cols="10", rows="5", ng-model="form.questionItem.question", required)
+          span(ng-show='questionForm.question.$dirty && questionForm.question.$error.required') Поле должно быть заполненно
+      .form-group
+        .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+          button.btn.btn-default(type="button", ng-click="form.goBack()") {{ 'CANCEL_BUTTON_LABEL' | translate}}
+          button.btn.btn-primary(type="button",ng-disabled="questionForm.$invalid", ng-click="form.postQuestions()") {{ 'SAVE_BUTTON_LABEL' | translate}}
+
+vak-footer
+
+

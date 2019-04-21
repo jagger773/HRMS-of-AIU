@@ -1,0 +1,12 @@
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Мои работы
+    .panel-body
+      button.btn.btn-primary.btn-sm(ng-click="list.newWork()") Добавить
+      button.btn.btn-default.btn-sm(ng-click="list.showWork()" ng-disabled="list.selected_work == null")
+        span Просмотр
+      button.btn.btn-default.btn-sm(ng-click="list.showDiss()")
+        span Подать заявку
+      button.btn.btn-default.btn-sm(ng-click='list.getWorks()')
+        span.glyphicon.glyphicon-refresh
+      paged-table(options='list.worksGridOptions', disable-search='true')

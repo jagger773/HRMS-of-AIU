@@ -1,0 +1,9 @@
+.input-group
+  .input-group-addon(ng-show='loadingThemes')
+    span.glyphicon.glyphicon-refresh
+  .input-group-addon(ng-show='noThemes')
+    span.glyphicon.glyphicon-remove.text-danger
+  input.form-control(type='text' ng-model='theme.selected' uib-typeahead='product as theme.name for theme in theme.searchTheme($viewValue)' typeahead-loading='loadingThemes' typeahead-no-results='nothemes' ng-disabled='ngDisabled')
+  .input-group-btn
+    button.btn.btn-primary(type='button' ng-click='theme.openSelectTheme()' ng-disabled='ngDisabled')
+      span.glyphicon.glyphicon-paperclip

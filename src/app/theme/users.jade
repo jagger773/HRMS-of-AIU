@@ -1,0 +1,34 @@
+//
+ Created by admin on 01.08.2018.
+
+.modal-header
+  h3 База
+.modal-body
+  form(ng-submit='user.getUsers()')
+    .row
+      col-responsive
+        .form-group
+          label Фамилия:
+          input.form-control(type='text' ng-model="user.filter.last_name" placeholder='Введите фамилию')
+      col-responsive
+        .form-group
+          label Имя:
+          input.form-control(type='text' ng-model="user.filter.first_name" placeholder=' Введите имя')
+      col-responsive
+        .form-group
+          label Отчество:
+          input.form-control(type='text' ng-model="user.filter.middle_name" placeholder='Введите отчество')
+
+    .btn-group-sm
+      button.btn.btn-success(type='submit')
+        span.glyphicon.glyphicon-search.margin-right-8
+        span Найти
+      button.btn.btn-default(type='button'  ng-click='user.filter={}') Сбросить фильтры
+      button.btn.btn-default.btn-sm(ng-click='user.getUsers()')
+        span.glyphicon.glyphicon-refresh
+      .clearfix
+  .wrapper
+  paged-table(options='user.usersGridOptions'  disable-search='true' height='500px')
+.modal-footer
+  button.btn.btn-primary.btn-sm.pull-right(type='button', ng-click='user.add()') Выбрать
+  button.btn.btn-default.btn-sm.pull-right(ng-disabled='contractor.saving' type='button', ng-click='user.cancel()') Отмена

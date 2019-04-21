@@ -1,0 +1,15 @@
+//
+   Created by troy on 15.12.2016.
+.container
+  form.from-horizontal(ng-submit='term_dialog.ok()')
+    .panel.panel-default
+      .panel-heading Окно подтверждения!
+      .panel-body
+        h5
+          | Вы уверены {{term_dialog.text.text}}
+        .form-group
+          label(for='money') Возвращаемая сумма:
+          input#money.form-control(type='number' ng-model="term_dialog.moneyBack" min="0" step="0.01" ng-required='true')
+      .panel-footer
+        button#delete.btn.btn-success(type='submit') Расторгнуть
+        button.btn.btn-primary(type='button', ng-click="term_dialog.cancel()") Нет

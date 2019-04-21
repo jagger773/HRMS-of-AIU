@@ -1,0 +1,14 @@
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Статьи
+    .panel-body
+      button.btn.btn-primary.btn-sm(ng-click="list.go('app.articles.form')") Добавить
+      button.btn.btn-default.btn-sm(ng-click="list.go('app.articles.view', {article: list.selected_article})", ng-disabled="list.selected_article == null")
+        span Просмотр
+      button.btn.btn-default.btn-sm(ng-click="list.go('app.articles.form', {article: list.selected_article})", ng-disabled="list.selected_article == null")
+        span.glyphicon.glyphicon-pencil.margin-right-8
+        span Изменить
+      button.btn.btn-default.btn-sm(ng-click='list.getArticles()')
+        span.glyphicon.glyphicon-refresh
+      paged-table(options='list.articleGridOptions', disable-search='true')

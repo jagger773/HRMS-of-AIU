@@ -1,0 +1,6 @@
+ui-select(ng-model='branch.branches_id' on-select='branch.toggleParent($item)' close-on-select='false' multiple='true' remove-selected='false' ng-disabled='branch.disabled')
+  ui-select-match(allow-clear='true' placeholder='{{placeholder}}') {{$item.name}}
+  ui-select-choices(repeat='item._id as item in branch.ordered_branches | filter:{name:$select.search}')
+    span(ng-style='{"padding-left": (branch.parentCount(item)*8)+"px"}')
+      span {{item.name}}
+    span.fa.fa-chevron-right.pull-right(ng-show='branch.hasChild(item)')

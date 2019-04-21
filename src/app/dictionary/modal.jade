@@ -1,0 +1,8 @@
+form(ng-submit='edit.saveDictionary()')
+  .modal-header
+    h3 {{edit.table.display_name|translate}}
+  .modal-body
+    ng-include(src='edit.template')
+  .modal-footer
+    button.btn.btn-default(type='button' ng-click='edit.cancel()') {{'CANCEL_BUTTON_LABEL'|translate}}
+    button.btn.btn-primary(type='submit') {{'SAVE_BUTTON_LABEL'|translate}}

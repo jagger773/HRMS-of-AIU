@@ -1,0 +1,14 @@
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Электронный журнал
+    .panel-body
+      button.btn.btn-primary.btn-sm(ng-click="list.go('app.journals.form')") Добавить
+      button.btn.btn-default.btn-sm(ng-click="list.go('app.journals.view', {journal: list.selected_journal})" ng-disabled="list.selected_journal == null")
+        span Просмотр
+      button.btn.btn-default.btn-sm(ng-click="list.go('app.journals.form', {journal: list.selected_journal})" ng-disabled="list.selected_journal == null")
+        span.glyphicon.glyphicon-pencil.margin-right-8
+        span Изменить
+      button.btn.btn-default.btn-sm(ng-click='list.getJournals()')
+        span.glyphicon.glyphicon-refresh
+      paged-table(options='list.journalGridOptions', disable-search='true')

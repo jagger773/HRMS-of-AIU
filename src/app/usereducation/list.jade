@@ -1,0 +1,14 @@
+//
+   Created by ilias on 21.06.2018.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold Образование
+    .panel-body
+      button.btn.btn-primary.btn-sm(ng-click="list.newUserEducation()") Добавить
+        button.btn.btn-default.btn-sm(ng-click="list.editUserEducation(list.selected_usereducation)" ng-disabled="list.selected_usereducation == null")
+          span.glyphicon.glyphicon-pencil.margin-right-8
+          span Изменить
+      button.btn.btn-default.btn-sm(ng-click='list.getUserEducations()')
+        span.glyphicon.glyphicon-refresh
+      paged-table(options='list.usereducationGridOptions', disable-search='true', height='500px')

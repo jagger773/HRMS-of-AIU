@@ -1,0 +1,32 @@
+vak-header
+.container#body
+  h2.center {{page.news.name_ru}}
+  br
+  .wrapper.lter.b-b
+    .panel.panel-info
+      .panel-body
+        div.container
+          div.col-sm-10.col-md-10
+            div.row
+              div.form-group
+                div.col-sm-12.col-md-12
+                  p Создано:
+                    time.comment-date {{page.news.New.created_from | amDateFormat:'DD MMM YYYY HH:mm'}}
+                  h4 Тема: {{page.news.New.name_ru}}
+                  div(dynamic='page.news.New.description')
+                  a Ссылка: {{page.news.New.link}}
+          .row
+            div.col-sm-2.col-md-2
+              h6(ng-show="page.news.New.files.length > 0")
+                h5 Прикрепленные документы:
+                  div(ng-repeat="files in page.news.New.files")
+                    span.glyphicon.glyphicon-file
+                      a.col.padder-v(ng-href="{{page.api}}_uploads/defaults/{{files.filename}}" target="_blank")
+                        span {{files.filename}}
+
+        .pull-right
+          a(ui-sref='ais')
+            span Вернуться назад
+
+vak-footer
+

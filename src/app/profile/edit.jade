@@ -1,0 +1,88 @@
+//Created by troy on 09.09.2016.
+
+.wrapper.lter.b-b
+  .panel.panel-info
+    .panel-heading.font-bold {{'PROFILE_PANEL_LABEL'|translate}}
+    .panel-body
+      .row
+        .col.col-xs-12.col-lg-6
+          span.pull-left
+            a.btn.btn-sm.btn-primary(ui-sref='app.profile.view', data-original-title='Вернуться назад', data-toggle='tooltip', type='button')
+              span Назад
+      .row
+        .col.col-xs-12.col-lg-3
+          h4 Аватар пользователя
+          p Здесь вы можете поменять ваш аватар или удалить.
+        .col.col-xs-12.col-lg-9(flow-init='{singleFile:true}')
+          .clearfix.pull-left
+            img.profile-image-lg(ng-src="{{app.api}}{{edit.profile.data.image}}")
+          h5 Загрузить новый аватар
+          span.btn.btn-default.margin-right-8(flow-btn flow-file-added="edit.imageSelected($event, $flow, $file)") Выбрать файл...
+          span {{$flow.files[0].name}}
+          hr
+          btn.btn.btn-default(ng-click='edit.profile.data.image="image/user/default/user_icon.png"') Удалить аватар
+      .ln_solid
+      .row
+        form.form-horizontal(ng-submit='edit.putData()')
+          .col.col-xs-12.col-lg-3
+            h4 Основные параметры
+            p Эта информация доступна в вашем профиле.
+          .col.col-xs-12.col-lg-9
+            .form-group
+              label E-mail
+              input.form-control(type='text' ng-model='edit.profile.email' ng-trim='true' ng-required='true')
+            .form-group
+              label Фамилия
+              input.form-control(type='text' ng-model='edit.profile.last_name' ng-trim='true')
+            .form-group
+              label Имя
+              input.form-control(type='text' ng-model='edit.profile.first_name' ng-trim='true')
+            .form-group
+              label Отчество
+              input.form-control(type='text' ng-model='edit.profile.middle_name' ng-trim='true')
+            .form-group
+              label Адрес
+              input.form-control(type='text' ng-model='edit.profile.data.address' ng-trim='true')
+            .form-group
+              label Мобильный телефон
+              input.form-control(type='text' ui-mask="999 999-999" ng-model='edit.profile.data.mobile' ng-trim='true')
+            .form-group
+              label Рабочий телефон
+              input.form-control(type='text' ui-mask="999 999-999" ng-model='edit.profile.data.phone' ng-trim='true')
+            .form-group
+              label Дата рождения
+              input.form-control(type="text" ui-mask="9999-99-99" placeholder="гггг-мм-дд" ng-model="edit.profile.birthday")
+            .form-group(stock-dict='edit.Citizenship' dict-table='Citizenship')
+              label Гражданство
+              select.form-control(ng-model='edit.profile.citizenship_id', ng-options='item._id as item.name_ru for item in edit.Citizenship | filter:{name_ru:search}')
+            .form-group(stock-dict='edit.Nationality' dict-table='Nationality')
+              label Национальность
+              select.form-control(ng-model='edit.profile.nationality_id', ng-options='item._id as item.name_ru for item in edit.Nationality | filter:{name_ru:search}')
+            .form-group
+              label Место рождения
+              input.form-control(type='text' ng-model='edit.profile.birthplace')
+
+            button.btn.btn-success() Сохранить изменения
+
+      .ln_solid
+      .row
+        .col.col-xs-12.col-lg-3
+          h4 Сменить пароль
+          p Для смены пароля заполните все поля.
+        .col.col-xs-12.col-lg-9
+          form.form-horizontal(ng-submit='edit.changePassword()')
+            .form-group
+              label Текущий пароль
+              input.form-control(type='password' ng-model='edit.profile.password' ng-required='true')
+            .form-group
+              label.margin-right-8 Новый пароль
+              span(ng-show='edit.profile.new_password')
+                span.indicator.danger(ng-class='{"success":edit.passwordLevel() > 0}')
+                span.indicator.danger(ng-class='{"success":edit.passwordLevel() > 1}')
+                span.indicator.danger(ng-class='{"success":edit.passwordLevel() > 2}')
+              input.form-control(type='password' ng-model='edit.profile.new_password' ng-required='true')
+            .form-group
+              label.margin-right-8 Повтор нового пароля
+              span.glyphicon.glyphicon-ok.text-success(ng-if='edit.passwordConfirmed()')
+              input.form-control(type='password' ng-model='edit.profile.confirm_password' ng-required='true')
+            button.btn.btn-warning(ng-disabled='!edit.canChangePassword()') Сменить пароль
